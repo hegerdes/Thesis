@@ -24,14 +24,57 @@
 With the continuing shift towards microservices in the software industry, more and more new tools are being developed to operate, scale and maintain services. The microservice culture stipulates new features are delivered to customers faster and more frequently, bringing developers and administrators closer together. The resulting principals for this short agile development cycle are combined under the concept of DevOps. While analyses, guidelines and experiences for the production operation of DevOps are available extensively, the benefits of their toolset for the use in development environments have hardly been analyzed yet.\newline
 Individual Development environments are quiet unique for every developer, reflect personal preferences are often time-consuming and complex to setup. Microservices and DevOps tools can help to quickly set up a consistent development environments and yet provide the freedom to let developers use the preferred applications. Companies like Docker Inc. and GitHub/Microsoft are also pushing this concept forward with products like Development-Containers and CodeSpaces that allow users to quickly checkout code form any location even within a browser to test and apply changes to their applications.
 \subsection{Goal}
-The goal of the bachelor thesis is to provide an overview of development tools in a DevOps environment and to develop an exemplary container-based developer environment based on a practical example. The advantages and disadvantages of such an environment will be discussed and analyzed. If possible, a small evaluation based on practical experience will also be part of the theses and Knowledge gain.
+The goal of the bachelor thesis is to provide an overview of development tools in a modern DevOps environment. There will be a description of the tools that are practically suitable to be used in a development environment alongside with the creation of a practical container-based developer environment example. The advantages and disadvantages of such an environment will be discussed and analyzed. If possible, a small evaluation based on practical experience will also be part of the theses knowledge gain.
 \subsection{Research status}
 \subsection{Concept}
 The increasing demand and complexity of software alongside more frequent feature requests in the software industry resulted in creation and adoption of microservices. With the broader availability of containerization solutions and tools this trend continues. Containerization allows software to be independent of the host environment that runs the code. The container already ships with a pre- and well-defined runtime environment and therefore decouples the link between host and software. Multiple instances of the software can be deployed quickly and on demand without the need of tedious, time consuming and error-prone host configuration. However, these advantages also bring new challenges. Monolithic applications are developed and tested as one unit, components are tightly coupled so that errors between components can be found quickly. Microservices are often orchestrated and provide together one extensive application. Changes in one service may break other parts of the application, which often only becomes apparent during operation in the overall orchestrated system. Continuous Integration and Continuous Deployment are two concepts, which are increasingly adopted, that try to solve this problem. The creation and practice of these concepts are bundled under the principles of DevOps culture. While there are already comprehensive guides and materials for implementing CI/CD in DevOps, these mostly focus on the process of testing and delivery these resources fall short in the management of the development environment.\newline
 Development environments are highly heterogeneous. Developers use different operating systems in various configurations, different versions of languages and their preferred tools. Further development environments have additional requirements like usage of demo data, source-maps, debug-symbols and opt-out security features. It is not uncommon that configuring such an environment takes a lot of time. The fact that these development endowments differ to the CI/CD builds may introduce unexpected behavior. This bachelor theses introduce the idea of using the same containerization approach and CI/CD pipeline to build well-defined development environments and evaluates the idea based on a practical example project.\newline
 The process of building, application and usability of such a developer environment will be described in this bachelor thesis by means of an practical example.
 \subsection{Motivation}
+Development environments tend to be complex spicily for larger projects. Many projects require a specific version of a compiler, interpreter, library and other parts of the toolchain. The specifics on how to set up these environments differ based on the (flavor of the) operating system. However, when developing on different projects, different versions of compiler, interpreter and library are often required which can lead to conflicts. The existence of package manager tools like \ac*{python-venv} and \ac{nvm}, that try so solve the problem of incompatible libraries, poof that there is a need for dedicated clean project environments.\newline
+Finally, setting up such an environment takes a lot of time and is a challenge for new team members. It may also act as a entry barrier in open source projects.\newline
+Containerization is a approach to make the application independent of the host system and prevents configuration based errors. My hope is that the adoption of this concept in the development process reduces the setup time of an application as well as eliminate the before mentioned configuration errors. The approach of development containers makes it possible to quickly create a working development environment anywhere, even on a different host. The only thing the developer needs is an editor and a connection to that host. Services like codesandbox.io and GitHubs CodeSpaces are some of the first to implement these concepts for small projects.
 \section{Outline draft}
+This is a first draft of the theses outline.
+
+\begin{enumerate}
+    \item Introduction
+    \begin{enumerate}
+        \item Scope of the thesis
+        \item Structural overview
+        \item Goal of the theses
+    \end{enumerate}
+    \item Container and DevOps Basics
+    \begin{enumerate}
+        \item What is DevOps
+        \item Container and Microservice Basics
+        \item Containerization in development environments
+    \end{enumerate}
+    \item Concept of DevContainers
+    \begin{enumerate}
+        \item Requirements
+        \item Environment description
+        \item Available tools
+        \item Possible implementations
+        \item Strengths and weaknesses
+    \end{enumerate}
+    \item Process of implementing
+    \begin{enumerate}
+        \item Current state
+        \item Implementation approach
+        \item The Process
+        \item Challenges
+        \item Final state
+    \end{enumerate}
+    \item Discussion \& Analysis
+    \begin{enumerate}
+        \item Evaluation approach
+        \item Evaluation and Discussion
+    \end{enumerate}
+    \item Future potential \& outlook
+    \item Conclusion
+\end{enumerate}
+
 \section{Schedule}
 \section{Literatur}
 \bibliographystyle{IEEEtranSA}
@@ -45,6 +88,8 @@ The process of building, application and usability of such a developer environme
 \section*{Appendix}
 \addcontentsline{toc}{section}{Appendix}
 \listoffigures
+%Abkürzungsverzeichnis
+\input{inc/shorts.inc}
 \include{inc/ensure.inc}
 
 \end{document}
