@@ -5,6 +5,7 @@
 \include{inc/style.inc}
 
 \begin{document}
+\nocite{*}
 
 \pagenumbering{gobble}
 \include{inc/title.inc}
@@ -20,9 +21,10 @@
 
 \section{Topic, Content and Structure}
 \subsection{Topic}
-With the continuing shift towards microservices in the software industry, more and more new tools are being developed to operate, scale and maintain applications. The microservice culture stipulates new features are delivered to customers faster and more frequently, bringing developers and administrators closer together. The resulting principals for this short agile development cycle are combined under the concept of DevOps. While analyses, guidelines and experiences for the production operation of DevOps are available extensively, the benefits of their toolset for the use in development environments have hardly been analyzed yet.\newline
+With the continuing shift towards microservices in the software industry, more and more new tools are being developed to operate, scale and maintain services. The microservice culture stipulates new features are delivered to customers faster and more frequently, bringing developers and administrators closer together. The resulting principals for this short agile development cycle are combined under the concept of DevOps. While analyses, guidelines and experiences for the production operation of DevOps are available extensively, the benefits of their toolset for the use in development environments have hardly been analyzed yet.\newline
 Individual Development environments are quiet unique for every developer, reflect personal preferences are often time-consuming and complex to setup. Microservices and DevOps tools can help to quickly set up a consistent development environments and yet provide the freedom to let developers use the preferred applications. Companies like Docker Inc. and GitHub/Microsoft are also pushing this concept forward with products like Development-Containers and CodeSpaces that allow users to quickly checkout code form any location even within a browser to test and apply changes to their applications.
 \subsection{Goal}
+The goal of the bachelor thesis is to provide an overview of development tools in a DevOps environment and to develop an exemplary container-based developer environment based on a practical example. The advantages and disadvantages of such an environment will be discussed and analyzed. If possible, a small evaluation based on practical experience will also be part of the theses and Knowledge gain.
 \subsection{Research status}
 \subsection{Concept}
 The increasing demand and complexity of software alongside more frequent feature requests in the software industry resulted in creation and adoption of microservices. With the broader availability of containerization solutions and tools this trend continues. Containerization allows software to be independent of the host environment that runs the code. The container already ships with a pre- and well-defined runtime environment and therefore decouples the link between host and software. Multiple instances of the software can be deployed quickly and on demand without the need of tedious, time consuming and error-prone host configuration. However, these advantages also bring new challenges. Monolithic applications are developed and tested as one unit, components are tightly coupled so that errors between components can be found quickly. Microservices are often orchestrated and provide together one extensive application. Changes in one service may break other parts of the application, which often only becomes apparent during operation in the overall orchestrated system. Continuous Integration and Continuous Deployment are two concepts, which are increasingly adopted, that try to solve this problem. The creation and practice of these concepts are bundled under the principles of DevOps culture. While there are already comprehensive guides and materials for implementing CI/CD in DevOps, these mostly focus on the process of testing and delivery these resources fall short in the management of the development environment.\newline
@@ -32,6 +34,8 @@ The process of building, application and usability of such a developer environme
 \section{Outline draft}
 \section{Schedule}
 \section{Literatur}
+\bibliographystyle{IEEEtranSA}
+\bibliography{bib/sources}
 \newpage
 
 % Anhang
@@ -40,14 +44,7 @@ The process of building, application and usability of such a developer environme
 \setcounter{page}{\value{lastroman}}
 \section*{Appendix}
 \addcontentsline{toc}{section}{Appendix}
-%Abkürzungsverzeichnis
-% \input{inc/shorts.inc}
 \listoffigures
-
-%Bibliographie
-\addcontentsline{toc}{section}{References}
-\bibliographystyle{IEEEtranSA}
-\bibliography{bib/sources}
 \include{inc/ensure.inc}
 
 \end{document}
