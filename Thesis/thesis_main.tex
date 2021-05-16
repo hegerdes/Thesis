@@ -1,0 +1,54 @@
+\documentclass[12pt, a4paper]{article}
+
+\include{inc/packages.inc}
+\include{inc/personalize.inc}
+\include{inc/style.inc}
+
+\begin{document}
+
+\pagenumbering{gobble}
+\include{inc/title.inc}
+
+\tableofcontents
+\newpage
+\newcounter{lastroman}
+\setcounter{lastroman}{\value{page}}
+
+\pagestyle{plain}
+\pagenumbering{arabic}
+\maketitle
+
+\section{Topic, Content and Structure}
+\subsection{Topic}
+\subsection{Goal}
+\subsection{Research status}
+\subsection{Concept}
+\subsection{Motivation}
+\section{Outline draft}
+\section{Schedule}
+\newpage
+
+% Anhang
+\renewcommand{\thesubsection}{\Alph{subsection}}
+\pagenumbering{Roman}
+\setcounter{page}{\value{lastroman}}
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+
+%Abkürzungsverzeichnis
+\input{inc/shorts.inc}
+\newpage
+
+%Code
+\input{inc/code_template.inc}
+\newpage
+\listoffigures
+
+
+%Bibliographie
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{IEEEtranSA}
+\bibliography{bib/sources}
+\include{inc/ensure.inc}
+
+\end{document}

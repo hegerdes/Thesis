@@ -1,0 +1,21 @@
+% !TeX root = ../thesis_main.tex
+\subsection{Code for XXX}
+\begin{lstlisting}[frame=single, caption={XXX pseudo code, source: \cite{azuredevops}},label=code::XXX]
+function TRANSFER_TIME:
+    if cwnd_free > 0 and data_to_send < cwnd_free then
+        return rtt / 2
+    transfer_time = transfer_time + rtt
+    cwnd = increase_cwnd(current_cc_state)
+
+    if data_to_send <= max_segments_in_ss then
+        transfer_time = transfer_time + rtt * (rounds_in_ss-1) + rtt/2
+        return transfer_time
+    else if cwnd < ssthresh then
+        transfer_time = transfer_time + max_rounds_in_ss * rtt
+    if ends_in_ss(data_to_send) then
+        return transfer_time
+
+    cwnd = ssthresh
+    transmission_time += rtt * (rounds_in_ca - 1) + rtt / 2
+    return transfer_time
+\end{lstlisting}
