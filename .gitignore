@@ -17,4 +17,5 @@
 *.suo
 
 # Out
-exposee_main.pdf
+*/exposee_main.pdf
+*/thesis_main.pdf
