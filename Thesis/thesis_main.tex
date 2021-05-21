@@ -4,6 +4,16 @@
 \include{inc/personalize.inc}
 \include{inc/style.inc}
 
+
+% \pagestyle{plain}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhfoffset[L]{1cm} % left extra length
+\fancyhfoffset[R]{1cm} % right extra length
+\rhead{\thepage}
+\lhead{\nouppercase\leftmark}
+\cfoot{\fancyplain{}{\thepage} }
+
 \begin{document}
 
 \pagenumbering{gobble}
@@ -14,7 +24,6 @@
 \newcounter{lastroman}
 \setcounter{lastroman}{\value{page}}
 
-\pagestyle{plain}
 \pagenumbering{arabic}
 \maketitle
 
@@ -29,6 +38,7 @@
 \newpage
 
 % Anhang
+\lhead{Appendix}
 \renewcommand{\thesubsection}{\Alph{subsection}}
 \pagenumbering{Roman}
 \setcounter{page}{\value{lastroman}}
