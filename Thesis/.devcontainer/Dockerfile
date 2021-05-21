@@ -1,0 +1,39 @@
+# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.177.0/containers/debian/.devcontainer/base.Dockerfile
+
+# [Choice] Debian version: buster, stretch, bionic, focal
+ARG VARIANT="buster-base"
+FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
+
+RUN apt-get update && apt-get upgrade && apt-get install -y zsh python3 texlive \
+    texlive-latex-extra texlive-lang-german texlive-lang-english texlive-luatex \
+    texlive-xetex texlive-pstricks texlive-science latexmk cm-super chktex \
+    && apt-get clean
+
+RUN apt-get update && apt install -y librsvg2-bin libjs-mathjax wkhtmltopdf \
+    && wget https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-1-amd64.deb \
+    && apt install ./pandoc-2.13-1-amd64.deb && rm pandoc-2.13-1-amd64.deb && apt-get clean
+
+ARG USERNAME="vscode"
+ARG USER_UID=1001
+ARG USER_GID=1000
+
+RUN if [ ${USERNAME} != "vscode" ] && [ ${USERNAME} != "root" ]; \
+    then useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    else echo "No new user created"; fi
+
+RUN mkdir -p /home/${USERNAME}/.vscode-server/extensions \
+    && echo ${USERNAME} \
+    && echo ${VARIANT} \
+    && mkdir -p /root/.vscode-server/extensions \
+    && chown -R ${USERNAME} /home/${USERNAME}/.vscode-server
+
+RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
+    && mkdir /commandhistory \
+    && touch /commandhistory/.bash_history \
+    && chown -R $USERNAME /commandhistory \
+    && echo $SNIPPET >> "/home/${USERNAME}/.bashrc" \
+    && echo $SNIPPET >> "/root/.bashrc"
+
+RUN chsh --shell /bin/zsh ${USERNAME}
+
