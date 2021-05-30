@@ -20,23 +20,54 @@
 \include{inc/title.inc}
 
 \tableofcontents
-\newpage
+% \newpage
 \newcounter{lastroman}
 \setcounter{lastroman}{\value{page}}
 
 \pagenumbering{arabic}
 \maketitle
+\begin{abstract}
+    \lipsum[20]
+\end{abstract}
+\section{ Introduction}
+    \subsection{ Scope of the thesis}
+    \subsection{ Goal of the theses}
+    \subsection{ Structural overview}
+    \newpage
+\section{ Container and DevOps Basics}
+    \subsection{ What is DevOps}
+    Agile software development is a practis that was populariyed by the \wordhighlight{'Manifesto for Agile Software Development'}, written by various authors~\cite{manifesto}. It priorizizes the rapid adoption to changes and continious evoulution of software over a predifined plan and contract negoation.
+    The four core prinzibles are:
+    \begin{itemize}[label=\(\star\)]
+        \item \textbf{Individuals and interactions} over processes and tools
+        \item \textbf{Working software} over comprehensive documentation
+        \item \textbf{Customer collaboration} over contract negotiation
+        \item \textbf{Responding to change} over following a plan
+    \end{itemize}
+    The entire manifest is the foundation of several software development methologies and framworks supporting this stregies, such as \wordhighlight{SCRUM} and \wordhighlight{\ac{XP}.}
+    \subsection{ Container and Microservice basics}
+    \subsection{ \acl{CI} and \acl{CD} concepts}
+    \subsection{ Containerization in development environments}
+\section{ Concept of DevContainers}
+    \subsection{ Pre requirements for DevContainers}
+    \subsection{ Description of a conceptual environment}
+    \subsection{ Available tools and resources}
+    \subsection{ Possible implementations approach's}
+    \subsection{ Strengths, weaknesses and limits}
+\section{ Exemplary implementation process}
+    \subsection{ Current state and goal}
+    \subsection{ Implementation approach}
+    \subsection{ The implementation process}
+    \subsection{ Encountered challenges and limits}
+    \subsection{ Final state}
+\section{ Performance evaluation and analysis}
+    \subsection{ Metrics and what to evaluate}
+    \subsection{ Evaluation and results}
+    \subsection{ Discussion of evaluation}
+\section{ Future potential and outlook}
+\section{ Conclusion}
 
-\section{Topic, Content and Structure}
-\subsection{Topic}
-\subsection{Goal}
-\subsection{Research status}
-\subsection{Concept}
-\subsection{Motivation}
-\section{Outline draft}
-\section{Schedule}
 \newpage
-
 % Anhang
 \lhead{Appendix}
 \renewcommand{\thesubsection}{\Alph{subsection}}
