@@ -20,5 +20,8 @@
 */exposee_main.pdf
 */thesis_main.pdf
 
+# Dict files
+ltex.*.txt
+
 # Docs
 docs/*

@@ -27,45 +27,52 @@
 \pagenumbering{arabic}
 \maketitle
 \begin{abstract}
-    \lipsum[20]
+    \textbf{English:} \lipsum[20]
 \end{abstract}
+\begin{abstract}
+    \textbf{Deutsch:} \lipsum[20]
+\end{abstract}
+\newpage
 \section{ Introduction}
-    \subsection{ Scope of the thesis}
-    \subsection{ Goal of the theses}
-    \subsection{ Structural overview}
+    \subsection{Scope of the thesis}
+    \subsection{Goal of the theses}
+    \subsection{Structural overview}
     \newpage
-\section{ Container and DevOps Basics}
-    \subsection{ What is DevOps}
-    Agile software development is a practis that was populariyed by the \wordhighlight{'Manifesto for Agile Software Development'}, written by various authors~\cite{manifesto}. It priorizizes the rapid adoption to changes and continious evoulution of software over a predifined plan and contract negoation.
-    The four core prinzibles are:
+\section{Container and DevOps Basics}
+    \subsection{What is DevOps}
+    Agile software development is a practice that was popularized by the \wordhighlight{'Manifesto for Agile Software Development'}, written by various authors~\cite{manifesto}. It prioritizes the rapid adoption to changes and continuous evolution of software over a predefined plan and contract negation.
+    The four core principles are:
     \begin{itemize}[label=\(\star\)]
         \item \textbf{Individuals and interactions} over processes and tools
         \item \textbf{Working software} over comprehensive documentation
         \item \textbf{Customer collaboration} over contract negotiation
         \item \textbf{Responding to change} over following a plan
     \end{itemize}
-    The entire manifest is the foundation of several software development methologies and framworks supporting this stregies, such as \wordhighlight{SCRUM} and \wordhighlight{\ac{XP}.}
-    \subsection{ Container and Microservice basics}
-    \subsection{ \acl{CI} and \acl{CD} concepts}
-    \subsection{ Containerization in development environments}
-\section{ Concept of DevContainers}
-    \subsection{ Pre requirements for DevContainers}
-    \subsection{ Description of a conceptual environment}
-    \subsection{ Available tools and resources}
-    \subsection{ Possible implementations approach's}
-    \subsection{ Strengths, weaknesses and limits}
-\section{ Exemplary implementation process}
-    \subsection{ Current state and goal}
-    \subsection{ Implementation approach}
-    \subsection{ The implementation process}
-    \subsection{ Encountered challenges and limits}
-    \subsection{ Final state}
-\section{ Performance evaluation and analysis}
-    \subsection{ Metrics and what to evaluate}
-    \subsection{ Evaluation and results}
-    \subsection{ Discussion of evaluation}
-\section{ Future potential and outlook}
-\section{ Conclusion}
+    The entire manifest is the foundation of several software development mythologies and frameworks supporting these strategies, such as \wordhighlight{SCRUM} and \wordhighlight{\ac*{XP}}.
+    \subsection{Container and Microservice basics}
+    The fundamental idea of Microservices is to have independently deployable small software applications. If the load on the part of the application increases new instances of the application can be deployed to balance to load across all instances. This concept requires a fast and reliable process to create new application instances.\newline
+    The installation and setup process of new hardware can be a time-consuming task. To reduce the amount of time it takes to create new application instances, the software industry uses the concept of virtualization.\newline
+    Virtualization is an abstraction layer. The physical hardware runs a hypervisor (called host) that allows the execution of (multiple) virtual machines (called guests) that act like a regular computer. This approach allows the usage of heterogeneous hardware without an impact on the guest operating systems thanks to the abstraction provided by the hypervisor. Additionally, virtual systems can be managed more easily because fundamentally they are just one big file on the hosts' storage device. They can be created on command, cloned and deleted without the configuration steps of a physical system. In the enterprise industry it is common to start additional \ac{VM}`s on high load. It also comes with the benefit of security. The majority of hypervisors strictly separate the host and the guest system. The guest system is not allowed to use the hosts resources and access its files unless it is explicitly configured to do so. Compromising a \ac{VM} does not affect the host or any other \ac{VM}s.
+    \subsection{\acl{CI} and \acl{CD} concepts}
+    \subsection{Containerization in development environments}
+\section{Concept of DevContainers}
+    \subsection{Pre-requirements for DevContainers}
+    \subsection{Description of a conceptual environment}
+    \subsection{Available tools and resources}
+    \subsection{Possible implementations approach's}
+    \subsection{Strengths, weaknesses and limits}
+\section{Exemplary implementation process}
+    \subsection{Current state and goal}
+    \subsection{Implementation approach}
+    \subsection{The implementation process}
+    \subsection{Encountered challenges and limits}
+    \subsection{Final state}
+\section{Performance evaluation and analysis}
+    \subsection{Metrics and what to evaluate}
+    \subsection{Evaluation and results}
+    \subsection{Discussion of evaluation}
+\section{Future potential and outlook}
+\section{Conclusion}
 
 \newpage
 % Anhang
