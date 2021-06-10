@@ -30,7 +30,7 @@
     \textbf{English:} \lipsum[20]
 \end{abstract}
 \begin{abstract}
-    \textbf{Deutsch:} \lipsum[20]
+    \textbf{German:} \lipsum[20]
 \end{abstract}
 \newpage
 \section{ Introduction}
@@ -38,31 +38,52 @@
     \subsection{Goal of the theses}
     \subsection{Structural overview}
     \newpage
-\section{Container and DevOps Basics}
+\section{DevOps, Container and Microservices}
     \subsection{What is DevOps}
-    Agile software development is a practice that was popularized by the \wordhighlight{'Manifesto for Agile Software Development'}, written by various authors~\cite{manifesto}. It prioritizes the rapid adoption to changes and continuous evolution of software over a predefined plan and contract negation.
-    The four core principles are:
-    \begin{itemize}[label=\(\star\)]
-        \item \textbf{Individuals and interactions} over processes and tools
-        \item \textbf{Working software} over comprehensive documentation
-        \item \textbf{Customer collaboration} over contract negotiation
-        \item \textbf{Responding to change} over following a plan
-    \end{itemize}
-    The entire manifest is the foundation of several software development mythologies and frameworks supporting these strategies, such as \wordhighlight{SCRUM} and \wordhighlight{\ac*{XP}}.
+        \subsubsection{DevOps Definition}
+        \subsubsection{Agile Development}
+        % ToDo Is bad right now needs a lot more
+        Agile software development is a practice that was popularized by the \wordhighlight{'Manifesto for Agile Software Development'}, written by various authors~\cite{manifesto}. It prioritizes the rapid adoption to changes and continuous evolution of software over a predefined plan and contract negation.
+        The four core principles are:
+
+        \begin{itemize}[label=\(\star\)]
+            \item \textbf{Individuals and interactions} over processes and tools
+            \item \textbf{Working software} over comprehensive documentation
+            \item \textbf{Customer collaboration} over contract negotiation
+            \item \textbf{Responding to change} over following a plan
+        \end{itemize}
+
+        The entire manifest is the foundation of several software development mythologies and frameworks supporting these strategies, such as \wordhighlight{SCRUM} and \wordhighlight{\ac*{XP}}.
+        \subsubsection{Princabiles of DevOps}
+
     \subsection{Container and Microservice basics}
     The following section provides a basic understanding about the concepts of Microservices and what principles are used to enable those.
-    \subsubsection{Idea of Microservices}
-    The fundamental idea of Microservices is to have small independently deployable software applications. If the load on one part of the application increases, new instances of that service can be deployed to balance to load across all instances. This concept requires a fast and reliable process to create new application instances.\newline
-    The installation and setup process of new hardware can be a time-consuming task. To reduce the amount of time it takes to create new application instances, the software industry uses the concept of virtualization.
-    \subsubsection{Virtualization and Containerization}
-    Virtualization is an abstraction layer. The physical hardware (called host) runs a hypervisor that allows the execution of (multiple) virtual machines (called guests) which act like a regular computer \cite{vmbasics}. This approach allows the usage of heterogeneous hardware without an impact on the guest operating systems thanks to the abstraction provided by the hypervisor. Without the need for specialized hardware and the dynamic allocation of resources, efficiency is also increased \cite{redhat_venv}. Additionally, virtual systems can be managed more easily because fundamentally they are just one big file on the host's storage device. They can be created on command, cloned and deleted without the configuration steps of a physical system. In the enterprise industry it is common to use this flexibility to start additional \ac{VM}s on high load. According to a study by the \ac{IDC} more than 80\% of datacenter workloads are virtualized \cite{virtualaddoption}. Virtualization also comes with the benefit of security. The majority of hypervisors strictly separate the host and the guest system. The guest system is not allowed to use the hosts resources and access its files unless it is explicitly configured to do so. Compromising a \ac{VM} does not affect the host or any other \ac{VM}s \cite{redhat_venv}.\newline
-    Full guest virtualization emulates a complete \ac{OS}, including the kernel, system libraries  and even the majority of hardware devices. This abstraction comes with a performance penalty called overhead. A supposedly more lightweight approach of virtualization is called containerization. Studies by Ericsson Research, Nomadic Lab \cite{ieee_perfomance} and the Zhengzhou University \cite{zhengzhou_university} conclude in fact that container based solution provide better performance especially in disk \acs{I/O} and network \acs{I/O} bound scenarios. Containerization focuses on the isolation of one application process in a virtual runtime using control groups and namespace technologies. Unlike \ac{VM}s, system and kernel functions are not virtualized and are passed through to the host machine. The result is a reduction of overhead and the ability to run additional application instances compared to \ac{VM}s with the same amount of compute resources. Fig. \ref{fig::vm_docker} visualizes the differences between these approaches.\newline
-    Apart from the performance benefits, the presumably main advantage of containers is their scalability.
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.9\textwidth]{docker-vm-redhat.png}
-        \caption{\ac{VM}s compared to Containers \\\textit{Source: \cite{redhat_pic}}}\label{fig::vm_docker}
-    \end{figure}
+        \subsubsection{Fundamental idea of Microservices}
+        The fundamental idea of Microservices is to have small independently deployable software applications. Connections between these applications make it possible to provide a greater service with an extensive range of functions \cite{micro}. If the load on one part of the service increases, new instances of that application can be deployed to balance to load across all instances. This concept requires a fast and reliable process to create new application instances.\newline
+        The installation and setup process of new hardware can be a time-consuming task. To reduce the amount of time it takes to create new application instances, the software industry uses the concept of virtualization.
+
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.45\textwidth]{monolithic-vs-microservices_altered.png}
+            \caption{Structure of Microservices - [Altered] \\\textit{Source:~\cite{redhat_micro}}}\label{fig::micro}
+        \end{figure}
+
+        \subsubsection{Virtualization and Containerization}
+        Virtualization is an abstraction layer. The physical hardware (called host) runs a hypervisor that allows the execution of (multiple) virtual machines (called guests) which act like a regular computer \cite{vmbasics}. This approach allows the usage of heterogeneous hardware without an impact on the guest operating systems thanks to the abstraction provided by the hypervisor. Without the need for specialized hardware and the dynamic allocation of resources, efficiency is also increased \cite{redhat_venv}. Additionally, virtual systems can be managed more easily because fundamentally they are just one big file on the host's storage device. They can be created on command, cloned and deleted without the configuration steps of a physical system. In the enterprise industry it is common to use this flexibility to start additional \ac{VM}s on high load. According to a study by the \ac{IDC} more than 80\% of datacenter workloads are virtualized \cite{virtualaddoption}. Virtualization also comes with the benefit of security. The majority of hypervisors strictly separate the host and the guest system. The guest system is not allowed to use the hosts resources and access its files unless it is explicitly configured to do so. Compromising a \ac{VM} does not affect the host or any other \ac{VM}s \cite{redhat_venv}.\newline
+        Full guest virtualization emulates a complete \ac{OS}, including the kernel, system libraries and even the majority of hardware devices. This abstraction comes with a performance penalty called overhead. A supposedly more lightweight approach of virtualization is called containerization. Studies by Ericsson Research, Nomadic Lab \cite{ieee_perfomance} and the Zhengzhou University \cite{zhengzhou_university} conclude in fact that container based solution provide better performance especially in disk \acs{I/O} and network \acs{I/O} bound scenarios. Containerization focuses on the isolation of one application process in a virtual runtime using control groups and namespace technologies. Unlike \ac{VM}s, system and kernel functions are not virtualized and are passed through to the host machine. The result is a reduction of overhead and the ability to run additional application instances compared to \ac{VM}s with the same amount of compute resources. Fig. \ref{fig::vm_docker} visualizes the differences between these approaches.\newline
+        Apart from the performance benefits, the presumably main advantage of containers is their scalability. Which makes them an adequate fit for Microservices.
+
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.9\textwidth]{docker-vm-redhat.png}
+            \caption{\ac{VM}s compared to Containers \\\textit{Source:~\cite{redhat_pic}}}\label{fig::vm_docker}
+        \end{figure}
+
+        \subsubsection{Usage of Containerization in Microservices}
+        As described above, microservices are small applications that communicate with each other. To follow the princabiles for loose coupeling between the applications the communication should be performed over a programming language independent protocoll. Typical \acs{IP} network protocals that are used are \ac{REST}, WebSockets or GraphQL \cite{micro}. These loose coupled applications have the advantage that they can be development simultaneously form different teams as well as upgraded and replaced independently. As a result, applications can be developed much faster and more flexibly, following the principles of agile development.\newline
+        The usage of containers brings this speed and flexibility even further. Containers provide a consist and isolated runtime for applications. Applications are packaged within known good runtimes. This reduces the setup time of the deployment and eliminate host specific errors. New application instances can be started without additional configuration. As a result of the successful concepts, tools have been developed that can scale distributed applications in a managed dynamic, even automatic way.\newpage
+        \noindent Packaging and eventually even deploy the application introduces additional work for developers that was previously the task of the operations team. As already stated above, the developer and operations team are not separated in a DevOps culture. The new focus places value on team communication, flexibility and autonomy provided by the automation and support of as many steps as possible between the development and operation workflow \cite{effective_devops}. Eliminating manual tasks allows developers to focus on the actual application development. One of the main concepts in this process is the usage of \ac{CI} and \ac{CD} workflows.
+
     \subsection{\acl{CI} and \acl{CD} concepts}
     \subsection{Containerization in development environments}
 \section{Concept of DevContainers}
