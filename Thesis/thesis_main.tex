@@ -20,7 +20,6 @@
 \include{inc/title.inc}
 
 \tableofcontents
-% \newpage
 \newcounter{lastroman}
 \setcounter{lastroman}{\value{page}}
 
@@ -39,7 +38,9 @@
     \subsection{Structural overview}
     \newpage
 \section{DevOps, Container and Microservices}
-ToDo
+With the rise of cloud services the software development cycle accelerated. With services such as \ac{AWS}, Microsoft Azure and Google Cloud Computing it became possible to provision compute resources automatically and on demand. It changed the way \textit{where} and \textit{how} software is running.\newline
+The following section provides some basic definitions and principles that are necessary for the further understanding of this paper and ensures a common level of knowledge in these topics.\newline
+Fist of will be a formal definition of DevOps, a brief description of the emergence and its current state.
     \subsection{DevOps Principles}
     The following section provides a formal definition for DevOps, explains its connections to agile software development and points out the fundamental principles of a DevOps enabled culture.
         \subsubsection{DevOps Definition}
@@ -50,6 +51,7 @@ ToDo
         The four core principles are:
 
         \begin{itemize}[label=\(\star\)]
+            \setlength\itemsep{0em}
             \item \textbf{Individuals and interactions} over processes and tools
             \item \textbf{Working software} over comprehensive documentation
             \item \textbf{Customer collaboration} over contract negotiation
@@ -58,7 +60,22 @@ ToDo
 
         \noindent The entire manifest is the foundation of several software development mythologies and frameworks supporting these strategies, such as \wordhighlight{SCRUM}, \wordhighlight{\ac*{XP}} and \wordhighlight{DevOps}.
         \subsubsection{Principles of DevOps}
-        ToDo
+        DevOps builds upon the agile principles. It extends the \wordhighlight{\acl{XP}} approach by also applying its principles to the operations and infrastructure aspects of the application. The goal is to provide a structured and comprehensive process from codeing up to application monitoring. This process is referred to as a workflow and the minimal steps in an exemplary workflow are shown in table~\ref{tab::devops_steps}.
+        \begin{table}[h]
+            \centering
+            \begin{tabularx}{0.85\textwidth}{llX}
+            1 & \textbf{Coding}& Code development \& review and source control.  \\
+            2 & \textbf{Building}& \acs{CI} build and build status.  \\
+            3 & \textbf{Testing}& \acs{CI} testing and testing feedback.  \\
+            4 & \textbf{Packaging}& Package registry.  \\
+            5 & \textbf{Releasing}& Release management, approvals and automation.  \\
+            6 & \textbf{Configuring}& Infrastructure configuration and management.  \\
+            7 & \textbf{Monitoring}& Applications performance monitoring.  \\
+            \end{tabularx}
+            \caption{DevOps workflow steps.}
+            \label{tab::devops_steps}
+        \end{table}
+        % procedures
 
     \subsection{Container and Microservice basics}
     The following section provides a basic understanding about the concepts of Microservices and what principles are used to enable those.
@@ -75,7 +92,7 @@ ToDo
         \subsubsection{Virtualization and Containerization}
         Virtualization is an abstraction layer. The physical hardware (called host) runs a hypervisor that allows the execution of (multiple) virtual machines (called guests) which act like a regular computer \cite{vmbasics}. This approach allows the usage of heterogeneous hardware without an impact on the guest operating systems thanks to the abstraction provided by the hypervisor. Without the need for specialized hardware and the dynamic allocation of resources, efficiency is also increased \cite{redhat_venv}. Additionally, virtual systems can be managed more easily because fundamentally they are just one big file on the host's storage device. They can be created on command, cloned and deleted without the configuration steps of a physical system. In the enterprise industry it is common to use this flexibility to start additional \ac{VM}s on high load. According to a study by the \ac{IDC} more than 80\% of datacenter workloads are virtualized \cite{virtualaddoption}. Virtualization also comes with the benefit of security. The majority of hypervisors strictly separate the host and the guest system. The guest system is not allowed to use the hosts resources and access its files unless it is explicitly configured to do so. Compromising a \ac{VM} does not affect the host or any other \ac{VM}s \cite{redhat_venv}.\newline
         Full guest virtualization emulates a complete \ac{OS}, including the kernel, system libraries and even the majority of hardware devices. This abstraction comes with a performance penalty called overhead \cite{vmbasics}. A supposedly more lightweight approach of virtualization is called containerization. Studies by Ericsson Research, Nomadic Lab \cite{ieee_perfomance} and the Zhengzhou University \cite{zhengzhou_university} conclude in fact that container based solution provide better performance especially in disk \acs{I/O} and network \acs{I/O} bound scenarios. Containerization focuses on the isolation of one application process in a virtual runtime using control groups and namespace technologies \cite{cgroups}. Unlike \ac{VM}s, system and kernel functions are not virtualized and are passed through to the host machine. The result is a reduction of overhead and the ability to run additional application instances compared to \ac{VM}s with the same amount of compute resources. Fig. \ref{fig::vm_docker} visualizes the differences between these approaches.\newline
-        Apart from the performance benefits, the presumably main advantage of containers is their scalability \cite{cintainer_scale}. Which makes them an adequate fit for Microservices.
+        Apart from the performance benefits, the presumably main advantage of containers is their scalability~\cite{cintainer_scale}. Which makes them an adequate fit for Microservices.
 
         \begin{figure}
             \centering
@@ -126,6 +143,7 @@ ToDo
 \input{inc/code_template.inc}
 \newpage
 \listoffigures
+\listoftables
 
 
 %Bibliographie
