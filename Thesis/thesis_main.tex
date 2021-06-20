@@ -19,11 +19,16 @@
 \pagenumbering{gobble}
 \include{inc/title.inc}
 
+% Table of Contents
 \tableofcontents
+\newpage
+
+% Normal page numbering
 \newcounter{lastroman}
 \setcounter{lastroman}{\value{page}}
-
 \pagenumbering{arabic}
+
+% Title & Abstract
 \maketitle
 \begin{abstract}
     \textbf{English:} \lipsum[20]
@@ -32,13 +37,16 @@
     \textbf{German:} \lipsum[20]
 \end{abstract}
 \newpage
-\section{ Introduction}
+
+\section{Introduction}
+This section provides an overview about this thesis. It will briefly describe the fundamental core question of this thesis, point out its relevance and presents a possible solution approach. Subsequently, a clear delineation is then given as to what is and is not covered in this thesis. The last section of the introduction gives a structural overview of how the thesis is structured and how it will approach solving the problem.
+    \subsection{Problem analysis}
+    The rise of Microservices was accelerated by the emergence of new technologies and changed the way \textit{where} and \textit{how} software was running. Applications could be distributed and scaled quickly through the cloud which benefited customers favors for quick changes. Mythologies such as version control, \ac*{CI}, \ac*{CD} with automated integration and end-to-end testing alongside monitoring are common in modern microservice based products. Yet the actual coding setup has not changed significantly.
     \subsection{Scope of the thesis}
     \subsection{Goal of the theses}
     \subsection{Structural overview}
     \newpage
-\section{DevOps, Container and Microservices}
-With the rise of cloud services the software development cycle accelerated. With services such as \ac{AWS}, Microsoft Azure and Google Cloud Computing it became possible to provision compute resources automatically and on demand. It changed the way \textit{where} and \textit{how} software is running.\newline
+\section{Background information about DevOps, Container and Microservices}
 The following section provides some basic definitions and principles that are necessary for the further understanding of this paper and ensures a common level of knowledge in these topics.\newline
 Fist of will be a formal definition of DevOps, a brief description of the emergence and its current state.
     \subsection{DevOps Principles}
@@ -60,8 +68,8 @@ Fist of will be a formal definition of DevOps, a brief description of the emerge
 
         \noindent The entire manifest is the foundation of several software development mythologies and frameworks supporting these strategies, such as \wordhighlight{SCRUM}, \wordhighlight{\ac*{XP}} and \wordhighlight{DevOps}.
         \subsubsection{Principles of DevOps}
-        DevOps builds upon the agile principles. It extends the \wordhighlight{\acl{XP}} approach by also applying its principles to the operations and infrastructure aspects of the application. The goal is to provide a structured and comprehensive process from codeing up to application monitoring. This process is referred to as a workflow and the minimal steps in an exemplary workflow are shown in table~\ref{tab::devops_steps}.
-        \begin{table}[h]
+        DevOps builds upon the agile principles. It extends the \wordhighlight{\acl{XP}} approach by also applying its principles to the operations and infrastructure aspects of the application. The goal is to provide a structured and comprehensive process from codeing up to application monitoring. This process is referred to as a workflow and the minimal steps in an exemplary workflow are shown in table~\ref{tab::devops_steps}.\newline
+        \begin{table}[!h]
             \centering
             \begin{tabularx}{0.85\textwidth}{llX}
             1 & \textbf{Coding}& Code development \& review and source control.  \\
@@ -75,9 +83,11 @@ Fist of will be a formal definition of DevOps, a brief description of the emerge
             \caption{DevOps workflow steps.}
             \label{tab::devops_steps}
         \end{table}
-        % procedures
 
-    \subsection{Container and Microservice basics}
+        \noindent With such a workflow come tasks that are the core procedures in a DevOps environment. These tasks include configuration management, release management, \acl*{CI}, \acl{CD}, infrastructure as code, test automation and application performance monitoring~\cite{azuredevops}.\newline
+        For the scope of this work, only procedures from the configuration management, \acl*{CI} and infrastructure as code are considered. The configuration management is about versioning and setting up the applications runtime environment, it determines on how the application interacts with system and external interface services.
+
+    \subsection{Container and Microservice}
     The following section provides a basic understanding about the concepts of Microservices and what principles are used to enable those.
         \subsubsection{Fundamental idea of Microservices}
         The fundamental idea of Microservices is to have small independently deployable software applications. Connections between these applications make it possible to provide a greater service with an extensive range of functions \cite{micro}. An exemplary structure of a microservice cluster is visualized in figure \ref{fig::micro}. If the load on one part of the service increases, new instances of that application can be deployed to balance to load across all instances. This concept requires a fast and reliable process to create new application instances.\newline
@@ -100,20 +110,26 @@ Fist of will be a formal definition of DevOps, a brief description of the emerge
             \caption{\ac{VM}s compared to Containers \\\textit{Source:~\cite{redhat_pic}}}\label{fig::vm_docker}
         \end{figure}
 
-        \subsubsection{Usage of Containerization in Microservices}
-        As described above, microservices are small applications that communicate with each other. To follow the principles for loose coupling between the applications the communication should be performed over a programming language independent protocol. Typical \acs{IP} network protocols that are used are \ac{REST}, WebSockets or GraphQL \cite{micro}. These loose coupled applications have the advantage that they can be development simultaneously form different teams as well as upgraded and replaced independently. As a result, applications can be developed much faster and more flexibly, following the principles of agile development \cite{micro}, \cite{redhat_micro}.\newline
+        \subsubsection{Usage of containerization in Microservices}
+        As described above, microservices are small applications that communicate with each other. To follow the principles for loose coupling between the applications the communication should be performed over a programming language independent protocol. Typical \acs{IP} network protocols that are used are \ac{REST}, WebSockets or GraphQL \cite{micro}. These loose coupled applications have the advantage that they can be development simultaneously from different teams as well as upgraded and replaced independently. As a result, applications can be developed much faster and more flexibly, following the principles of agile development \cite{micro}, \cite{redhat_micro}.\newline
         The usage of containers brings this speed and flexibility even further. Containers provide a consist, isolated yet flexible runtime for applications \cite{micro_container}. Applications are packaged within known good runtimes. This reduces the setup time of the deployment and eliminate host specific errors. New application instances can be started without additional configuration. As a result of the successful concepts, tools like Docker Swarm and Kubernetes have been developed that can scale distributed applications in a managed dynamic, even automatic way.\newline
         \noindent Packaging and eventually even deploy the application introduces additional work for developers that was previously the task of the operations team. As already stated above, the developer and operations team are not separated in a DevOps culture. The new focus places value on team communication, flexibility and autonomy provided by the automation and support of as many steps as possible between the development and operation workflow \cite{effective_devops}. Eliminating manual tasks allows developers to focus on the actual application development. One of the main concepts in this process is the usage of \ac{CI} and \ac{CD} workflows.
 
-    \subsection{\acl{CI} and \acl{CD} concepts}
-    \subsection{Containerization in development environments}
-\section{Concept of DevContainers}
+    \subsection{Continuous Integration and Continuous Delivery concepts}
+
+    \section{Containerization in development environments}
+The following section will display the current status of a typical \ac{DevEnv}, point out its problems and provides approaches for possible solutions.
+    \subsection{Current state of developer environments}
+    With the rise of cloud services the software development cycle accelerated. With services such as \ac{AWS}, Microsoft Azure and Google Cloud Computing it became possible to provision compute resources automatically and on demand. It changed the way \textit{where} and \textit{how} software is running.\newline
+    \subsection{Issues caused by heterogeneous \acs{DevEnv}'s}
+    \subsection{Propsed solution}
+\section{Solution concept of DevContainers}
     \subsection{Pre-requirements for DevContainers}
     \subsection{Description of a conceptual environment}
     \subsection{Available tools and resources}
     \subsection{Possible implementations approach's}
     \subsection{Strengths, weaknesses and limits}
-\section{Exemplary implementation process}
+\section{Exemplary prototype implementation}
     \subsection{Current state and goal}
     \subsection{Implementation approach}
     \subsection{The implementation process}
