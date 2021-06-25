@@ -29,5 +29,5 @@ jobs:
       - name: Upload pdf
         uses: actions/upload-artifact@v2
         with:
-          name: Thesis/thesis_main.pdf
+          name: thesis_main.pdf
           path: Thesis/thesis_main.pdf
