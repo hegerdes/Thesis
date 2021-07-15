@@ -18,15 +18,8 @@
 
 \pagenumbering{gobble}
 \include{inc/title.inc}
-
-% Table of Contents
-\tableofcontents
-\newpage
-
-% Normal page numbering
-\newcounter{lastroman}
-\setcounter{lastroman}{\value{page}}
-\pagenumbering{arabic}
+% For printing add this
+% \newpage\null\thispagestyle{empty}\newpage
 
 % Title & Abstract
 \maketitle
@@ -37,6 +30,15 @@
     \textbf{German:} \lipsum[20]
 \end{abstract}
 \newpage
+
+% Table of Contents
+\tableofcontents
+\newpage
+
+% Normal page numbering
+\newcounter{lastroman}
+\setcounter{lastroman}{\value{page}}
+\pagenumbering{arabic}
 
 % Mythologies such as version control, \ac*{CI}, \ac*{CD} with automated integration and end-to-end testing alongside monitoring are common in modern microservice based products.
 \section{Introduction}\label{sec::intro}
@@ -50,15 +52,15 @@ This section provides an overview about this thesis. It will briefly describe th
     \subsection{Structural overview}
     \newpage
 \section{Background information about DevOps, Container and Microservices}\label{sec::backgrund}
-The following section provides some basic definitions and principles that are necessary for the further understanding of this paper and ensures a common level of knowledge in these topics.\newline
-Fist of will be a formal definition of DevOps, a brief description of the emergence and its current state.
+The following section provides some basic definitions and principles that are necessary for the further understanding of this paper and ensures a common level of knowledge of these topics.\newline
+First of will be a formal definition of DevOps, a brief description of the emergence and its current state.
     \subsection{DevOps Principles}\label{ssec::devops}
     This section provides a formal definition of DevOps, explains its connections to agile software development and points out the fundamental principles of a DevOps enabled culture. These principles and their workflows will be revisited in section~\ref{sec::solution_concept} as part of the solution concept.
         \subsubsection{DevOps Definition}
-        DevOps is a set of practices in software development hat aims to increase costumer value and software quality by shorting development life cycle through active collaboration and continuous delivery of improvements \cite{base_devops}, \cite{effective_devops}. The term DevOps is a neologism from development (Dev) and operation (Ops). The combination of these terms is symbolic for the tighter collaboration between the development and operations team, which were previously strictly separated. Therefor DevOps is considered more than just software development principles, it is called a mindset and company/development culture. Shorter development times and closer collaboration are goals of agile software development. DevOps builds upon these, below explained, goals and offers workflows from development to increased user experience value \cite{azuredevops}, \cite{effective_devops}.
+        DevOps is a set of practices in software development hat aims to increase costumer value and software quality by shorting development life cycle through active collaboration and continuous delivery of improvements \cite{base_devops}, \cite{effective_devops}. The term \wordhighlight{DevOps} is a neologism from development (Dev) and operation (Ops). The combination of these terms is symbolic for the tighter collaboration between the development and operations team, which were previously strictly separated. Therefore DevOps is considered more than just software development principles, it is called a mindset and company/development culture. Shorter development times and closer collaboration are goals of agile software development. DevOps builds upon these, below explained, goals and offers workflows from development to increased user experience value \cite{azuredevops}, \cite{effective_devops}.
         \subsubsection{Agile Development}
         % ToDo Is bad right now needs a lot more
-        Agile software development is a practice that was popularized by the \wordhighlight{'Manifesto for Agile Software Development'}, written by various authors~\cite{manifesto}. It prioritizes the rapid adoption to changes and continuous evolution of software over a predefined plan and contract negation.
+        Agile software development is a practice that was popularized by the \wordhighlight{"Manifesto for Agile Software Development"}, written by various authors~\cite{manifesto}. It prioritizes the rapid adoption to changes and continuous evolution of software over a predefined plan and contract negation.
         The four core principles are:
 
         \begin{itemize}[label=\(\star\)]
@@ -71,10 +73,11 @@ Fist of will be a formal definition of DevOps, a brief description of the emerge
 
         \noindent The entire manifest is the foundation of several software development mythologies and frameworks supporting these strategies, such as \wordhighlight{SCRUM}, \wordhighlight{\ac*{XP}} and \wordhighlight{DevOps}.
         \subsubsection{Principles of DevOps}\label{ssec::devops_princibles}
-        DevOps builds upon the agile principles. It extends the \wordhighlight{\acl{XP}} approach by also applying its principles to the operations and infrastructure aspects of the application \cite{effective_devops}. The goal is to provide a structured and comprehensive process from codeing up to application monitoring. This process is referred to as a workflow and the minimal steps in an exemplary workflow are shown in table~\ref{tab::devops_steps}~\cite{base_devops}.\newline
+        DevOps builds upon the agile principles. It extends the \wordhighlight{\acl{XP}} approach by also applying its principles to the operations and infrastructure aspects of the application \cite{effective_devops}. The goal is to provide a structured and comprehensive process from coding up to application monitoring. This process is referred to as a workflow and the minimal steps in an exemplary workflow are shown in table~\ref{tab::devops_steps}~\cite{base_devops}.\newline
         \begin{table}[!h]
             \centering
             \begin{tabularx}{0.85\textwidth}{llX}
+                \multicolumn{2}{l}{Step} & Description \\ \hline\hline
                 1 & \textbf{Coding}& Code development \& review and source control.  \\
                 2 & \textbf{Building}& \acs{CI} build and build status.  \\
                 3 & \textbf{Testing}& \acs{CI} testing and testing feedback.  \\
@@ -88,24 +91,24 @@ Fist of will be a formal definition of DevOps, a brief description of the emerge
         \end{table}
 
         \noindent With such a workflow come tasks that are the core procedures in a DevOps environment. These tasks include configuration management, release management, \ac{CI}, \ac{CD}, \ac{IaC}, test automation and application performance monitoring~\cite{azuredevops}.\newline
-        For the scope of this work, only solutions from configuration management, \ac{CI} and \ac{IaC} will be used to enable a homogeneous development environment. The configuration management is about versioning the applications runtime environment and how to set it up. It determines on how the application interacts with system and external interface services. Common configuration parameter are the compiler/interpreter version, resources and permission settings as well as domain-names or \acs{IP}-addreses of other (external) services \cite{base_devops}. A DevOps principled architecture has multiple deployment stages. A staging and live environment is considered minimal base of any such projects. Adding a lokal environment increases the overall amount configuration effort, requiring a reliable, efficient way to manage it. This is closely related to the \ac{IaC} principle, which describes the provisioning process of computing resources. Tools like Ansible, Puppet and Terraform can automatically create and set up new cloud \ac{VM}s specified in a playbook. Playbooks are structured policies written in a custom language wich are also stored in version control \cite{ansible2020}, \cite{azuredevops}.\newline
+        For the scope of this work, only solutions from configuration management, \ac{CI} and \ac{IaC} will be used to enable a homogeneous development environment. The configuration management is about versioning the applications runtime environment and how to set it up. It determines on how the application interacts with system and external interface services. Common configuration parameter are the compiler/interpreter version, resources and permission settings as well as domain-names or \acs{IP}-addreses of other (external) services \cite{base_devops}. A DevOps principled architecture has multiple deployment stages. A staging and live environment is considered minimal base of any such projects. Adding a local environment increases the overall amount configuration effort, requiring a reliable, efficient way to manage it. This is closely related to the \ac{IaC} principle, which describes the provisioning process of computing resources. Tools like Ansible, Puppet and Terraform can automatically create and set up new cloud \ac{VM}s specified in a playbook. Playbooks are structured policies written in a custom language which are also stored in version control \cite{ansible2020}, \cite{azuredevops}.\newline
         These files describe how the host operating system is configured. Changes on these files can be handled the same way as regular code, starting with a pull request, reviews, test and approval of the changes. The \acl{IaC} principle will later be used to properly handle the setup of development containers, next to the \acs{CI} tools wich are described in section \ref{ssec::ci_cd}.
 
     \subsection{Container and Microservice}\label{ssec::microservices}
-    The following section provides a basic understanding about the concepts of Microservices and what principles are used to enable those.
+    The following section provides a basic understanding about the concepts of Microservices and what principles are used to enable these.
         \subsubsection{Fundamental idea of Microservices}
         The fundamental idea of Microservices is to have small independently deployable software applications. Connections between these applications make it possible to provide a greater service with an extensive range of functions \cite{micro}. An exemplary structure of a microservice cluster is visualized in figure \ref{fig::micro}. If the load on one part of the service increases, new instances of that application can be deployed to balance to load across all instances. This concept requires a fast and reliable process to create new application instances.\newline
         The installation and setup process of new hardware can be a time-consuming task. To reduce the amount of time it takes to create new application instances, the software industry uses the concept of virtualization.
 
         \begin{figure}
             \centering
-            \includegraphics[width=0.45\textwidth]{monolithic-vs-microservices_altered.png}
+            \includegraphics[width=0.5\textwidth]{monolithic-vs-microservices_altered.png}
             \caption{Structure of Microservices - [Altered], \\\textit{Source:~\cite{redhat_micro}}}\label{fig::micro}
         \end{figure}
 
         \subsubsection{Virtualization and Containerization}
-        Virtualization is an abstraction layer. The physical hardware (called host) runs a hypervisor that allows the execution of (multiple) virtual machines (called guests) which act like a regular computer \cite{vmbasics}. This approach allows the usage of heterogeneous hardware without an impact on the guest operating systems thanks to the abstraction provided by the hypervisor. Without the need for specialized hardware and the dynamic allocation of resources, efficiency is also increased \cite{redhat_venv}. Additionally, virtual systems can be managed more easily because fundamentally they are just one big file on the host's storage device. They can be created on command, cloned and deleted without the configuration steps of a physical system. In the enterprise industry it is common to use this flexibility to start additional \ac{VM}s on high load. According to a study by the \ac{IDC} more than 80\% of datacenter workloads are virtualized \cite{virtualaddoption}. Virtualization also comes with the benefit of security. The majority of hypervisors strictly separate the host and the guest system. The guest system is not allowed to use the hosts resources and access its files unless it is explicitly configured to do so. Compromising a \ac{VM} does not affect the host or any other \ac{VM}s \cite{vmbasics}, \cite{redhat_venv}.\newline
-        Full guest virtualization emulates a complete \ac{OS}, including the kernel, system libraries and even the majority of hardware devices. This abstraction comes with a performance penalty called overhead \cite{vmbasics}. A supposedly more lightweight approach of virtualization is called containerization. Studies by Ericsson Research, Nomadic Lab \cite{ieee_perfomance} and the Zhengzhou University \cite{zhengzhou_university} conclude in fact that container based solution provide better performance especially in disk \acs{I/O} and network \acs{I/O} bound scenarios. Containerization focuses on the isolation of one application process in a virtual runtime using control groups and namespace technologies \cite{cgroups}. Unlike \ac{VM}s, system and kernel functions are not virtualized and are passed through to the host machine. The result is a reduction of overhead and the ability to run additional application instances compared to \ac{VM}s with the same amount of compute resources. Fig. \ref{fig::vm_docker} visualizes the differences between these approaches.\newline
+        Virtualization is an abstraction layer. The physical hardware (called host) runs a hypervisor that allows the execution of (multiple) virtual machines (called guests) which act like a regular computer \cite{vmbasics}. This approach allows the usage of heterogeneous hardware without an impact on the guest operating systems thanks to the abstraction provided by the hypervisor. Without the need for specialized hardware and the dynamic allocation of resources, efficiency is also increased \cite{redhat_venv}. Additionally, virtual systems can be managed more easily because fundamentally they are just one big file on the host's storage device. They can be created on command, cloned and deleted without the configuration steps of a physical system. In the enterprise industry it is common to use this flexibility to start additional \ac{VM}s on high load. According to a study by the \ac{IDC} more than 80\% of data center workloads are virtualized \cite{virtualaddoption}. Virtualization also comes with the benefit of security. The majority of hypervisors strictly separate the host and the guest system. The guest system is not allowed to use the hosts resources and access its files unless it is explicitly configured to do so. Compromising a \ac{VM} does not affect the host or any other \ac{VM}s \cite{vmbasics}, \cite{redhat_venv}.\newline
+        Full guest virtualization emulates a complete \ac{OS}, including the kernel, system libraries and even the majority of hardware devices. This abstraction comes with a performance penalty called overhead \cite{vmbasics}. A supposedly more lightweight approach of virtualization is called containerization. Studies by Ericsson Research, Nomadic Lab \cite{ieee_perfomance} and the Zhengzhou University \cite{zhengzhou_university} conclude in fact that container based solution provide better performance especially in disk \acs{I/O} and network \acs{I/O} bound scenarios. Containerization focuses on the isolation of one application process in a virtual runtime using control groups and namespace technologies \cite{cgroups}. Unlike \ac{VM}s, system and kernel functions are not virtualized and are passed through to the host machine. The result is a reduction of overhead and the ability to run additional application instances compared to \ac{VM}s with the same amount of compute resources. Figure \ref{fig::vm_docker} visualizes the differences between these approaches.\newline
         Apart from the performance benefits, the presumably main advantage of containers is their scalability~\cite{cintainer_scale}. Which makes them an adequate fit for Microservices.
 
         \begin{figure}
@@ -116,21 +119,27 @@ Fist of will be a formal definition of DevOps, a brief description of the emerge
 
         \subsubsection{Usage of containerization in Microservices}
         As described above, microservices are small applications that communicate with each other. To follow the principles for loose coupling between the applications the communication should be performed over a programming language independent protocol. Typical \acs{IP} network protocols used are \ac{REST}, WebSockets or GraphQL \cite{micro}. These loose coupled applications have the advantage that they can be development simultaneously from different teams as well as upgraded and replaced independently. As a result, applications can be developed much faster and more flexibly, following the principles of agile development \cite{micro}, \cite{redhat_micro}.\newline
-        The usage of containers brings this speed and flexibility even further. Containers provide a consist, isolated yet flexible runtime for applications \cite{micro_container}. Applications are packaged within known good runtimes. This reduces the setup time of the deployment and eliminate host specific errors. New application instances can be started without additional configuration. As a result of the successful concepts, tools like Docker Swarm and Kubernetes have been developed that can scale distributed applications in a managed dynamic, even automatic way.\newline
+        The usage of containers brings this speed and flexibility even further. Containers provide a consistent, isolated yet flexible runtime for applications \cite{micro_container}. Applications are packaged within known good runtimes. This reduces the setup time of the deployment and eliminate host specific errors. New application instances can be started without additional configuration. As a result of the successful concepts, tools like Docker Swarm and Kubernetes have been developed that can scale distributed applications in a managed dynamic, even automatic way.\newline
         \noindent Packaging and eventually even deploy the application introduces additional work for developers that was previously the task of the operations team. As already stated above, the developer and operations team are not separated in a DevOps culture. The new focus places value on team communication, flexibility and autonomy provided by the automation and support of as many steps as possible between the development and operation workflow \cite{effective_devops}. Eliminating manual tasks allows developers to focus on the actual application development. One of the main concepts in this process is the usage of \ac{CI} and \ac{CD} workflows.
 
     \subsection{Continuous Integration and Continuous Delivery concepts}\label{ssec::ci_cd}
     \acl{CI} and \acl{CD} are two working concepts that are particularly well known in microservice architecture. Since every service provides only one part of the overall application functionality, it is uncertain what effects a change in one service has to other services and the wohle application.\newline
-    \acl{CI} is a practice where new code is regularly integrated into the main code branch. Instead of having isolated functional branches that are worked on independently for months, changes flow back regularly to ensure its free from conflicts and errors. Especially in interconnected services, it is important to ensure that a change in one service does not have an unintended effect on other services. \ac{CI} systems usually perform these integrations tasks, as well as the associated tests automatically. In case of an error it becomes easier to identify the source error, due to these small and continuous integrations.\newline
-    \acl{CD} on the other hand is a practice to bring these regular updates quickly and automatically into production. To ensure product quality, it is best to have multiple deployment environments, as described in section~\ref{ssec::devops_princibles}. Each new version is automatically deployed to a test or development environment where it undergoes automatic or manual testing. If the tests are successful, the version is promoted to the next deployment environment. In case of an error, the version is discontinued and the developers are notified about it. Only if all previous environments have not revealed any errors, the version will be transferred to production as a new release. Fig. \ref{fig::cd} visualizes such a \ac{CD} pipeline. \newline
+    \acl{CI} is a practice where new code is regularly integrated into the main code branch. Instead of having isolated functional branches that are worked on independently for months, changes flow back regularly to ensure it is free from conflicts and errors. Especially in interconnected services, it is important to ensure that a change in one service does not have an unintended effect on other services. \ac{CI} systems usually perform these integration tasks, as well as the associated tests automatically. In case of an error it becomes easier to identify the source error, due to these small and continuous integrations.\newline
+    \acl{CD} on the other hand is a practice to bring these regular updates quickly and automatically into production. To ensure product quality, it is best to have multiple deployment environments, as described in section~\ref{ssec::devops_princibles}. Each new version is automatically deployed to a test or development environment where it undergoes automatic or manual testing. If the tests are successful, the version is promoted to the next deployment environment. In case of an error, the version is discontinued and the developers are notified about it. Only if all previous environments have not revealed any errors, the version will be transferred to production as a new release. Figure \ref{fig::cd} visualizes such a \ac{CD} pipeline. \newline
     Both \ac{CI} and \ac{CD} are practice to automate tasks that have previously been performed manually. Integration testing and packaging have both moved to a dedicated, autonomous system, giving developers and operators more time for other activities.
     \input{inc/tikz_cd.inc}
 
-
-\section{Containerization in development environments}\label{sec::problem}
+\section{Analysis of the current state of development environments}\label{sec::problem}
 The following section will display the current status of a typical \ac{DevEnv}, point out its problems and provides approaches for possible solutions.
     \subsection{Current state of developer environments}
-    With the rise of cloud services the software development cycle accelerated. With services such as \ac{AWS}, Microsoft Azure and Google Cloud Computing it became possible to provision compute resources automatically and on demand. It changed the way \textit{where} and \textit{how} software is running.\newline
+    Software development involves a broad variety of tasks. Depending on the project, tasks can range from pure web development, desktop or mobile application development, embedded system development or the pure maintenance of one of these variants. Each of these software development fields has its own workflows and requirements for the actual development setup. Even within these specialties, there are different requirements, depending on the scope, size, power and general capability demand for the project. Accordingly, development environments setups can differ greatly from one another.
+    % Generalle Anforderung:
+    % Fokus auf code nicht auf config.
+    % Reproduzierbakeit
+    % Kosten
+    % Umgebung ist managbar
+
+    % With the rise of cloud services the software development cycle accelerated. With services such as \ac{AWS}, Microsoft Azure and Google Cloud Computing it became possible to provision compute resources automatically and on demand. It changed the way \textit{where} and \textit{how} software is running.\newline
     % TODO
     \subsection{Issues caused by heterogeneous \acs{DevEnv}'s}
     \subsection{Propsed solution}
