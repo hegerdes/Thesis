@@ -4,7 +4,6 @@
 \include{inc/personalize.inc}
 \include{inc/style.inc}
 
-
 % \pagestyle{plain}
 \pagestyle{fancy}
 \fancyhf{}
@@ -19,7 +18,7 @@
 \pagenumbering{gobble}
 \include{inc/title.inc}
 % For printing add this
-% \newpage\null\thispagestyle{empty}\newpage
+\newpage\null\thispagestyle{empty}\newpage
 
 % Title & Abstract
 \maketitle
@@ -39,6 +38,9 @@
 \newcounter{lastroman}
 \setcounter{lastroman}{\value{page}}
 \pagenumbering{arabic}
+
+% Line spacing
+% \onehalfspacing{}
 
 % Mythologies such as version control, \ac*{CI}, \ac*{CD} with automated integration and end-to-end testing alongside monitoring are common in modern microservice based products.
 \section{Introduction}\label{sec::intro}
@@ -69,11 +71,11 @@ First of will be a formal definition of DevOps, a brief description of the emerg
             \item \textbf{Responding to change} over following a plan
         \end{itemize}
 
-        \noindent Paradigms like Waterfall describe a comprehensive model with a detailed requirements analysis and architecture design phase. This results in a fixed and detailed sequential schedule for the implementation, testing and requirements fulfillment verification phase. Errors in the requirements analysis or changes in requirements can cause difficulties later phases of the project. Agile on the other handle only provides guidelines instead of a complete model. Changes are expected and the project realization is designed to be adaptable. Project phases such as implementation and testing run together and the entire \ac{SDLC} is kept shorter and more adaptive.\newline
+        \noindent Paradigms like Waterfall describe a comprehensive model with a detailed requirements analysis and architecture design phase. This results in a fixed and detailed sequential schedule for the implementation, testing and requirements fulfillment verification phase. Errors in the requirements analysis or changes in requirements can cause difficulties later phases of the project. Agile on the other handle only provides guidelines instead of a complete model. Changes are expected and the project realization is designed to be adaptable. Project phases such as implementation and testing run together and the entire \ac{SDLC} is kept shorter and more adaptive \cite{agile_practice}.\newline
         Agile provides a mindset for projects with uncertain or continuous changing requirements. Accordingly, the agile manifesto became the foundation of several software development mythologies and frameworks that extend these fundamental guidelines and provide additional workflows and tooling for the software creation process. Well known examples are methodologies such as \wordhighlight{SCRUM}, \wordhighlight{\ac*{XP}} and \wordhighlight{DevOps}.
 
         \subsubsection{DevOps Definition}
-        DevOps is a set of practices in software development hat aims to increase costumer value and software quality by shorting development life cycle through active collaboration and continuous delivery of improvements \cite{base_devops}, \cite{effective_devops}. The term \wordhighlight{DevOps} is a neologism from development (Dev) and operation (Ops). The combination of these terms is symbolic for the tighter collaboration between the development and operations team, which were previously strictly separated. Therefore, DevOps is considered more than just software development principles, it is called a mindset and company/development culture. Shorter development times and closer collaboration are goals of agile software development. DevOps builds upon these, below explained, goals and offers workflows from development to increased user experience value \cite{azuredevops}, \cite{effective_devops}.
+        DevOps is a set of practices in software development hat aims to increase costumer value and software quality by shortening the development life cycle through active collaboration and continuous delivery of improvements \cite{base_devops}, \cite{effective_devops}. The term \wordhighlight{DevOps} is a neologism from development (Dev) and operation (Ops). The combination of these terms is symbolic for the tighter collaboration between the development and operations team, which were previously strictly separated. Therefore, DevOps is considered more than just software development principles, it is called a mindset and company/development culture. Shorter development times and closer collaboration are goals of agile software development paradigm. DevOps builds upon the guidelines and goals of agile and offers additional workflows and tools for software development to increased user experience value \cite{azuredevops}, \cite{effective_devops}.
 
         \subsubsection{Principles of DevOps}\label{ssec::devops_princibles}
         DevOps builds upon the agile principles. It extends the \wordhighlight{\acl{XP}} approach by also applying its principles to the operations and infrastructure aspects of the application \cite{effective_devops}. The goal is to provide a structured and comprehensive process from coding up to application monitoring. This process is referred to as a workflow and the minimal steps in an exemplary workflow are shown in table~\ref{tab::devops_steps}~\cite{base_devops}.\newline
@@ -102,7 +104,7 @@ First of will be a formal definition of DevOps, a brief description of the emerg
     The following section provides a basic understanding about the concepts of Microservices and what principles are used to enable these.
 
     \subsubsection{Fundamental Idea of Microservices}
-        The fundamental idea of Microservices is to have small independently deployable software applications. Connections between these applications make it possible to provide a greater service with an extensive range of functions \cite{micro}. An exemplary structure of a microservice cluster is visualized in figure \ref{fig::micro}. If the load on one part of the service increases, new instances of that application can be deployed to balance to load across all instances. This concept requires a fast and reliable process to create new application instances.\newline
+        The fundamental idea of Microservices is to have small independently deployable software applications. Connections between these applications make it possible to provide a greater service with an extensive range of functions \cite{micro}. An exemplary structure of a microservice cluster is visualized in figure \ref{fig::micro}. It shows multiple Microservices that each expose one functionality to the outside world. Application end-points such as a \ac{UI} provide a broad function range by internally calling multiple Microservices. In the event of one application failure, only that specific functionality becomes unavailable, the remaining system keeps operational. Because of this architectural design feature is advised that, while working with data, each microservice has its own Database. This prevents having a central database becoming a single point of failure. Another core feature of Microservices in its scalability. If the load on one part of the service increases, new instances of that application can be deployed to balance to load across all instances. This concept requires a fast and reliable process to create new application instances.\newline
         The installation and setup process of new hardware can be a time-consuming task. To reduce the amount of time it takes to create new application instances, the software industry uses the concept of virtualization.
 
         \begin{figure}
@@ -113,8 +115,8 @@ First of will be a formal definition of DevOps, a brief description of the emerg
 
         \subsubsection{Virtualization and Containerization}
         Virtualization is an abstraction layer. The physical hardware (called host) runs a hypervisor that allows the execution of (multiple) virtual machines (called guests) which act like a regular computer \cite{vmbasics}. This approach allows the usage of heterogeneous hardware without an impact on the guest operating systems thanks to the abstraction provided by the hypervisor. Without the need for specialized hardware and the dynamic allocation of resources, efficiency is also increased \cite{redhat_venv}. Additionally, virtual systems can be managed more easily because fundamentally they are just one big file on the host's storage device. They can be created on command, cloned and deleted without the configuration steps of a physical system. In the enterprise industry it is common to use this flexibility to start additional \ac{VM}s on high load. According to a study by the \ac{IDC} more than 80\% of data center workloads are virtualized \cite{virtualaddoption}. Virtualization also comes with the benefit of security. The majority of hypervisors strictly separate the host and the guest system. The guest system is not allowed to use the hosts resources and access its files unless it is explicitly configured to do so. Compromising a \ac{VM} does not affect the host or any other \ac{VM}s \cite{vmbasics}, \cite{redhat_venv}.\newline
-        Full guest virtualization emulates a complete \ac{OS}, including the kernel, system libraries and even the majority of hardware devices. This abstraction comes with a performance penalty called overhead \cite{vmbasics}. A supposedly more lightweight approach of virtualization is called containerization. Studies by Ericsson Research, Nomadic Lab \cite{ieee_perfomance} and the Zhengzhou University \cite{zhengzhou_university} conclude in fact that container based solution provide better performance especially in disk \acs{I/O} and network \acs{I/O} bound scenarios. Containerization focuses on the isolation of one application process in a virtual runtime using control groups and namespace technologies \cite{cgroups}. Unlike \ac{VM}s, system and kernel functions are not virtualized and are passed through to the host machine. The result is a reduction of overhead and the ability to run additional application instances compared to \ac{VM}s with the same amount of compute resources. Figure \ref{fig::vm_docker} visualizes the differences between these approaches.\newline
-        Apart from the performance benefits, the presumably main advantage of containers is their scalability~\cite{cintainer_scale}. Which makes them an adequate fit for Microservices.
+        Full guest virtualization emulates a complete \ac{OS}, including the kernel, system libraries and even the majority of hardware devices. This abstraction comes with a performance penalty called overhead \cite{vmbasics}. A supposedly more lightweight approach of virtualization is called containerization. Studies by Ericsson Research, Nomadic Lab \cite{ieee_perfomance} and the Zhengzhou University \cite{zhengzhou_university} conclude in fact that container based solution provide better performance especially in disk \acs{I/O} and network \acs{I/O} bound scenarios. Containerization focuses on the isolation of one application process in a virtual runtime using control groups and namespace technologies \cite{cgroups}. Unlike \ac{VM}s, system and kernel functions are not virtualized and are passed through to the host machine. The result is a reduction of overhead and the ability to run additional application instances compared to \ac{VM}s with the same amount of compute resources. Figure \ref{fig::vm_docker} visualizes the differences between these approaches. The left side shows a traditional \ac{VM} based approach, on top of the host \ac{OS} runs a hypervisor that runs three full guest \acl{OS} with the application. Each gust is fully isolated and with its own kernel and libraries. The container based solution only needs the host \ac{OS} and provides multiple application instances with shared libraries and runtimes in separated, isolated namespaces.\newline
+        Apart from the performance benefits, the presumably main advantage of containers is their scalability~\cite{cintainer_scale}. Which makes them an adequate fit for Microservices. The most popular container based virtualization solutions are Docker, Podman and LXC.
 
         \begin{figure}
             \centering
@@ -147,7 +149,12 @@ The following section will display the current status of a typical \ac{DevEnv}, 
 
     % With the rise of cloud services the software development cycle accelerated. With services such as \ac{AWS}, Microsoft Azure and Google Cloud Computing it became possible to provision compute resources automatically and on demand. It changed the way \textit{where} and \textit{how} software is running.\newline
     % TODO
-    \subsection{Issues caused by heterogeneous \acs{DevEnv}'s}
+    \subsection{Common Issues in Modern Development Setups}
+        \subsubsection{Additional Development Effort}
+        \subsubsection{Issues Caused by Heterogeneous \acs{DevEnv}'s}
+        \subsubsection{Operating System Specific Tools and Errors}
+        \subsubsection{Dependencie Management}
+        \subsubsection{Missing End-to-End Test Possibilities}
     \subsection{Propsed solution}
 
 \section{Solution Concept of DevContainers}\label{sec::solution_concept}
