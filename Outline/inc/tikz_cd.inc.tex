@@ -1,0 +1,26 @@
+% !TeX root = ../thesis_main.tex
+\begin{figure}[]
+    \centering
+    \tikzstyle{block} = [rectangle, draw, fill=green!80!blue!70,
+    text width=5em, text centered, rounded corners, minimum height=4em]
+    \tikzstyle{line} = [draw, very thick, color=black!50, -latex']
+
+    \begin{tikzpicture}[scale=2, node distance = 5cm, auto]
+        % Place nodes
+        \node [block] (init) {Code Check-in};
+        \node [block, right of=init] (test) {\ac{CI} Pipeline \& Code-Test};
+        \node [block, right of=test] (build) {Build \& Package Code};
+        \node [block, below of=build, node distance=3.5cm] (d_test) {Deploy to Testing};
+        \node [block, left of=d_test] (d_staging) {Deploy to Staging};
+        \node [block, left of=d_staging] (d_live) {Deploy to Production};
+
+        % Draw edges
+        \path [line] (init) -- node {Triggers} (test);
+        \path [line] (test) -- node {If successful} (build);
+        \path [line] (build) -- node [left]{If successful} (d_test);
+        \path [line] (d_test) -- node [above]{If successful} (d_staging);
+        \path [line] (d_staging) -- node [above]{If successful} (d_live);
+    \end{tikzpicture}
+    \caption{\acl{CD} Workflow, \\\textit{Source: Modeled after~\cite{azuredevops}}}
+    \label{fig::cd}
+\end{figure}

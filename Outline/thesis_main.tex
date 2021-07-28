@@ -1,0 +1,181 @@
+\documentclass[12pt, a4paper]{article}
+
+\include{inc/packages.inc}
+\include{inc/personalize.inc}
+\include{inc/style.inc}
+
+% \pagestyle{plain}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhfoffset[L]{1cm} % left extra length
+\fancyhfoffset[R]{1cm} % right extra length
+\rhead{\thepage}
+\lhead{\nouppercase\leftmark}
+\cfoot{\fancyplain{}{\thepage} }
+
+\begin{document}
+
+\pagenumbering{gobble}
+\include{inc/title.inc}
+% For printing add this
+% \newpage\null\thispagestyle{empty}\newpage
+
+% Title & Abstract
+\maketitle
+\begin{abstract}
+    \textbf{English:} \lipsum[20]
+\end{abstract}
+\begin{abstract}
+    \textbf{German:} \lipsum[20]
+\end{abstract}
+\newpage
+
+\noindent\textbf{Disclaimer:}\newline
+This is a raw outline with extended comments. The sentences are partially incomplete and will contain errors. None of this will end up 1 to 1 in the thesis. It serves only for orientation and as a basis for writing.\newline
+\noindent\textbf{Current state:}\newline
+For the writing part: Section 2 is completely finished. A first version of the introduction is also already done, but this will certainly be reworked 1 or 2 times until writing is completed.
+I am currently writing section 3 and would like to have this completed by the end of next week. For the implementation progress see section \ref{ssec::imp_progress}.
+
+% Table of Contents
+% \tableofcontents
+% \newpage
+
+% Normal page numbering
+\newcounter{lastroman}
+\setcounter{lastroman}{\value{page}}
+\pagenumbering{arabic}
+
+\section{Introduction}\label{sec::intro}
+    What is the reason/occasion for this paper.\newline
+    Current occasion: Codespaces/codesandbox.io/Docker DevContainer. Also developers in new projects have a huge entry barrier if lot of configuration is required. Modern Microservices architectures bring better scalability but often lack the possibilities of end-to-end testing.
+    \subsection{Problem Description}
+    What is the problem and what does it affect?\newline
+    The development environment is often different from the production environment (Windows vs. Linux). This can cause platform dependent errors. Developers don't have free choice over their development OS. Some tools/programs are missing on Windows/Linux. In a Microservice enabled environment it is hard to do full testing because key services are missing. Legacy components or runtime version conflicts between projects can occur. Resulting in slower and more expensive development.
+    \subsection{Scope of the Thesis}
+    This thesis outlines challenges and problems of modern development mythologies like agile, Microservices and DevOps. Provides a basic understanding of these mythologies and their most common tools. The resulting problems will be presented and analyzed in depth and a container based solution will be proposed. A conceptual solution is presented and illustrated by means of a practical implementation. Subsequently, the solution approach is analyzed for practicability, its advantages and disadvantages are presented and its limitations are pointed out. Finally, an outlook on future potential and other results is given and the previously described contents are summarized.
+    \subsection{Goal of the Theses}
+    Point out problems in modern development environment and analyze a container based solution.
+    \subsection{Structural Overview}
+    \begin{itemize}
+        \setlength\itemsep{0em}
+        \item Introduction
+        \item Development Methodologies and Container Basics
+        \item Detailed problem description
+        \item Conceptual solution
+        \item Exemplary implementation
+        \item Analysis of the solution
+        \item Outlook
+        \item Conclusion
+    \end{itemize}
+
+\section{Background Information about Agile, Container and Microservices}\label{sec::backgrund}
+Basic information about development methodologies and virtualization.
+    \subsection{Modern Methodologies: Agile and DevOps }\label{ssec::devops}
+    Overview of modern software development mythologies.
+        \subsubsection{Agile Development}
+        Adaptive and rapid software development cycles (instead of strictly planed Waterfall or V models)
+        \subsubsection{DevOps Definition}
+        DevOps is combination of operation and development. Extends agile. Developers and operation team shares task or have a tight communication/interoperation channel.
+        \subsubsection{Principles of DevOps}\label{ssec::devops_princibles}
+        Changes in small chunks and multiple deployments a day. Code gets checkt, build, tested and deployed automatically. Ship improvements fast to costumers.
+
+    \subsection{Container and Microservice Concept}\label{ssec::microservices}
+    Short explanation of Microservices and Containers.
+        \subsubsection{Fundamental Idea of Microservices}
+        Have multiple (reusable) application that are bound together to provide a grater service. Better scalable, technology independent and easy to replace.
+        \subsubsection{Virtualization and Containerization}
+        Virtualized computing. Allows heterogenous hardware usage and provides a consisted, isolated runtime that is easy to deploy (instead of physical installing new servers). Containers have a smaller overhead and are even faster to ship.
+        \subsubsection{Usage of Containerization in Microservices}
+        Allows the scaling of individual applications. Even on demand without much overhead.
+    \subsection{Continuous Integration and Continuous Delivery Concepts}\label{ssec::ci_cd}
+    Tools commonly used tools in the Agile/DevOps world to let developer focus on codeing instead of building and testing the code. Automation of common task to provide constancy.
+
+\section{Analysis of the current State of Development Environments}\label{sec::problem}
+Overview and examples of common development setups.
+    \subsection{Current State of Developer Environments}
+    What hardware, software and service are used? Examples from literature and Symbic. \textit{Need more praxis relevant examples. I'm in contact with Dennis Ziegenhagen for more literature of real world examples.}
+    \subsection{Common Issues in Modern Development Setups}
+    What are problems in such a setup. Especially introduced by Microservice
+        \subsubsection{Additional Development Effort}
+        Managing development setups introduces additional effort. The initial project setup takes a lot of time, which is a barrier (It takes longer to get into the project, which costs time/money or people might avoid contributing to open sources). It is developers work to managing their system and keeping language frameworks up to date and in sync. Managing the application configuration. Managing database schema and demo data. Missing reproducibility. Cost of specific software. Terminal hell. All this takes time and keeps developer form actually to do codeing.
+        \subsubsection{Issues Caused by Heterogeneous DevEnv's}
+        Is the application live runtime the same as the development runtime? Most likely not. It introduces error and additional effort. Some applications/tools are only available on Windows some only on Linux. See below.
+        \subsubsection{Operating System Specific Tools and Errors}
+        Windows path separator vs. Linux path separator. Case (in)sensitive. Runtime behaves slightly different. Files/Directories are missing etc.
+        \subsubsection{Dependencie Management}
+        What application requires which version of an API? Is the development runtime version the same as the operation version? How to deal with legacy/deprecated runtimes? How can you avoid version conflicts of runtimes? How to manage different requirements for different projects?
+        \subsubsection{Missing End-to-End Test Possibilities}
+        One Microservice only provide one functionally. This can be tested. But it is often hard to test it in the overall service context. Does the system work when it has to communicate with each other? The costs of errors that are found late are high.
+    \subsection{Propsed solution}
+    This thesis proposes the idea to use tools form the Microservice and Containerization world to solve the above problems. A development setup that runs on any host device without version/runtime conflicts while providing inter application tests capabilities.
+
+\section{Solution Concept of DevContainers}\label{sec::solution_concept}
+Explains the tools and requirements for suitable DevContainer environment.
+    \subsection{Pre-requirements for DevContainers}
+    Containers are used to run the actual code. Therefore only platforms that can run container runtime such as Docker and Podman are supported. Containers are small consistent runtime environments that should provide communicate between application. While it is possible to use monolithic application it does not provide it does not bring many advantages.
+    Containers typical provide their function over the IP protocoll and do not provide a GUI. (But is possible via a VNC server-client model). Most containers are Linux based. The container support for Windows-only applications is significantly limited.
+    \subsection{Description of a Conceptual Environment}
+    The host provides a container runtime. Each application has its own container. A master/management repository provides a configuration file creates a virtual network in wich the application can communicate with each other. User can start all application (or just the needed ones) with one command without altering configuration and setting up language runtimes.
+    \subsection{Available Tools and Resources}
+    Most common container runtimes are Docker, LXC and Podman. Also web based development environments like Stackblitz, codesandbox.io and Codespace exist. These have limetations and are hosted by a third party company. (More in the analyze section). The most used one is docker. It also provides an orchestration tool called docker compose simplify the management of multiple containers. In principle developers can choose the editor freely, but VScode also offers first party support for conainer-based development by default. Other IDEs such as Atom, Visualstudio or terminal based ones such as vim and emacs are also possible.
+    \subsection{Possible Implementations}
+    Mapping of a directory structure, compose files and handy scripts. Screenshot of vscode folder structure.
+    Example project with NodeJS frontend, PHP backend, database and maybe a support service like SSH server or MQTT broker.
+    \subsection{Strengths, Weaknesses and Limits}
+    Enables end-to-end testing, consistend isolated environment. The host OS for development doesn't matter anymore. But also adds another tool the the technology stack. Developers have to know how to use it. Initial configuration effort.  Additional performance overhead, especially on Windows (kernel virtualization and filesystem conversion). Expects a version control system and a CI for automatic container builds.
+
+\section{Exemplary Prototype Implementation}\label{sec::solution_code}
+    Example implementation
+    \subsection{Current State and Goal}
+    Example project with NodeJS frontend, PHP backend, a database and maybe a support service like SSH server or MQTT broker. Have to use XAMPP on Windows with a lot of configuration. Database changes have to be manually communicated to developers. The development runtime is different to the live operation runtime. No end-to-end testing possible
+    \subsection{Implementation Approach}
+    Show the current setup with a master configuration repo that downloads all other repos.
+    \subsection{The Implementation Process}
+    How to setup docker (compose). Walk through the docker-compose file. Manage environment variables. Generate automatic image builds. Fix lossy container memory (bashhistory and so on). Automatically install vscode extensions. How to start and stop all or just one container. Autostart all application and if desired give developer control over the application process. Enable hot-reload, enable debugging.\newline
+    \textit{I'm working on this right now in the CCI project. Most services already talk to each other. The MQTT communication and eventually DeviceAPI is the only thing missing. Since I don't want/can (to) mention CCI in the paper I have to take the structure and build a demo project that provides some logic. I have not started with that yet.}\label{ssec::imp_progress}
+    \subsection{Encountered Challenges and Limits}
+    Project organization. Files and folders have to be in an expected, logical structure. Platform dependent packages and liberies. For example in NodeJS node\_modules that work on Windows but not on Linux. Local build time of a lot of containers take much time. Found a memory bug in Docker Desktop. Filesystem mounts have performance overhead and can produce unexpected behavior. NTFS does not support the Linux permission model. Additional config for file-watchers and hot-reload.
+    \subsection{Final state}
+    ToDo
+
+\section{Performance Evaluation and Analysis}\label{sec::eval}
+    \subsection{Metrics and how to Evaluate}
+    Initial setup duration. Testability. Deployment error rate. Did dependency management improve. Do runtime error still occur?
+    \subsection{Evaluation and Results}
+    ToDo
+    \subsection{Discussion of Evaluation}
+    Discuss the challenges and limits. Give recommendation for when it is usable to enable DevContainers. Make comparison to CodeSpaces and Codesandbox.io. (Self hosted vs paid service, control and available tools over the runtime)
+
+\section{Future Potential and Outlook}\label{sec::outlook}
+What might be possible in the future. CodeSpaces just starts, Docker is also working in DevelopmentConatiners.
+\section{Conclusion}\label{sec::conclusion}
+Overall summarization
+
+\newpage
+% Anhang
+\lhead{Appendix}
+\renewcommand{\thesubsection}{\Alph{subsection}}
+\pagenumbering{Roman}
+\setcounter{page}{\value{lastroman}}
+% \section*{Appendix}
+% \addcontentsline{toc}{section}{Appendix}
+
+%Abkürzungsverzeichnis
+% \input{inc/shorts.inc}
+% \newpage
+
+%Code
+% \input{inc/code_template.inc}
+% \newpage
+% \listoffigures
+% \listoftables
+
+
+%Bibliographie
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{IEEEtranSA}
+% \bibliographystyle{alpha}
+% \bibliography{bib/sources}
+% \include{inc/ensure.inc}
+
+\end{document}
