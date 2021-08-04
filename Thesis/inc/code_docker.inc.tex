@@ -1,0 +1,43 @@
+% !TeX root = ../thesis_main.tex
+
+\subsection{Code Listings}
+% \addcontentsline{toc}{subsection}{Code for you}
+\begin{lstlisting}[language=docker, frame=single, caption={Exemplary NodeJS Dockerfile},label=code::docker]
+# The base image to start from
+FROM ubuntu:18
+
+# Install nodeJS
+RUN apt-get update && apt-get install -y nodejs npm
+
+# Copy content of the HOSTS "backend" folder
+# to the "app" folder in the container
+WORKDIR /app
+COPY backend /app
+
+# Install all node-modules
+RUN npm install
+
+# Spcify the command that is run
+# when the container is started
+ENTRYPOINT [ "npm", "start" ]
+
+\end{lstlisting}
+
+
+% \begin{lstlisting}[language=docker-compose-2,caption={Example docker-compose.yml},breaklines=true,label={code:compose}]
+%     version: '2'
+%     services:
+%       web:
+%          build: .
+%          ports:
+%             - "5000:5000"
+%          volumes:
+%             - .:/code
+%             - logvolume01:/var/log
+%          links:
+%             - redis
+%       redis:
+%          image: redis
+%     volumes:
+%         logvolume01: {}
+%     \end{lstlisting}
