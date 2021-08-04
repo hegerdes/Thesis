@@ -1,0 +1,73 @@
+@startuml C4_Elements
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+  !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define DEVICONS2 https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+
+!include FONTAWESOME/users.puml
+!include FONTAWESOME/building.puml
+!include FONTAWESOME/exchange_alt.puml
+!include FONTAWESOME/terminal.puml
+!include FONTAWESOME/chrome.puml
+!include FONTAWESOME/php.puml
+!include FONTAWESOME/laptop.puml
+!include DEVICONS/nodejs.puml
+!include DEVICONS/mysql.puml
+!include DEVICONS/nginx.puml
+!include DEVICONS/javascript.puml
+!include DEVICONS2/vuejs.puml
+!include DEVICONS2/ssh_original_wordmark.puml
+!include DEVICONS2/mongodb.puml
+
+title IoT Web Service Architecture
+LAYOUT_WITH_LEGEND()
+
+
+' External
+System_Ext(device, "Device", ,$sprite="laptop")
+Person_Ext(user, "Users", ,$sprite="users")
+
+
+' Frontend
+Component(web_app, "Frontend WebApp", "VUE", "", $sprite="vuejs")
+
+
+' MQTT
+Container_Boundary(mqtt_cluster, "MQTT Service Cluster") {
+    Component(mqtt_broker, "MQTT Broker", "mosquitto", "", $sprite="exchange_alt")
+    Component(mqtt_con, "MQTT Connector", "JS", "", $sprite="nodejs")
+}
+
+' DBs
+System_Boundary(db, "Persistant Data Layer") {
+    ContainerDb(db_log, "Log Database", "MongoDB", "", $sprite="mongodb")
+    ContainerDb(db_user, "User Database", "MySQL", "", $sprite="mysql")
+    ContainerDb(db_device, "Device Database", "MySQL", "", $sprite="mysql")
+}
+
+' APIs
+    Container_Boundary(micro, "Microservice Cluster") {
+        Component(company_api, "company-api", "JS", "", $sprite="nodejs")
+        Component(terminals_company, "terminals-api", "PHP", "", $sprite="php")
+    }
+
+Lay_R(terminals_company, company_api)
+Lay_R(db_log, terminals_company)
+
+Rel_L(user, web_app, "Interact with")
+Rel(web_app, terminals_company, "Validates Authentification")
+
+Rel_R(web_app, company_api , "Gets DeviceDetails via")
+BiRel(mqtt_broker, device , "Publish & Subbscribe Massages", "MQTT")
+Rel_R(mqtt_con,mqtt_broker , "Push messages to", "MQTT")
+Rel(company_api,db_device , "Looks up")
+Rel(terminals_company,db_user , "Looks up", )
+Rel(micro,db_log , "Looks up", )
+Rel_R(micro,mqtt_con , "Looks up")
+
+' Start a Pantuml render server
+' docker run -d -p 8888:8080 plantuml/plantuml-server:jetty
+
+@enduml

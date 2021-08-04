@@ -1,0 +1,21 @@
+% !TeX root = ../thesis_main.tex
+\begin{figure}[]
+    \centering
+    \tikzstyle{block} = [rectangle, draw, fill=green!80!blue!70,
+    text width=5em, text centered, rounded corners, minimum height=4em]
+    \tikzstyle{line} = [draw, very thick, color=black!50, -latex']
+
+    \begin{tikzpicture}[align=center, scale=2, node distance = 5cm, auto]
+        % Place nodes
+        \node [] (user) {\includegraphics[width=.08\textwidth]{fig/user.png}\\User};
+        \node [block, left of=user] (webapp) {WebApp};
+        \node [block, below left of=webapp] (authbackend) {Backend};
+        \node [block, below right of=webapp] (deviceapi) {Device API};
+        % \node [block] (authbackend) at (1,1) {authbackend};
+
+        % Draw edges
+        \path [line] (user) -- node [text width=2.5cm, align=center, above]{Interacts\\with} (webapp);
+    \end{tikzpicture}
+    \caption{IoT Web Service Architecture}\label{fig::arch}
+    \label{fig::cd}
+\end{figure}

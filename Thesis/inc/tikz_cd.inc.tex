@@ -18,8 +18,8 @@
         \path [line] (init) -- node {Triggers} (test);
         \path [line] (test) -- node {If successful} (build);
         \path [line] (build) -- node [left]{If successful} (d_test);
-        \path [line] (d_test) -- node [above]{If successful} (d_staging);
-        \path [line] (d_staging) -- node [above]{If successful} (d_live);
+        \path [line] (d_test) -- node [above]{On approval} (d_staging);
+        \path [line] (d_staging) -- node [text width=2.5cm, align=center, above]{On release approval} (d_live);
     \end{tikzpicture}
     \caption{\acl{CD} Workflow, \\\textit{Source: Modeled after~\cite{azuredevops}}}
     \label{fig::cd}
