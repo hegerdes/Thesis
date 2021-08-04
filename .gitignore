@@ -26,3 +26,7 @@ ltex.*.txt
 # Docs
 docs/*
 Outline/outline_main.pdf
+Thesis/plantuml/CCI-System-all.puml
+Thesis/fig/C4_Elements.pdf
+Thesis/fig/C4_Elements.tex
+Thesis/fig/C4_Elements_ps.tex
