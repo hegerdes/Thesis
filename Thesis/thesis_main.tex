@@ -1,3 +1,4 @@
+% !TeX TXS-program:compile = txs:///pdflatex/[--shell-escape]
 \documentclass[12pt, a4paper]{article}
 
 \include{inc/packages.inc}
@@ -147,18 +148,6 @@ First of will be a formal definition of DevOps, a brief description of the emerg
     Figure \ref{fig::cd} visualizes a complete exemplary \ac{CI}/\ac{CD} pipeline. It is typically built from multiple stages, where each stage bundles one or more related tasks. A stage gets triggered by an event like code check-in or a previous a previously successful stage. Common tasks are code style tests along unit tests, automatic compilation or packaging and the deployment to a test system.\newline
     Both \ac{CI} and \ac{CD} are practice to automate tasks that have previously been performed manually. Integration testing and packaging have both moved to a dedicated, autonomous system, giving developers and operators more time for other activities.
     \input{inc/tikz_cd.inc}
-    \subsection{Functionality of the Technologies Used}
-    The following section provides a deeper dive technologies that implement the above concepts and why they are chosen. These inner workings are relevant for later chapters as they have a direct influence on the development of the solution concept.
-    \subsubsection{Docker}
-    Docker is the currently most popular containerization platform \cite{docker_share} that is supported on Linux, Windows and MacOs. It utilizes the hosts Linux kernel and its cgroups functionality for resource isolation. On none Linux host systems docker virtualizes the kernel via a hypervisor. \newline
-    The initial state of a container is defined in a image that bundle all the software, libraries and configuration files needed. Images are build based on a Dockerfile that contains sequential imperative instructions on how the container \ac{OS} should be configured. An exemplary Dockerfile can be found in Appendix at Listing \ref{code::docker}. Each instruction that changes files adds another layer containing these changes to the overlay-filesystem that is used by Docker. At runtime a file-lookup is performed at in the top layer, if it is not found lookups in the layers below follow. This allows to reuse layers, because changed versions of a file are simply pushed into a new layer and it overshadows the original file. Docker Images are distributed via a Registry to other systems. The company that develops Docker also provides an public official Docker Image Registry called DockerHub that provides official Images of common software such as databases and webservers as well as base Images for own projects.\newline
-    When a container is started, the program specified in the image is executed, and the container runs until it is stopped. Each container is treated as an independent full-fledged computer with its ow \ac{OS}. For this reason, each container also has its own \acs{IP} address and is by default not reachable from the host computer. The user has explicitly expose a container port to the host system in order to access the application inside the container. Each container not only has its own \acs{IP}, but is also on its own software defined network, which is managed by Docker and even provides a internal DNS server. Containers within a defined network can communicate with each other by their names and provide their functionality outside the network by exposing their published ports to the host \ac{OS}.
-    % Container are throw anway
-    % persistant storage
-    % mounts
-    \subsubsection{VS-Code}
-    \subsubsection{Other}
-    GIT/GitLab
 
 \section{Analysis of the current State of Development Environments}\label{sec::problem}
 The following section will display the current status of a typical \ac{DevEnv}, point out its problems and provides approaches for possible solutions.
@@ -184,12 +173,23 @@ The following section will display the current status of a typical \ac{DevEnv}, 
 \section{Solution Concept of DevContainers}\label{sec::solution_concept}
     \subsection{Pre-requirements for DevContainers}
     \subsection{Description of a Conceptual Environment}
-    \subsection{Available Tools and Resources}
+    \subsection{Available Tools and Functionality of the Technologies Used}
+    The following section provides a deeper dive technologies that implement the above concepts and why they are chosen. These inner workings are relevant for later chapters as they have a direct influence on the development of the solution concept.
+        \subsubsection{Docker}
+        Docker is the currently most popular containerization platform \cite{docker_share} that is supported on Linux, Windows and MacOs. It utilizes the hosts Linux kernel and its cgroups functionality for resource isolation. On none Linux host systems docker virtualizes the kernel via a hypervisor. \newline
+        The initial state of a container is defined in an image that bundle all the software, libraries and configuration files needed. Images are build based on a Dockerfile that contains sequential imperative instructions on how the container \ac{OS} should be configured. An exemplary Dockerfile can be found in Appendix at Listing \ref{code::docker}. Each instruction that changes files adds another layer containing these changes to the overlay-filesystem that is used by Docker. At runtime a file-lookup is performed at in the top layer, if it is not found lookups in the layers below follow. This allows to reuse layers, because changed versions of a file are simply pushed into a new layer and it overshadows the original file. Docker Images are distributed via a Registry to other systems. The company that develops Docker also provides a public official Docker Image Registry called DockerHub that provides official Images of common software such as databases and webservers as well as base Images for own projects.\newline
+        When a container is started, the program specified in the image is executed, and the container runs until it is stopped. Each container is treated as an independent full-fledged computer with its ow \ac{OS}. For this reason, each container also has its own \acs{IP} address and is by default not reachable from the host computer. The user has explicitly expose a container port to the host system in order to access the application inside the container. Each container not only has its own \acs{IP}, but is also on its own software defined network, which is managed by Docker and even provides a internal DNS server. Containers within a defined network can communicate with each other by their names and provide their functionality outside the network by exposing their published ports to the host \ac{OS}.
+    % Container are throw anway
+    % persistant storage
+    % mounts
+    \subsubsection{VS-Code}
+    \subsubsection{Other}
+    GIT/GitLab
     \subsection{Possible Implementations}
     \subsection{Strengths, Weaknesses and Limits}
 
 \section{Exemplary Prototype Implementation}\label{sec::solution_code}
-    % \input{inc/tikz_arch.inc}
+    \input{inc/tikz_arch.inc}
     \subsection{Current State and Goal}
     \subsection{Implementation Approach}
     \subsection{The Implementation Process}
@@ -219,6 +219,7 @@ The following section will display the current status of a typical \ac{DevEnv}, 
 
 %Code
 \input{inc/code_docker.inc}
+\input{inc/tikz_arch_alt.inc}
 \newpage
 \listoffigures
 \listoftables
