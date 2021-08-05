@@ -1,28 +1,929 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="827px" preserveAspectRatio="none" style="width:1073px;height:827px;background:#FFFFFF;" version="1.1" viewBox="0 0 1073 827" width="1073px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="161" x="449.5" y="18.6855">CCI-DM-CU-System</text><!--MD5=[dbca48e2523c4d7cfd79641e0e88caf5]
-cluster mqtt_cluster--><rect fill="#FFFFFF" height="173" style="stroke:#444444;stroke-width:1.0;stroke-dasharray:7.0,7.0;" width="446" x="570" y="211.6406"/><text fill="#444444" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="165" x="710.5" y="230.25">MQTT Service Cluster</text><text fill="#444444" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="60" x="763" y="246.2227">[Container]</text><!--MD5=[e8f3788ad7b97e8de68b4194558bc2a1]
-cluster db--><rect fill="#FFFFFF" height="182" style="stroke:#444444;stroke-width:1.0;stroke-dasharray:7.0,7.0;" width="508" x="57" y="479.6406"/><text fill="#444444" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="163" x="229.5" y="498.25">Persistant Data Layer</text><text fill="#444444" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="47" x="287.5" y="514.2227">[System]</text><!--MD5=[9addb86960d4c2e62b7ae97c5dedffe0]
-cluster micro--><rect fill="#FFFFFF" height="189" style="stroke:#444444;stroke-width:1.0;stroke-dasharray:7.0,7.0;" width="498" x="7" y="203.6406"/><text fill="#444444" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="156" x="178" y="222.25">Microservice Cluster</text><text fill="#444444" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="60" x="226" y="238.2227">[Container]</text><!--MD5=[42242d2c3343448c1fef8cbb30929277]
-entity mqtt_broker--><rect fill="#85BBF0" height="103.2188" style="stroke:#78A8D8;stroke-width:1.5;" width="121" x="878.5" y="265.6406"/><image height="48" width="48" x="915" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAABlUlEQVR4Xu3XoU4EQQwG4FoECcERDILgSAgvcDjsSdYSHAYS7CaYMSgUmoQHAH/mHoFH4BF4BJrd2WGu7cxwoi1im1/dlsyX25kyB2H1/a8C/CPfzKBWZlArpqD+/Yt/SGIHOjw5A4D9g6OHt0/+NMUI1PWvMNXO7l7FZAS6vHlMoLrJB1QxuYGgYKIgPAgaEUEgmSLo9mWN+5+2mxQxRdDx+QVtNCw0UZDX15Pq+uljAzROLcdKby2ClvfPtMWwcGzSVxaGfY0PlHK6WFLFVF2m2QCppnTs8c2QTk8Q1wRHkKgJZiByaMi+yVMD4WzA+YQTAfc7f7pV8FT/RRMqoC67wSCLN2wbNOH3xP+bksigXDMW71GKsBLXgCNI1IAXqKQBF1BFA8O+Vgqe4nwmRRCecEqwrTRZIsj9+pGGUwT53hiBg3Be4T2SdhlWP/3K/t3UddPi6k4vwiW/acrbVENXKpn4XypFWEk08TalyCtxE+9RSnGl3IRDgTcopQgKw+/88RSkM2mQGsglM6iVGdTKDGrlB2K3msFZ0IxMAAAAAElFTkSuQmCC" y="275.6406"/><text fill="#000000" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="101" x="888.5" y="340.25">MQTT Broker</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="60" x="909" y="356.2227">[mosquitto]</text><!--MD5=[b05b3a435bb03604487635b03e2f010c]
-entity mqtt_con--><rect fill="#85BBF0" height="103.2188" style="stroke:#78A8D8;stroke-width:1.5;" width="150" x="586" y="265.6406"/><image height="48" width="48" x="637" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAABsUlEQVR4Xu2VIU5EMRCGaxEkBEfWIAiOhCCwi0NgVoIjBIeBBLsJZg0KhSbhAOAxHIEjcASOwMf+j6Fp972p2ABimj+bttPOfNNO36bZy8e/Uqqn/lYB5CmAPAWQpwDyFECeAshTAHkKIE/LBBpt7+4fnU6f3mtTu5YMlFLaGU9qU7sCyNMPEHd/Mn2oV0jXj28X96/1vFnZ3gfExoHCmlzdsd2GHdDh+U2aN5zWgcfHl7Ju7R3kmwurWg7EYrZonhDFRvLnERAOD0iTiT0rq2u5RxrrZD67fa6t5hqPtdWALElr6xubli0hcG5wYAgucWJazdnkuWpdkb0afmW17OlY34CMFSe6zfSdDDeoDr9YQUEwfcEYkK7ZCNqBCKZhUUMCEo2i2FfKgISCGJZABUE7EEMCIBEUQKxR2ebFlwMRQqXGfS0AsosfALIjsWvKK8mAADUrUYxGQCpT1Q1BqSfUARUvCzMubFg/InvDdBj2WfMnlrI0JCJCow+N+ATdncSwFHjhF2E2d42pz0reo/7/OL18cjZrE9BvKoA8BZCnAPIUQJ4CyFMAeQogTwHk6RMhdAhlsCKyfQAAAABJRU5ErkJggg==" y="275.6406"/><text fill="#000000" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="130" x="596" y="340.25">MQTT Connector</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="20" x="651" y="356.2227">[JS]</text><!--MD5=[5dba4aff6425bf4bc746a25a121b7adb]
-entity db_log--><path d="M423,543.6406 C423,533.6406 486,533.6406 486,533.6406 C486,533.6406 549,533.6406 549,543.6406 L549,635.8594 C549,645.8594 486,645.8594 486,645.8594 C486,645.8594 423,645.8594 423,635.8594 L423,543.6406 " fill="#438DD5" style="stroke:#3C7FC0;stroke-width:1.5;"/><path d="M423,543.6406 C423,553.6406 486,553.6406 486,553.6406 C486,553.6406 549,553.6406 549,543.6406 " fill="none" style="stroke:#3C7FC0;stroke-width:1.5;"/><image height="48" width="48" x="462" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAB5klEQVR4Xu2YMUoEQRBF9251AC/gAbyAB/AAGhmJmYGB4WZGYiaYGIisICzIwsKCooIiCFpMs0tTZc/W/92DG/j5Uc9M16Onpqp7RrJ/u1Ee+aG/dRugvfHj9vG9HyfcAGjr8G72/Hk9ffOXCNcCKc1k/v7dSdfJ34C6CiitTaJJ2jl58LdBrgIyNKrXj6/KZOKBxjdPhiZJmXTl/P1Bk0AH5zMLkkmzyj8SNAOkC2ARnI4u5/7BiBmg0ssy4pIJBtIwNnJBXGWCgS4mLzZyWUQVwIAi2ZOLWCQMqP/j+lVoJmFAqy4R1+nVws/TYwzIRgtIq7mfp8cA0O7Z1EaLCXprAJAuvg0Vk2aen61kAAj64HPpg362kgEgIqOToNYGAGkbt6Fi0gf9bCUDQDYOIj9byf9A6wwA+Q1rUEPl0MZ9ZXRhHKoO0a1jqEotbF4P1cskvJvONWC3V+uW1AZcJ/T4gQGpdVdqY/YKPTTCQNAiodtFIYAknEncmZoBkljV5v7OkEBrXxxUDHOTQNL9xrMUSxHHsZV5ICkc06DO5V0FJI5JaYhEzl0LJF2PS7tbOm9yNwCS5YEE6lkltwFKL86PE24DlHYmfpxwG6BUlvw44TZA6beaHyfcBki6f1l+kHAzoFb+ASV5pFbVj/S9AAAAAElFTkSuQmCC" y="557.6406"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="106" x="433" y="622.25">Log Database</text><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="60" x="456" y="638.2227">[MongoDB]</text><!--MD5=[d7c4842f713b7111f319033620a05650]
-entity db_user--><path d="M256,543.6406 C256,533.6406 322,533.6406 322,533.6406 C322,533.6406 388,533.6406 388,543.6406 L388,635.8594 C388,645.8594 322,645.8594 322,645.8594 C322,645.8594 256,645.8594 256,635.8594 L256,543.6406 " fill="#438DD5" style="stroke:#3C7FC0;stroke-width:1.5;"/><path d="M256,543.6406 C256,553.6406 322,553.6406 322,553.6406 C322,553.6406 388,553.6406 388,543.6406 " fill="none" style="stroke:#3C7FC0;stroke-width:1.5;"/><image height="48" width="48" x="298" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAACGklEQVR4Xu2YP0oDQRTGc7c5gBfwAF7AA3gArazEzsLCMp2V2Ak2FiIRhIAEAgFFBUUQ1h/zYJB9u/NespNdiw0fYZl9yf7yzTf/MgmH9/9KE900rEYgSyOQpRHIUjPQ0eXi/esH3c4/uNYF21Mz0OL1e3r3cjB9vpq9VVUFGVg7xw+6sriagaBBcr17+ihYvGbLz/Ob1f7FXH+klJqBgMAV3lML9sBxcr2ESci2hNUMhOTZuh3tnT2JZ8nFgmoFQphEjHS7iFsUAF02WzkgHkm6dXsSKABRU5ApBxSiSWZW6L5a4LrIACJJTEW6vSZqSvlkAPEMwut5En3XNgjWkgEUYo94RhNdVmTc2UBikici9C+VTAr6ll82EGJ2dv50ktSx41xA/HQ6TrdrMSQxyRyYGbmAsMe/5ndMtwuIjvAno6NJLiDnyE/qYpINJKNMt2fUxaT1gGRbomu0NjbJBgqxy2QeIt1cM+h0TU1kzllZkwuIpUr2IaS7ii9PpPz0f+UCIg0wyeLAA8BiqtRlWhTLYSGzr6rJBRRiJsQbsCRJHpNEsq/iGzzrjxdI9mLJfzxzzt1J4pZplRdIi6/2z5YiHJrFc4u+lbQ50LqCBl8l6ZmFqA8ggaji4UnOn5n89QfknLj7AApx2wmTmejQG1CIf2DAZI7N/oBCXE/MLWWvQKL80WoAoBCn2bY5bBigjEYgSyOQpRHI0i9RwF9GQ0QZTAAAAABJRU5ErkJggg==" y="557.6406"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="112" x="266" y="622.25">User Database</text><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="45" x="299.5" y="638.2227">[MySQL]</text><!--MD5=[18fb06a5a02b8a273c0d7022ae7fc81b]
-entity db_device--><path d="M73,543.6406 C73,533.6406 147,533.6406 147,533.6406 C147,533.6406 221,533.6406 221,543.6406 L221,635.8594 C221,645.8594 147,645.8594 147,645.8594 C147,645.8594 73,645.8594 73,635.8594 L73,543.6406 " fill="#438DD5" style="stroke:#3C7FC0;stroke-width:1.5;"/><path d="M73,543.6406 C73,553.6406 147,553.6406 147,553.6406 C147,553.6406 221,553.6406 221,543.6406 " fill="none" style="stroke:#3C7FC0;stroke-width:1.5;"/><image height="48" width="48" x="123" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAACGklEQVR4Xu2YP0oDQRTGc7c5gBfwAF7AA3gArazEzsLCMp2V2Ak2FiIRhIAEAgFFBUUQ1h/zYJB9u/NespNdiw0fYZl9yf7yzTf/MgmH9/9KE900rEYgSyOQpRHIUjPQ0eXi/esH3c4/uNYF21Mz0OL1e3r3cjB9vpq9VVUFGVg7xw+6sriagaBBcr17+ihYvGbLz/Ob1f7FXH+klJqBgMAV3lML9sBxcr2ESci2hNUMhOTZuh3tnT2JZ8nFgmoFQphEjHS7iFsUAF02WzkgHkm6dXsSKABRU5ApBxSiSWZW6L5a4LrIACJJTEW6vSZqSvlkAPEMwut5En3XNgjWkgEUYo94RhNdVmTc2UBikici9C+VTAr6ll82EGJ2dv50ktSx41xA/HQ6TrdrMSQxyRyYGbmAsMe/5ndMtwuIjvAno6NJLiDnyE/qYpINJKNMt2fUxaT1gGRbomu0NjbJBgqxy2QeIt1cM+h0TU1kzllZkwuIpUr2IaS7ii9PpPz0f+UCIg0wyeLAA8BiqtRlWhTLYSGzr6rJBRRiJsQbsCRJHpNEsq/iGzzrjxdI9mLJfzxzzt1J4pZplRdIi6/2z5YiHJrFc4u+lbQ50LqCBl8l6ZmFqA8ggaji4UnOn5n89QfknLj7AApx2wmTmejQG1CIf2DAZI7N/oBCXE/MLWWvQKL80WoAoBCn2bY5bBigjEYgSyOQpRHI0i9RwF9GQ0QZTAAAAABJRU5ErkJggg==" y="557.6406"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="128" x="83" y="622.25">Device Database</text><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="45" x="124.5" y="638.2227">[MySQL]</text><!--MD5=[8fcb77f317c589392f957062aff20d5b]
-entity company_api--><rect fill="#85BBF0" height="103.2188" style="stroke:#78A8D8;stroke-width:1.5;" width="172" x="31" y="265.6406"/><image height="48" width="48" x="93" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAABsUlEQVR4Xu2VIU5EMRCGaxEkBEfWIAiOhCCwi0NgVoIjBIeBBLsJZg0KhSbhAOAxHIEjcASOwMf+j6Fp972p2ABimj+bttPOfNNO36bZy8e/Uqqn/lYB5CmAPAWQpwDyFECeAshTAHkKIE/LBBpt7+4fnU6f3mtTu5YMlFLaGU9qU7sCyNMPEHd/Mn2oV0jXj28X96/1vFnZ3gfExoHCmlzdsd2GHdDh+U2aN5zWgcfHl7Ju7R3kmwurWg7EYrZonhDFRvLnERAOD0iTiT0rq2u5RxrrZD67fa6t5hqPtdWALElr6xubli0hcG5wYAgucWJazdnkuWpdkb0afmW17OlY34CMFSe6zfSdDDeoDr9YQUEwfcEYkK7ZCNqBCKZhUUMCEo2i2FfKgISCGJZABUE7EEMCIBEUQKxR2ebFlwMRQqXGfS0AsosfALIjsWvKK8mAADUrUYxGQCpT1Q1BqSfUARUvCzMubFg/InvDdBj2WfMnlrI0JCJCow+N+ATdncSwFHjhF2E2d42pz0reo/7/OL18cjZrE9BvKoA8BZCnAPIUQJ4CyFMAeQogTwHk6RMhdAhlsCKyfQAAAABJRU5ErkJggg==" y="275.6406"/><text fill="#000000" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="152" x="41" y="340.25">dm-cu-company-api</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="20" x="107" y="356.2227">[JS]</text><!--MD5=[9629dafdbe9abb4bcec1a784a76133d0]
-entity terminals_company--><rect fill="#85BBF0" height="103.2188" style="stroke:#78A8D8;stroke-width:1.5;" width="223" x="238.5" y="265.6406"/><image height="48" width="48" x="326" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAC60lEQVR4Xu2WvU5cMRBGb5sCKUoX0VBE6ZBQClroKNJsGboI0W0DEi1SmttQUVEj8QChp+EReIQ8Ao+QE3+7s3M93uvLaqVQ2Pq06/XPzPF4bG/XP72+K3Wx6f+qAdXUgGpqQDU1oJoaUE0bAl09vJxe388ub9HJ+a+jHxeICj9pP7t5vP79J86aoqlAEOBs/2j26fNelwqV3a8HX74d03j4/Seiwk8aP+x8ZACf1AGFLxpcpwoQC8WiILBODLAOXBwZNb97Zg2Aig9WgheHZVoLhDlWXDXEMBD5jF1erIHFQIaoxAGmAhBRYVmgEJtqMLR6xseuolib9nTdPuZAjGM0Uami9Ald+cTWxN4RMZ5Z7EDsGgCBH62zHV4eFHoDir3Us7neLIshVMg39h6ICZjO0kWNWSGEgiYb8r50+uTbzqMvPipiYjfKQMyP6abYdilLdLCVNJT5MutpUS+mvVfVcamJxkdqeiZb3gCIJiZkNEjZzRxrYSNkF3r58BktXNxbaH3yAtelEHoX7Im3vwDCRAyPmfBRtURmoaoM1rfsstD6K1shjCvvUrwXdX3huHjZmANrsUQ2ILNlwcNUDG3v4pd58d7HgLwDtbBcbZPuN/XaeB1SChMVWu/bFhBvIGxa48KcsjIbZw70YMmHClFRDHz8zeU/u6nQqwfOjkL0ohywnV0AKQezJ9oc+GJ3pkLlY6AUgbt4WTA+bkKfYuFzdBVwLcUPVUj4hABluPzMGq3FMnqersqRS18Z6QesgJQfA9hUfEZPVDGjo0STPQwroN5d51qWgIpxHle8LKIUxfgIDoAke+rjAzRResWyLTbRBbE/WV4FIM1hAjEHa53dDQSBEn8kDcpAks3nk9iO5Oa4sHOY/jdOWeEYkHSV/uzZrc9hxCiJpROUnTIdNAj051XJpNd3Yi7WgbzwBJw82V0Xi06rXrS3xvVtQEUpKvGi2kxbANquGlBNDaimBlRTA6qpAdX07oD+ApLgNnea6oe7AAAAAElFTkSuQmCC" y="275.6406"/><text fill="#000000" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="203" x="248.5" y="340.25">dm-terminals-company-api</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="31" x="334.5" y="356.2227">[PHP]</text><!--MD5=[002537d386d1f68a9aa978f7fb49d1b7]
-entity device--><rect fill="#999999" height="88.125" style="stroke:#8A8A8A;stroke-width:1.5;" width="72" x="903" y="545.6406"/><image height="48" width="48" x="915" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAABIElEQVR4Xu3YIQ+DMBCGYf7/P0DN4epwKBwOh0PhcHU4drkS1ny75dhGKeIeubH2pSzNuqK8mQJfyM2CNBak+RhUVVXbtl0CTdPgZBE5qO/7NSXvPd0wzsqEIOccDpDANE04MROCaFXx02ngxEwIguflz7MsSzwyTsyUoHme8e0/1HUd9VjQOwvSWJDGgjQWpLEgjQVpLEhzQtB6t1+MSeHEzIIiODETguhchofNNHBiJgTltQWFk/xXPp2FCV6qiU/7WxDtN/iENeM47qPEaHS89ADaosLHtyDaJPCSA4ZhoIFchG4XNpuD9kX6fYXOhSvUXfUHg4gWNWS8gsqsiyR8qQP6TuC1idEq7A8rEPahx1VwYiYE5WVBGgvS3C7oCXOXY9iUdw4ZAAAAAElFTkSuQmCC" y="555.6406"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="52" x="913" y="620.25">Device</text><!--MD5=[8fc3522a43f8c7199df5e09e5bb0188e]
-entity user--><rect fill="#686868" height="88.125" style="stroke:#8A8A8A;stroke-width:1.5;" width="68" x="420" y="37.1406"/><image height="48" width="48" x="430" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAACRklEQVR4Xu2WK3PDMBCE+3ONg4ONg4ODjYONg4ODg83dHV0qn1c6nax02k7HH7Req72H9dH9MT74w2+zC/LYBXnsgjy+QdDxeDydTn3fHw4HHttOuyAcf71ep2maFY/HA+J46hYaBcEPkqIZx5EXVNMiCDEqqBGaNbUIQlz4/BxtscsIulwuz+cTO8IGZAmN4hg+2QC607X3+30OO99uNzhNE7pUEKwu75tOKKDr7nw+0yhkpZpWgpCqtEbQPskVK8GGsgrKeCyQurgSZN0eEYxzKhNIiGmU2hOh7rUShLjy9AC8dedkiRFBXvLYFxS1laBhGHh6QBtb2JrQ1yiUQpwjrARZkYbh7pwUqlCpXCJtV1xl6VXSyreM1MAeSg6EhjShPvQEgQV1wQMcCe2QEsuEcDPJWoiIjwGrbWYEVWL5hIRLu0s9LAj2YLteUXhUYAg3hlsQAf8L9xZo56zuRRB2t5oeYt8bIagE0edNA0g1XEnPXARlq0DAsvLVXco5pzW9BFkJMQd7YtSwEi7K20N+vTqmCAEaRLQZCxHEmt44q270EmT9EGL1pkVbT2wchWvHCLwEWYdJ6kAND2wEIZODrDSNvbckKDYu931YgyRKbzwoWFA2ZGJjwedNxF9b4axFUDbjZChrXhtiQ9oC9PNmKXuYOSjE4fpfaQ3yK0VG0kG693KnJt5PZ032b0o4gqwcbOM/CgK86xukT6sUX5D18m8g+3snfEFdaEWozOkNEKwaNV2loJ9kF+SxC/LYBXnsgjw+AUvXCHwjywsMAAAAAElFTkSuQmCC" y="47.1406"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="45" x="431.5" y="111.75">Users</text><!--MD5=[d40ecb68fd03c4f349b7481a726a4cee]
-entity web_app--><rect fill="#85BBF0" height="103.2188" style="stroke:#78A8D8;stroke-width:1.5;" width="159" x="153.5" y="29.6406"/><image height="48" width="48" x="209" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAACgklEQVR4Xu2XMW4UQRBFJyVAssiQEwcWGRIiIDWZAxKHkCFERgIS6UpOfuLIEbElHwByEh/BR+AIHIEPpWn3VnX/7p4ZgQNKX1rtdE3V65qart0J33/eK03x0r/V/QN6s7t6d/Et6cOXmyR+ffHqbVEnrz/GWLlO35/Hu0zM6LIkcWnipRgu6dHjo6livDn6mxjTe8/24OFB9N+70T7imonUPuRsIvThk2feezaxDeaC9dDu6w8qepienpz5qLMVH9zZp0vvNxtBo7+JAJ+vb5GaWhSJrj5wZhYlFyvnnWYTWaw8SEAJsChWwseejfXr9GQ7x8gmpk6P6O61F/iQ+06bY1y/lpnoijz1HZBbcPr9QlaMb6L5HD9/6ddm4ykQY5pc0j2gvHRR4t1hI/cQRzGdAkLgdUs+VWY9zzQqLnkg3d1sTJ+tZXyOMY6JiWIuDwRZJOKKShQtpkyK5UERCJJJnHvRiienTjEMBDngchOzBfUUZSBU6pmWfPKSsZbx3mbwKpA+AsSRY6bHVq08EECQ+9CH8tQ3topSQHorYmy5AZeLAUXhoYHQ2k3tCBApdUA0gSBDFMeFGFsiVFIbSBfZDTgxtlB/1XO1gSB35gac8BRLubqAOgfc6NgqqgsIcn/pN65IKW536gWC7AA2sh5bogudtgHS6i8PhoAwGHrZLWNA/b1p0md9UWNAGNyx+J9a0zBQ/6bpNlRO0zAQuou0oDxYBoQOpqZDTQuBmkfL3waCfCJiqanlQGzYYnfXrndqORAqlShe7NcqIIRe4VfdW01tAJQTrCwP1gMhg1hPg02AbMCxTotf9VwbAOFPbTYpD7YC0r9xh7QN0Ib6D9TSL44Ey70hDcDFAAAAAElFTkSuQmCC" y="39.6406"/><text fill="#000000" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="139" x="163.5" y="104.25">Frontend WebApp</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="31" x="217.5" y="120.2227">[VUE]</text><!--MD5=[0ef32a3df1ba6533b5a6ef082219e76b]
-link terminals_company to company_api--><!--MD5=[68cd3cbbb862e24f75bfb0f3415dd077]
-link db_log to terminals_company--><!--MD5=[c620f47262f244f8ba6ae67b8261a82f]
-reverse link web_app to user--><path d="M321.06,81.1406 C355.76,81.1406 393.54,81.1406 419.92,81.1406 " fill="none" id="web_app-backto-user" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="312.79,81.1406,320.79,84.1406,320.79,78.1406,312.79,81.1406" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="71" x="330.75" y="74.5977">Interact with</text><!--MD5=[0747571d9a612f4e4ed9bc72bf8768b7]
-link web_app to terminals_company--><path d="M275.09,132.9906 C281.93,142.5206 288.54,152.6306 294,162.6406 C310.33,192.5906 323.67,228.2706 333.23,257.7006 " fill="none" id="web_app-to-terminals_company" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="335.71,265.4206,336.1273,256.8868,330.4132,258.7166,335.71,265.4206" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="145" x="304" y="176.0977">Validates Authentification</text><!--MD5=[69a18e0237db448f05cadf819e24517e]
-link web_app to company_api--><path d="M183.23,132.9906 C175.73,142.3506 168.63,152.4206 163,162.6406 C146.74,192.1706 135.56,228.1306 128.3,257.8306 " fill="none" id="web_app-to-company_api" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="126.45,265.6306,131.212,258.5367,125.3733,257.1547,126.45,265.6306" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="125" x="164" y="176.0977">Gets DeviceDetails via</text><!--MD5=[fd838b07806b84d2cc0932d6df0fbaf1]
-link mqtt_broker to device--><path d="M939,376.9706 C939,424.7606 939,491.5006 939,537.1806 " fill="none" id="mqtt_broker-device" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="939,545.4606,942,537.4606,936,537.4606,939,545.4606" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="939,368.7006,936,376.7006,942,376.7006,939,368.7006" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="122" x="940" y="430.0977">Publish &amp; Subbscribe</text><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="59" x="973" y="445.1914">Massages</text><text fill="#666666" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="38" x="983.5" y="460.2852">[MQTT]</text><!--MD5=[7a1dd02f824e358c6c389d117c5e306e]
-link mqtt_con to mqtt_broker--><path d="M736.23,317.1406 C777.9,317.1406 829.34,317.1406 869.97,317.1406 " fill="none" id="mqtt_con-to-mqtt_broker" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="878.21,317.1406,870.21,314.1406,870.21,320.1406,878.21,317.1406" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="106" x="754.25" y="295.5977">Push messages to</text><text fill="#666666" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="38" x="788.25" y="310.6914">[MQTT]</text><!--MD5=[050eaa977c28abd2d47ee8c74b5aac7b]
-link company_api to db_device--><path d="M122.61,368.7006 C127.51,412.9306 134.66,477.3906 139.95,525.1006 " fill="none" id="company_api-to-db_device" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="140.85,533.2006,142.9449,524.9174,136.9819,525.5824,140.85,533.2006" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="52" x="134" y="445.0977">Looks up</text><!--MD5=[b0d278a2551335aff4d937dcc8ed0369]
-link terminals_company to db_user--><path d="M344.77,368.7006 C340.19,412.9306 333.52,477.3906 328.58,525.1006 " fill="none" id="terminals_company-to-db_user" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="327.74,533.2006,331.5388,525.5476,325.57,524.9368,327.74,533.2006" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="52" x="341" y="445.0977">Looks up</text><!--MD5=[0eaf557c3071f67feb32b08864695b3a]
-link micro to db_log--><path d="M493.9575,392.9681 C492.2725,434.4106 490.2,485.3806 488.59,524.9106 " fill="none" id="micro-to-db_log" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="488.25,533.3606,491.5763,525.4907,485.5814,525.2441,488.25,533.3606" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="52" x="493" y="445.0977">Looks up</text><!--MD5=[703bad5b6232e730195dcb8849f12408]
-link micro to mqtt_con--><path d="M505.0801,317.1406 C505.1491,317.1406 505.2184,317.1406 505.2881,317.1406 C505.4276,317.1406 505.5686,317.1406 505.7111,317.1406 C505.9962,317.1406 506.2875,317.1406 506.5848,317.1406 C511.3422,317.1406 517.6494,317.1406 524.9988,317.1406 C539.6975,317.1406 558.565,317.1406 577.54,317.1406 " fill="none" id="micro-to-mqtt_con" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="585.63,317.1406,577.63,314.1406,577.63,320.1406,585.63,317.1406" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="52" x="515.68" y="310.5977">Looks up</text><rect fill="#FFFFFF" height="137.2656" rx="5" ry="5" style="stroke:#FFFFFF;stroke-width:1.0;" width="133" x="918" y="674.6406"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="53" x="924" y="696.1738">Legend</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="981" y="696.1738"/><rect fill="#08427B" height="17.6094" style="stroke:none;stroke-width:1.0;" width="121" x="924" y="699.25"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="928" y="713.7832">person</text><rect fill="#1168BD" height="17.6094" style="stroke:none;stroke-width:1.0;" width="121" x="924" y="716.8594"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="928" y="731.3926">system</text><rect fill="#438DD5" height="17.6094" style="stroke:none;stroke-width:1.0;" width="121" x="924" y="734.4688"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="59" x="928" y="749.002">container</text><rect fill="#686868" height="17.6094" style="stroke:none;stroke-width:1.0;" width="121" x="924" y="752.0781"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="98" x="928" y="766.6113">external person</text><rect fill="#999999" height="17.6094" style="stroke:none;stroke-width:1.0;" width="121" x="924" y="769.6875"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="98" x="928" y="784.2207">external system</text><rect fill="#B3B3B3" height="17.6094" style="stroke:none;stroke-width:1.0;" width="121" x="924" y="787.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113" x="928" y="801.8301">external container</text><line style="stroke:#FFFFFF;stroke-width:1.0;" x1="924" x2="1045" y1="681.6406" y2="681.6406"/><line style="stroke:#FFFFFF;stroke-width:1.0;" x1="924" x2="1045" y1="699.25" y2="699.25"/><line style="stroke:#FFFFFF;stroke-width:1.0;" x1="924" x2="1045" y1="716.8594" y2="716.8594"/><line style="stroke:#FFFFFF;stroke-width:1.0;" x1="924" x2="1045" y1="734.4688" y2="734.4688"/><line style="stroke:#FFFFFF;stroke-width:1.0;" x1="924" x2="1045" y1="752.0781" y2="752.0781"/><line style="stroke:#FFFFFF;stroke-width:1.0;" x1="924" x2="1045" y1="769.6875" y2="769.6875"/><line style="stroke:#FFFFFF;stroke-width:1.0;" x1="924" x2="1045" y1="787.2969" y2="787.2969"/><line style="stroke:#FFFFFF;stroke-width:1.0;" x1="924" x2="1045" y1="804.9063" y2="804.9063"/><line style="stroke:#FFFFFF;stroke-width:1.0;" x1="924" x2="924" y1="681.6406" y2="804.9063"/><line style="stroke:#FFFFFF;stroke-width:1.0;" x1="1045" x2="1045" y1="681.6406" y2="804.9063"/><!--MD5=[d8526a46932629fc3a327b4f79afa617]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   contentScriptType="application/ecmascript"
+   contentStyleType="text/css"
+   height="827px"
+   preserveAspectRatio="none"
+   style="width:1073px;height:827px;background:#FFFFFF;"
+   version="1.1"
+   viewBox="0 0 1073 827"
+   width="1073px"
+   zoomAndPan="magnify"
+   id="svg211"
+   sodipodi:docname="C4-Elements.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   inkscape:export-filename="C:\Users\Henrik\Dropbox\PrivateShares\UNI\BA\Thesis\fig\C4-Elements.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview213"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="0.69722178"
+     inkscape:cx="346.37472"
+     inkscape:cy="281.83285"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g209" />
+  <defs
+     id="defs2" />
+  <g
+     id="g209">
+    <!--MD5=[dbca48e2523c4d7cfd79641e0e88caf5]
+cluster mqtt_cluster-->
+    <rect
+       fill="#FFFFFF"
+       height="173"
+       style="stroke:#444444;stroke-width:1.0;stroke-dasharray:7.0,7.0;"
+       width="446"
+       x="570"
+       y="211.6406"
+       id="rect6" />
+    <text
+       fill="#444444"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="165"
+       x="710.5"
+       y="230.25"
+       id="text8">MQTT Service Cluster</text>
+    <text
+       fill="#444444"
+       font-family="sans-serif"
+       font-size="12"
+       lengthAdjust="spacing"
+       textLength="60"
+       x="763"
+       y="246.2227"
+       id="text10">[Container]</text>
+    <!--MD5=[e8f3788ad7b97e8de68b4194558bc2a1]
+cluster db-->
+    <rect
+       fill="#FFFFFF"
+       height="182"
+       style="stroke:#444444;stroke-width:1.0;stroke-dasharray:7.0,7.0;"
+       width="508"
+       x="57"
+       y="479.6406"
+       id="rect12" />
+    <text
+       fill="#444444"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="163"
+       x="229.5"
+       y="498.25"
+       id="text14">Persistant Data Layer</text>
+    <text
+       fill="#444444"
+       font-family="sans-serif"
+       font-size="12"
+       lengthAdjust="spacing"
+       textLength="47"
+       x="287.5"
+       y="514.2227"
+       id="text16">[System]</text>
+    <!--MD5=[9addb86960d4c2e62b7ae97c5dedffe0]
+cluster micro-->
+    <rect
+       fill="#FFFFFF"
+       height="189"
+       style="stroke:#444444;stroke-width:1.0;stroke-dasharray:7.0,7.0;"
+       width="498"
+       x="7"
+       y="203.6406"
+       id="rect18" />
+    <text
+       fill="#444444"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="156"
+       x="178"
+       y="222.25"
+       id="text20">Microservice Cluster</text>
+    <text
+       fill="#444444"
+       font-family="sans-serif"
+       font-size="12"
+       lengthAdjust="spacing"
+       textLength="60"
+       x="226"
+       y="238.2227"
+       id="text22">[Container]</text>
+    <!--MD5=[42242d2c3343448c1fef8cbb30929277]
+entity mqtt_broker-->
+    <rect
+       fill="#85BBF0"
+       height="103.2188"
+       style="stroke:#78A8D8;stroke-width:1.5;"
+       width="121"
+       x="878.5"
+       y="265.6406"
+       id="rect24" />
+    <image
+       height="48"
+       width="48"
+       x="915"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAABlUlEQVR4Xu3XoU4EQQwG4FoECcERDILgSAgvcDjsSdYSHAYS7CaYMSgUmoQHAH/mHoFH4BF4BJrd2WGu7cxwoi1im1/dlsyX25kyB2H1/a8C/CPfzKBWZlArpqD+/Yt/SGIHOjw5A4D9g6OHt0/+NMUI1PWvMNXO7l7FZAS6vHlMoLrJB1QxuYGgYKIgPAgaEUEgmSLo9mWN+5+2mxQxRdDx+QVtNCw0UZDX15Pq+uljAzROLcdKby2ClvfPtMWwcGzSVxaGfY0PlHK6WFLFVF2m2QCppnTs8c2QTk8Q1wRHkKgJZiByaMi+yVMD4WzA+YQTAfc7f7pV8FT/RRMqoC67wSCLN2wbNOH3xP+bksigXDMW71GKsBLXgCNI1IAXqKQBF1BFA8O+Vgqe4nwmRRCecEqwrTRZIsj9+pGGUwT53hiBg3Be4T2SdhlWP/3K/t3UddPi6k4vwiW/acrbVENXKpn4XypFWEk08TalyCtxE+9RSnGl3IRDgTcopQgKw+/88RSkM2mQGsglM6iVGdTKDGrlB2K3msFZ0IxMAAAAAElFTkSuQmCC"
+       y="275.6406"
+       id="image26" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="101"
+       x="888.5"
+       y="340.25"
+       id="text28">MQTT Broker</text>
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="12"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="60"
+       x="909"
+       y="356.2227"
+       id="text30">[mosquitto]</text>
+    <!--MD5=[b05b3a435bb03604487635b03e2f010c]
+entity mqtt_con-->
+    <rect
+       fill="#85BBF0"
+       height="103.2188"
+       style="stroke:#78A8D8;stroke-width:1.5;"
+       width="150"
+       x="586"
+       y="265.6406"
+       id="rect32" />
+    <image
+       height="48"
+       width="48"
+       x="637"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAABsUlEQVR4Xu2VIU5EMRCGaxEkBEfWIAiOhCCwi0NgVoIjBIeBBLsJZg0KhSbhAOAxHIEjcASOwMf+j6Fp972p2ABimj+bttPOfNNO36bZy8e/Uqqn/lYB5CmAPAWQpwDyFECeAshTAHkKIE/LBBpt7+4fnU6f3mtTu5YMlFLaGU9qU7sCyNMPEHd/Mn2oV0jXj28X96/1vFnZ3gfExoHCmlzdsd2GHdDh+U2aN5zWgcfHl7Ju7R3kmwurWg7EYrZonhDFRvLnERAOD0iTiT0rq2u5RxrrZD67fa6t5hqPtdWALElr6xubli0hcG5wYAgucWJazdnkuWpdkb0afmW17OlY34CMFSe6zfSdDDeoDr9YQUEwfcEYkK7ZCNqBCKZhUUMCEo2i2FfKgISCGJZABUE7EEMCIBEUQKxR2ebFlwMRQqXGfS0AsosfALIjsWvKK8mAADUrUYxGQCpT1Q1BqSfUARUvCzMubFg/InvDdBj2WfMnlrI0JCJCow+N+ATdncSwFHjhF2E2d42pz0reo/7/OL18cjZrE9BvKoA8BZCnAPIUQJ4CyFMAeQogTwHk6RMhdAhlsCKyfQAAAABJRU5ErkJggg=="
+       y="275.6406"
+       id="image34" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="130"
+       x="596"
+       y="340.25"
+       id="text36">MQTT Connector</text>
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="12"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="20"
+       x="651"
+       y="356.2227"
+       id="text38">[JS]</text>
+    <!--MD5=[5dba4aff6425bf4bc746a25a121b7adb]
+entity db_log-->
+    <path
+       d="M423,543.6406 C423,533.6406 486,533.6406 486,533.6406 C486,533.6406 549,533.6406 549,543.6406 L549,635.8594 C549,645.8594 486,645.8594 486,645.8594 C486,645.8594 423,645.8594 423,635.8594 L423,543.6406 "
+       fill="#438DD5"
+       style="stroke:#3C7FC0;stroke-width:1.5;"
+       id="path40" />
+    <path
+       d="M423,543.6406 C423,553.6406 486,553.6406 486,553.6406 C486,553.6406 549,553.6406 549,543.6406 "
+       fill="none"
+       style="stroke:#3C7FC0;stroke-width:1.5;"
+       id="path42" />
+    <image
+       height="48"
+       width="48"
+       x="462"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAB5klEQVR4Xu2YMUoEQRBF9251AC/gAbyAB/AAGhmJmYGB4WZGYiaYGIisICzIwsKCooIiCFpMs0tTZc/W/92DG/j5Uc9M16Onpqp7RrJ/u1Ee+aG/dRugvfHj9vG9HyfcAGjr8G72/Hk9ffOXCNcCKc1k/v7dSdfJ34C6CiitTaJJ2jl58LdBrgIyNKrXj6/KZOKBxjdPhiZJmXTl/P1Bk0AH5zMLkkmzyj8SNAOkC2ARnI4u5/7BiBmg0ssy4pIJBtIwNnJBXGWCgS4mLzZyWUQVwIAi2ZOLWCQMqP/j+lVoJmFAqy4R1+nVws/TYwzIRgtIq7mfp8cA0O7Z1EaLCXprAJAuvg0Vk2aen61kAAj64HPpg362kgEgIqOToNYGAGkbt6Fi0gf9bCUDQDYOIj9byf9A6wwA+Q1rUEPl0MZ9ZXRhHKoO0a1jqEotbF4P1cskvJvONWC3V+uW1AZcJ/T4gQGpdVdqY/YKPTTCQNAiodtFIYAknEncmZoBkljV5v7OkEBrXxxUDHOTQNL9xrMUSxHHsZV5ICkc06DO5V0FJI5JaYhEzl0LJF2PS7tbOm9yNwCS5YEE6lkltwFKL86PE24DlHYmfpxwG6BUlvw44TZA6beaHyfcBki6f1l+kHAzoFb+ASV5pFbVj/S9AAAAAElFTkSuQmCC"
+       y="557.6406"
+       id="image44" />
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="106"
+       x="433"
+       y="622.25"
+       id="text46">Log Database</text>
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="12"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="60"
+       x="456"
+       y="638.2227"
+       id="text48">[MongoDB]</text>
+    <!--MD5=[d7c4842f713b7111f319033620a05650]
+entity db_user-->
+    <path
+       d="M256,543.6406 C256,533.6406 322,533.6406 322,533.6406 C322,533.6406 388,533.6406 388,543.6406 L388,635.8594 C388,645.8594 322,645.8594 322,645.8594 C322,645.8594 256,645.8594 256,635.8594 L256,543.6406 "
+       fill="#438DD5"
+       style="stroke:#3C7FC0;stroke-width:1.5;"
+       id="path50" />
+    <path
+       d="M256,543.6406 C256,553.6406 322,553.6406 322,553.6406 C322,553.6406 388,553.6406 388,543.6406 "
+       fill="none"
+       style="stroke:#3C7FC0;stroke-width:1.5;"
+       id="path52" />
+    <image
+       height="48"
+       width="48"
+       x="298"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAACGklEQVR4Xu2YP0oDQRTGc7c5gBfwAF7AA3gArazEzsLCMp2V2Ak2FiIRhIAEAgFFBUUQ1h/zYJB9u/NespNdiw0fYZl9yf7yzTf/MgmH9/9KE900rEYgSyOQpRHIUjPQ0eXi/esH3c4/uNYF21Mz0OL1e3r3cjB9vpq9VVUFGVg7xw+6sriagaBBcr17+ihYvGbLz/Ob1f7FXH+klJqBgMAV3lML9sBxcr2ESci2hNUMhOTZuh3tnT2JZ8nFgmoFQphEjHS7iFsUAF02WzkgHkm6dXsSKABRU5ApBxSiSWZW6L5a4LrIACJJTEW6vSZqSvlkAPEMwut5En3XNgjWkgEUYo94RhNdVmTc2UBikici9C+VTAr6ll82EGJ2dv50ktSx41xA/HQ6TrdrMSQxyRyYGbmAsMe/5ndMtwuIjvAno6NJLiDnyE/qYpINJKNMt2fUxaT1gGRbomu0NjbJBgqxy2QeIt1cM+h0TU1kzllZkwuIpUr2IaS7ii9PpPz0f+UCIg0wyeLAA8BiqtRlWhTLYSGzr6rJBRRiJsQbsCRJHpNEsq/iGzzrjxdI9mLJfzxzzt1J4pZplRdIi6/2z5YiHJrFc4u+lbQ50LqCBl8l6ZmFqA8ggaji4UnOn5n89QfknLj7AApx2wmTmejQG1CIf2DAZI7N/oBCXE/MLWWvQKL80WoAoBCn2bY5bBigjEYgSyOQpRHI0i9RwF9GQ0QZTAAAAABJRU5ErkJggg=="
+       y="557.6406"
+       id="image54" />
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="112"
+       x="266"
+       y="622.25"
+       id="text56">User Database</text>
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="12"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="45"
+       x="299.5"
+       y="638.2227"
+       id="text58">[MySQL]</text>
+    <!--MD5=[18fb06a5a02b8a273c0d7022ae7fc81b]
+entity db_device-->
+    <path
+       d="M73,543.6406 C73,533.6406 147,533.6406 147,533.6406 C147,533.6406 221,533.6406 221,543.6406 L221,635.8594 C221,645.8594 147,645.8594 147,645.8594 C147,645.8594 73,645.8594 73,635.8594 L73,543.6406 "
+       fill="#438DD5"
+       style="stroke:#3C7FC0;stroke-width:1.5;"
+       id="path60" />
+    <path
+       d="M73,543.6406 C73,553.6406 147,553.6406 147,553.6406 C147,553.6406 221,553.6406 221,543.6406 "
+       fill="none"
+       style="stroke:#3C7FC0;stroke-width:1.5;"
+       id="path62" />
+    <image
+       height="48"
+       width="48"
+       x="123"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAACGklEQVR4Xu2YP0oDQRTGc7c5gBfwAF7AA3gArazEzsLCMp2V2Ak2FiIRhIAEAgFFBUUQ1h/zYJB9u/NespNdiw0fYZl9yf7yzTf/MgmH9/9KE900rEYgSyOQpRHIUjPQ0eXi/esH3c4/uNYF21Mz0OL1e3r3cjB9vpq9VVUFGVg7xw+6sriagaBBcr17+ihYvGbLz/Ob1f7FXH+klJqBgMAV3lML9sBxcr2ESci2hNUMhOTZuh3tnT2JZ8nFgmoFQphEjHS7iFsUAF02WzkgHkm6dXsSKABRU5ApBxSiSWZW6L5a4LrIACJJTEW6vSZqSvlkAPEMwut5En3XNgjWkgEUYo94RhNdVmTc2UBikici9C+VTAr6ll82EGJ2dv50ktSx41xA/HQ6TrdrMSQxyRyYGbmAsMe/5ndMtwuIjvAno6NJLiDnyE/qYpINJKNMt2fUxaT1gGRbomu0NjbJBgqxy2QeIt1cM+h0TU1kzllZkwuIpUr2IaS7ii9PpPz0f+UCIg0wyeLAA8BiqtRlWhTLYSGzr6rJBRRiJsQbsCRJHpNEsq/iGzzrjxdI9mLJfzxzzt1J4pZplRdIi6/2z5YiHJrFc4u+lbQ50LqCBl8l6ZmFqA8ggaji4UnOn5n89QfknLj7AApx2wmTmejQG1CIf2DAZI7N/oBCXE/MLWWvQKL80WoAoBCn2bY5bBigjEYgSyOQpRHI0i9RwF9GQ0QZTAAAAABJRU5ErkJggg=="
+       y="557.6406"
+       id="image64" />
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="128"
+       x="83"
+       y="622.25"
+       id="text66">Device Database</text>
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="12"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="45"
+       x="124.5"
+       y="638.2227"
+       id="text68">[MySQL]</text>
+    <!--MD5=[8fcb77f317c589392f957062aff20d5b]
+entity company_api-->
+    <rect
+       fill="#85BBF0"
+       height="103.2188"
+       style="stroke:#78A8D8;stroke-width:1.5;"
+       width="172"
+       x="31"
+       y="265.6406"
+       id="rect70" />
+    <image
+       height="48"
+       width="48"
+       x="93"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAABsUlEQVR4Xu2VIU5EMRCGaxEkBEfWIAiOhCCwi0NgVoIjBIeBBLsJZg0KhSbhAOAxHIEjcASOwMf+j6Fp972p2ABimj+bttPOfNNO36bZy8e/Uqqn/lYB5CmAPAWQpwDyFECeAshTAHkKIE/LBBpt7+4fnU6f3mtTu5YMlFLaGU9qU7sCyNMPEHd/Mn2oV0jXj28X96/1vFnZ3gfExoHCmlzdsd2GHdDh+U2aN5zWgcfHl7Ju7R3kmwurWg7EYrZonhDFRvLnERAOD0iTiT0rq2u5RxrrZD67fa6t5hqPtdWALElr6xubli0hcG5wYAgucWJazdnkuWpdkb0afmW17OlY34CMFSe6zfSdDDeoDr9YQUEwfcEYkK7ZCNqBCKZhUUMCEo2i2FfKgISCGJZABUE7EEMCIBEUQKxR2ebFlwMRQqXGfS0AsosfALIjsWvKK8mAADUrUYxGQCpT1Q1BqSfUARUvCzMubFg/InvDdBj2WfMnlrI0JCJCow+N+ATdncSwFHjhF2E2d42pz0reo/7/OL18cjZrE9BvKoA8BZCnAPIUQJ4CyFMAeQogTwHk6RMhdAhlsCKyfQAAAABJRU5ErkJggg=="
+       y="275.6406"
+       id="image72" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="152"
+       x="41"
+       y="340.25"
+       id="text74">dm-cu-company-api</text>
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="12"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="20"
+       x="107"
+       y="356.2227"
+       id="text76">[JS]</text>
+    <!--MD5=[9629dafdbe9abb4bcec1a784a76133d0]
+entity terminals_company-->
+    <rect
+       fill="#85BBF0"
+       height="103.2188"
+       style="stroke:#78A8D8;stroke-width:1.5;"
+       width="223"
+       x="238.5"
+       y="265.6406"
+       id="rect78" />
+    <image
+       height="48"
+       width="48"
+       x="326"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAC60lEQVR4Xu2WvU5cMRBGb5sCKUoX0VBE6ZBQClroKNJsGboI0W0DEi1SmttQUVEj8QChp+EReIQ8Ao+QE3+7s3M93uvLaqVQ2Pq06/XPzPF4bG/XP72+K3Wx6f+qAdXUgGpqQDU1oJoaUE0bAl09vJxe388ub9HJ+a+jHxeICj9pP7t5vP79J86aoqlAEOBs/2j26fNelwqV3a8HX74d03j4/Seiwk8aP+x8ZACf1AGFLxpcpwoQC8WiILBODLAOXBwZNb97Zg2Aig9WgheHZVoLhDlWXDXEMBD5jF1erIHFQIaoxAGmAhBRYVmgEJtqMLR6xseuolib9nTdPuZAjGM0Uami9Ald+cTWxN4RMZ5Z7EDsGgCBH62zHV4eFHoDir3Us7neLIshVMg39h6ICZjO0kWNWSGEgiYb8r50+uTbzqMvPipiYjfKQMyP6abYdilLdLCVNJT5MutpUS+mvVfVcamJxkdqeiZb3gCIJiZkNEjZzRxrYSNkF3r58BktXNxbaH3yAtelEHoX7Im3vwDCRAyPmfBRtURmoaoM1rfsstD6K1shjCvvUrwXdX3huHjZmANrsUQ2ILNlwcNUDG3v4pd58d7HgLwDtbBcbZPuN/XaeB1SChMVWu/bFhBvIGxa48KcsjIbZw70YMmHClFRDHz8zeU/u6nQqwfOjkL0ohywnV0AKQezJ9oc+GJ3pkLlY6AUgbt4WTA+bkKfYuFzdBVwLcUPVUj4hABluPzMGq3FMnqersqRS18Z6QesgJQfA9hUfEZPVDGjo0STPQwroN5d51qWgIpxHle8LKIUxfgIDoAke+rjAzRResWyLTbRBbE/WV4FIM1hAjEHa53dDQSBEn8kDcpAks3nk9iO5Oa4sHOY/jdOWeEYkHSV/uzZrc9hxCiJpROUnTIdNAj051XJpNd3Yi7WgbzwBJw82V0Xi06rXrS3xvVtQEUpKvGi2kxbANquGlBNDaimBlRTA6qpAdX07oD+ApLgNnea6oe7AAAAAElFTkSuQmCC"
+       y="275.6406"
+       id="image80" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="203"
+       x="248.5"
+       y="340.25"
+       id="text82">dm-terminals-company-api</text>
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="12"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="31"
+       x="334.5"
+       y="356.2227"
+       id="text84">[PHP]</text>
+    <!--MD5=[002537d386d1f68a9aa978f7fb49d1b7]
+entity device-->
+    <rect
+       fill="#999999"
+       height="88.125"
+       style="stroke:#8A8A8A;stroke-width:1.5;"
+       width="72"
+       x="903"
+       y="545.6406"
+       id="rect86" />
+    <image
+       height="48"
+       width="48"
+       x="915"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAABIElEQVR4Xu3YIQ+DMBCGYf7/P0DN4epwKBwOh0PhcHU4drkS1ny75dhGKeIeubH2pSzNuqK8mQJfyM2CNBak+RhUVVXbtl0CTdPgZBE5qO/7NSXvPd0wzsqEIOccDpDANE04MROCaFXx02ngxEwIguflz7MsSzwyTsyUoHme8e0/1HUd9VjQOwvSWJDGgjQWpLEgjQVpLEhzQtB6t1+MSeHEzIIiODETguhchofNNHBiJgTltQWFk/xXPp2FCV6qiU/7WxDtN/iENeM47qPEaHS89ADaosLHtyDaJPCSA4ZhoIFchG4XNpuD9kX6fYXOhSvUXfUHg4gWNWS8gsqsiyR8qQP6TuC1idEq7A8rEPahx1VwYiYE5WVBGgvS3C7oCXOXY9iUdw4ZAAAAAElFTkSuQmCC"
+       y="555.6406"
+       id="image88" />
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="52"
+       x="913"
+       y="620.25"
+       id="text90">Device</text>
+    <!--MD5=[8fc3522a43f8c7199df5e09e5bb0188e]
+entity user-->
+    <rect
+       fill="#686868"
+       height="88.125"
+       style="stroke:#8A8A8A;stroke-width:1.5;"
+       width="68"
+       x="420"
+       y="37.1406"
+       id="rect92" />
+    <image
+       height="48"
+       width="48"
+       x="430"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAACRklEQVR4Xu2WK3PDMBCE+3ONg4ONg4ODjYONg4ODg83dHV0qn1c6nax02k7HH7Req72H9dH9MT74w2+zC/LYBXnsgjy+QdDxeDydTn3fHw4HHttOuyAcf71ep2maFY/HA+J46hYaBcEPkqIZx5EXVNMiCDEqqBGaNbUIQlz4/BxtscsIulwuz+cTO8IGZAmN4hg+2QC607X3+30OO99uNzhNE7pUEKwu75tOKKDr7nw+0yhkpZpWgpCqtEbQPskVK8GGsgrKeCyQurgSZN0eEYxzKhNIiGmU2hOh7rUShLjy9AC8dedkiRFBXvLYFxS1laBhGHh6QBtb2JrQ1yiUQpwjrARZkYbh7pwUqlCpXCJtV1xl6VXSyreM1MAeSg6EhjShPvQEgQV1wQMcCe2QEsuEcDPJWoiIjwGrbWYEVWL5hIRLu0s9LAj2YLteUXhUYAg3hlsQAf8L9xZo56zuRRB2t5oeYt8bIagE0edNA0g1XEnPXARlq0DAsvLVXco5pzW9BFkJMQd7YtSwEi7K20N+vTqmCAEaRLQZCxHEmt44q270EmT9EGL1pkVbT2wchWvHCLwEWYdJ6kAND2wEIZODrDSNvbckKDYu931YgyRKbzwoWFA2ZGJjwedNxF9b4axFUDbjZChrXhtiQ9oC9PNmKXuYOSjE4fpfaQ3yK0VG0kG693KnJt5PZ032b0o4gqwcbOM/CgK86xukT6sUX5D18m8g+3snfEFdaEWozOkNEKwaNV2loJ9kF+SxC/LYBXnsgjw+AUvXCHwjywsMAAAAAElFTkSuQmCC"
+       y="47.1406"
+       id="image94" />
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="45"
+       x="431.5"
+       y="111.75"
+       id="text96">Users</text>
+    <!--MD5=[d40ecb68fd03c4f349b7481a726a4cee]
+entity web_app-->
+    <rect
+       fill="#85BBF0"
+       height="103.2188"
+       style="stroke:#78A8D8;stroke-width:1.5;"
+       width="159"
+       x="153.5"
+       y="29.6406"
+       id="rect98" />
+    <image
+       height="48"
+       width="48"
+       x="209"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAACgklEQVR4Xu2XMW4UQRBFJyVAssiQEwcWGRIiIDWZAxKHkCFERgIS6UpOfuLIEbElHwByEh/BR+AIHIEPpWn3VnX/7p4ZgQNKX1rtdE3V65qart0J33/eK03x0r/V/QN6s7t6d/Et6cOXmyR+ffHqbVEnrz/GWLlO35/Hu0zM6LIkcWnipRgu6dHjo6livDn6mxjTe8/24OFB9N+70T7imonUPuRsIvThk2feezaxDeaC9dDu6w8qepienpz5qLMVH9zZp0vvNxtBo7+JAJ+vb5GaWhSJrj5wZhYlFyvnnWYTWaw8SEAJsChWwseejfXr9GQ7x8gmpk6P6O61F/iQ+06bY1y/lpnoijz1HZBbcPr9QlaMb6L5HD9/6ddm4ykQY5pc0j2gvHRR4t1hI/cQRzGdAkLgdUs+VWY9zzQqLnkg3d1sTJ+tZXyOMY6JiWIuDwRZJOKKShQtpkyK5UERCJJJnHvRiienTjEMBDngchOzBfUUZSBU6pmWfPKSsZbx3mbwKpA+AsSRY6bHVq08EECQ+9CH8tQ3topSQHorYmy5AZeLAUXhoYHQ2k3tCBApdUA0gSBDFMeFGFsiVFIbSBfZDTgxtlB/1XO1gSB35gac8BRLubqAOgfc6NgqqgsIcn/pN65IKW536gWC7AA2sh5bogudtgHS6i8PhoAwGHrZLWNA/b1p0md9UWNAGNyx+J9a0zBQ/6bpNlRO0zAQuou0oDxYBoQOpqZDTQuBmkfL3waCfCJiqanlQGzYYnfXrndqORAqlShe7NcqIIRe4VfdW01tAJQTrCwP1gMhg1hPg02AbMCxTotf9VwbAOFPbTYpD7YC0r9xh7QN0Ib6D9TSL44Ey70hDcDFAAAAAElFTkSuQmCC"
+       y="39.6406"
+       id="image100" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="139"
+       x="163.5"
+       y="104.25"
+       id="text102">Frontend WebApp</text>
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="12"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="31"
+       x="217.5"
+       y="120.2227"
+       id="text104">[VUE]</text>
+    <!--MD5=[0ef32a3df1ba6533b5a6ef082219e76b]
+link terminals_company to company_api-->
+    <!--MD5=[68cd3cbbb862e24f75bfb0f3415dd077]
+link db_log to terminals_company-->
+    <!--MD5=[c620f47262f244f8ba6ae67b8261a82f]
+reverse link web_app to user-->
+    <path
+       d="M321.06,81.1406 C355.76,81.1406 393.54,81.1406 419.92,81.1406 "
+       fill="none"
+       id="web_app-backto-user"
+       style="stroke:#666666;stroke-width:1.0;" />
+    <polygon
+       fill="#666666"
+       points="312.79,81.1406,320.79,84.1406,320.79,78.1406,312.79,81.1406"
+       style="stroke:#666666;stroke-width:1.0;"
+       id="polygon107" />
+    <text
+       fill="#666666"
+       font-family="sans-serif"
+       font-size="12"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="71"
+       x="330.75"
+       y="74.5977"
+       id="text109">Interact with</text>
+    <!--MD5=[0747571d9a612f4e4ed9bc72bf8768b7]
+link web_app to terminals_company-->
+    <path
+       d="M275.09,132.9906 C281.93,142.5206 288.54,152.6306 294,162.6406 C310.33,192.5906 323.67,228.2706 333.23,257.7006 "
+       fill="none"
+       id="web_app-to-terminals_company"
+       style="stroke:#666666;stroke-width:1.0;" />
+    <polygon
+       fill="#666666"
+       points="335.71,265.4206,336.1273,256.8868,330.4132,258.7166,335.71,265.4206"
+       style="stroke:#666666;stroke-width:1.0;"
+       id="polygon112" />
+    <text
+       fill="#666666"
+       font-family="sans-serif"
+       font-size="12"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="145"
+       x="304"
+       y="176.0977"
+       id="text114">Validates Authentification</text>
+    <!--MD5=[69a18e0237db448f05cadf819e24517e]
+link web_app to company_api-->
+    <path
+       d="M183.23,132.9906 C175.73,142.3506 168.63,152.4206 163,162.6406 C146.74,192.1706 135.56,228.1306 128.3,257.8306 "
+       fill="none"
+       id="web_app-to-company_api"
+       style="stroke:#666666;stroke-width:1.0;" />
+    <polygon
+       fill="#666666"
+       points="126.45,265.6306,131.212,258.5367,125.3733,257.1547,126.45,265.6306"
+       style="stroke:#666666;stroke-width:1.0;"
+       id="polygon117" />
+    <text
+       fill="#666666"
+       font-family="sans-serif"
+       font-size="12"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="125"
+       x="164"
+       y="176.0977"
+       id="text119">Gets DeviceDetails via</text>
+    <!--MD5=[fd838b07806b84d2cc0932d6df0fbaf1]
+link mqtt_broker to device-->
+    <path
+       d="M939,376.9706 C939,424.7606 939,491.5006 939,537.1806 "
+       fill="none"
+       id="mqtt_broker-device"
+       style="stroke:#666666;stroke-width:1.0;" />
+    <polygon
+       fill="#666666"
+       points="939,545.4606,942,537.4606,936,537.4606,939,545.4606"
+       style="stroke:#666666;stroke-width:1.0;"
+       id="polygon122" />
+    <polygon
+       fill="#666666"
+       points="939,368.7006,936,376.7006,942,376.7006,939,368.7006"
+       style="stroke:#666666;stroke-width:1.0;"
+       id="polygon124" />
+    <text
+       fill="#666666"
+       font-family="sans-serif"
+       font-size="12"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="122"
+       x="940"
+       y="430.0977"
+       id="text126">Publish &amp; Subbscribe</text>
+    <text
+       fill="#666666"
+       font-family="sans-serif"
+       font-size="12"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="59"
+       x="973"
+       y="445.1914"
+       id="text128">Massages</text>
+    <text
+       fill="#666666"
+       font-family="sans-serif"
+       font-size="12"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="38"
+       x="983.5"
+       y="460.2852"
+       id="text130">[MQTT]</text>
+    <!--MD5=[7a1dd02f824e358c6c389d117c5e306e]
+link mqtt_con to mqtt_broker-->
+    <path
+       d="M736.23,317.1406 C777.9,317.1406 829.34,317.1406 869.97,317.1406 "
+       fill="none"
+       id="mqtt_con-to-mqtt_broker"
+       style="stroke:#666666;stroke-width:1.0;" />
+    <polygon
+       fill="#666666"
+       points="878.21,317.1406,870.21,314.1406,870.21,320.1406,878.21,317.1406"
+       style="stroke:#666666;stroke-width:1.0;"
+       id="polygon133" />
+    <text
+       fill="#666666"
+       font-family="sans-serif"
+       font-size="12"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="106"
+       x="754.25"
+       y="295.5977"
+       id="text135">Push messages to</text>
+    <text
+       fill="#666666"
+       font-family="sans-serif"
+       font-size="12"
+       font-style="italic"
+       lengthAdjust="spacing"
+       textLength="38"
+       x="788.25"
+       y="310.6914"
+       id="text137">[MQTT]</text>
+    <!--MD5=[050eaa977c28abd2d47ee8c74b5aac7b]
+link company_api to db_device-->
+    <path
+       d="M122.61,368.7006 C127.51,412.9306 134.66,477.3906 139.95,525.1006 "
+       fill="none"
+       id="company_api-to-db_device"
+       style="stroke:#666666;stroke-width:1.0;" />
+    <polygon
+       fill="#666666"
+       points="140.85,533.2006,142.9449,524.9174,136.9819,525.5824,140.85,533.2006"
+       style="stroke:#666666;stroke-width:1.0;"
+       id="polygon140" />
+    <text
+       fill="#666666"
+       font-family="sans-serif"
+       font-size="12"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="52"
+       x="134"
+       y="445.0977"
+       id="text142">Looks up</text>
+    <!--MD5=[b0d278a2551335aff4d937dcc8ed0369]
+link terminals_company to db_user-->
+    <path
+       d="M344.77,368.7006 C340.19,412.9306 333.52,477.3906 328.58,525.1006 "
+       fill="none"
+       id="terminals_company-to-db_user"
+       style="stroke:#666666;stroke-width:1.0;" />
+    <polygon
+       fill="#666666"
+       points="327.74,533.2006,331.5388,525.5476,325.57,524.9368,327.74,533.2006"
+       style="stroke:#666666;stroke-width:1.0;"
+       id="polygon145" />
+    <text
+       fill="#666666"
+       font-family="sans-serif"
+       font-size="12"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="52"
+       x="341"
+       y="445.0977"
+       id="text147">Looks up</text>
+    <!--MD5=[0eaf557c3071f67feb32b08864695b3a]
+link micro to db_log-->
+    <path
+       d="M493.9575,392.9681 C492.2725,434.4106 490.2,485.3806 488.59,524.9106 "
+       fill="none"
+       id="micro-to-db_log"
+       style="stroke:#666666;stroke-width:1.0;" />
+    <polygon
+       fill="#666666"
+       points="488.25,533.3606,491.5763,525.4907,485.5814,525.2441,488.25,533.3606"
+       style="stroke:#666666;stroke-width:1.0;"
+       id="polygon150" />
+    <text
+       fill="#666666"
+       font-family="sans-serif"
+       font-size="12"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="52"
+       x="493"
+       y="445.0977"
+       id="text152">Looks up</text>
+    <!--MD5=[703bad5b6232e730195dcb8849f12408]
+link micro to mqtt_con-->
+    <path
+       d="M505.0801,317.1406 C505.1491,317.1406 505.2184,317.1406 505.2881,317.1406 C505.4276,317.1406 505.5686,317.1406 505.7111,317.1406 C505.9962,317.1406 506.2875,317.1406 506.5848,317.1406 C511.3422,317.1406 517.6494,317.1406 524.9988,317.1406 C539.6975,317.1406 558.565,317.1406 577.54,317.1406 "
+       fill="none"
+       id="micro-to-mqtt_con"
+       style="stroke:#666666;stroke-width:1.0;" />
+    <polygon
+       fill="#666666"
+       points="585.63,317.1406,577.63,314.1406,577.63,320.1406,585.63,317.1406"
+       style="stroke:#666666;stroke-width:1.0;"
+       id="polygon155" />
+    <text
+       fill="#666666"
+       font-family="sans-serif"
+       font-size="12"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="52"
+       x="515.68"
+       y="310.5977"
+       id="text157">Looks up</text>
+    <rect
+       fill="#FFFFFF"
+       height="137.2656"
+       rx="5"
+       ry="5"
+       style="stroke:#FFFFFF;stroke-width:1.0;"
+       width="133"
+       x="918"
+       y="674.6406"
+       id="rect159" />
+    <text
+       fill="#000000"
+       font-family="sans-serif"
+       font-size="14"
+       font-weight="bold"
+       lengthAdjust="spacing"
+       textLength="53"
+       x="924"
+       y="696.1738"
+       id="text161">Legend</text>
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="14"
+       lengthAdjust="spacing"
+       textLength="0"
+       x="981"
+       y="696.1738"
+       id="text163" />
+    <rect
+       fill="#08427B"
+       height="17.6094"
+       style="stroke:none;stroke-width:1.0;"
+       width="121"
+       x="924"
+       y="699.25"
+       id="rect165" />
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="14"
+       lengthAdjust="spacing"
+       textLength="44"
+       x="928"
+       y="713.7832"
+       id="text167">person</text>
+    <rect
+       fill="#1168BD"
+       height="17.6094"
+       style="stroke:none;stroke-width:1.0;"
+       width="121"
+       x="924"
+       y="716.8594"
+       id="rect169" />
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="14"
+       lengthAdjust="spacing"
+       textLength="44"
+       x="928"
+       y="731.3926"
+       id="text171">system</text>
+    <rect
+       fill="#438DD5"
+       height="17.6094"
+       style="stroke:none;stroke-width:1.0;"
+       width="121"
+       x="924"
+       y="734.4688"
+       id="rect173" />
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="14"
+       lengthAdjust="spacing"
+       textLength="59"
+       x="928"
+       y="749.002"
+       id="text175">container</text>
+    <rect
+       fill="#686868"
+       height="17.6094"
+       style="stroke:none;stroke-width:1.0;"
+       width="121"
+       x="924"
+       y="752.0781"
+       id="rect177" />
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="14"
+       lengthAdjust="spacing"
+       textLength="98"
+       x="928"
+       y="766.6113"
+       id="text179">external person</text>
+    <rect
+       fill="#999999"
+       height="17.6094"
+       style="stroke:none;stroke-width:1.0;"
+       width="121"
+       x="924"
+       y="769.6875"
+       id="rect181" />
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="14"
+       lengthAdjust="spacing"
+       textLength="98"
+       x="928"
+       y="784.2207"
+       id="text183">external system</text>
+    <rect
+       fill="#B3B3B3"
+       height="17.6094"
+       style="stroke:none;stroke-width:1.0;"
+       width="121"
+       x="924"
+       y="787.2969"
+       id="rect185" />
+    <text
+       fill="#FFFFFF"
+       font-family="sans-serif"
+       font-size="14"
+       lengthAdjust="spacing"
+       textLength="113"
+       x="928"
+       y="801.8301"
+       id="text187">external container</text>
+    <line
+       style="stroke:#FFFFFF;stroke-width:1.0;"
+       x1="924"
+       x2="1045"
+       y1="681.6406"
+       y2="681.6406"
+       id="line189" />
+    <line
+       style="stroke:#FFFFFF;stroke-width:1.0;"
+       x1="924"
+       x2="1045"
+       y1="699.25"
+       y2="699.25"
+       id="line191" />
+    <line
+       style="stroke:#FFFFFF;stroke-width:1.0;"
+       x1="924"
+       x2="1045"
+       y1="716.8594"
+       y2="716.8594"
+       id="line193" />
+    <line
+       style="stroke:#FFFFFF;stroke-width:1.0;"
+       x1="924"
+       x2="1045"
+       y1="734.4688"
+       y2="734.4688"
+       id="line195" />
+    <line
+       style="stroke:#FFFFFF;stroke-width:1.0;"
+       x1="924"
+       x2="1045"
+       y1="752.0781"
+       y2="752.0781"
+       id="line197" />
+    <line
+       style="stroke:#FFFFFF;stroke-width:1.0;"
+       x1="924"
+       x2="1045"
+       y1="769.6875"
+       y2="769.6875"
+       id="line199" />
+    <line
+       style="stroke:#FFFFFF;stroke-width:1.0;"
+       x1="924"
+       x2="1045"
+       y1="787.2969"
+       y2="787.2969"
+       id="line201" />
+    <line
+       style="stroke:#FFFFFF;stroke-width:1.0;"
+       x1="924"
+       x2="1045"
+       y1="804.9063"
+       y2="804.9063"
+       id="line203" />
+    <line
+       style="stroke:#FFFFFF;stroke-width:1.0;"
+       x1="924"
+       x2="924"
+       y1="681.6406"
+       y2="804.9063"
+       id="line205" />
+    <line
+       style="stroke:#FFFFFF;stroke-width:1.0;"
+       x1="1045"
+       x2="1045"
+       y1="681.6406"
+       y2="804.9063"
+       id="line207" />
+    <!--MD5=[d8526a46932629fc3a327b4f79afa617]
 @startuml C4_Elements
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
@@ -2537,4 +3438,6 @@ JVM: Java HotSpot(TM) 64-Bit Server VM
 Default Encoding: UTF-8
 Language: en
 Country: US
---></g></svg>
+-->
+  </g>
+</svg>

@@ -18,6 +18,9 @@
 
 % % Setzt Dokumenteneigenschaften für PDFs, wenn das Paket 'hyperref' geladen wurde.
 \hypersetup{pdftitle=\myMaintitle,pdfauthor=\myName,bookmarksopen=true}
+\hypersetup{breaklinks=true}
+\urlstyle{same}
+\def\UrlBreaks{\do\/\do-}
 
 %Source for picture captions
 \newcommand{\source}[1]{\caption*{Source: {#1}} }
@@ -54,3 +57,56 @@
 % \pdfmarkupcomment[markup=StrikeOut,color=red]{stupid}{replace stupid with funny}
 % \pdfmarkupcomment[markup=Highlight,color=yellow]{Of course, you can highlight complete sentences.}{Highlight}
 % \pdfcomment[icon=Note,color=blue]{insert graphic!}
+
+
+\makeatletter
+\tikzset{
+    database top segment style/.style={draw},
+    database middle segment style/.style={draw},
+    database bottom segment style/.style={draw},
+    database/.style={
+        path picture={
+            \path [database bottom segment style]
+                (-\db@r,-0.5*\db@sh)
+                -- ++(0,-1*\db@sh)
+                arc [start angle=180, end angle=360,
+                    x radius=\db@r, y radius=\db@ar*\db@r]
+                -- ++(0,1*\db@sh)
+                arc [start angle=360, end angle=180,
+                    x radius=\db@r, y radius=\db@ar*\db@r];
+            \path [database middle segment style]
+                (-\db@r,0.5*\db@sh)
+                -- ++(0,-1*\db@sh)
+                arc [start angle=180, end angle=360,
+                    x radius=\db@r, y radius=\db@ar*\db@r]
+                -- ++(0,1*\db@sh)
+                arc [start angle=360, end angle=180,
+                    x radius=\db@r, y radius=\db@ar*\db@r];
+            \path [database top segment style]
+                (-\db@r,1.5*\db@sh)
+                -- ++(0,-1*\db@sh)
+                arc [start angle=180, end angle=360,
+                    x radius=\db@r, y radius=\db@ar*\db@r]
+                -- ++(0,1*\db@sh)
+                arc [start angle=360, end angle=180,
+                    x radius=\db@r, y radius=\db@ar*\db@r];
+            \path [database top segment style]
+                (0, 1.5*\db@sh) circle [x radius=\db@r, y radius=\db@ar*\db@r];
+        },
+        minimum width=2*\db@r + \pgflinewidth,
+        minimum height=3*\db@sh + 2*\db@ar*\db@r + \pgflinewidth,
+    },
+    database segment height/.store in=\db@sh,
+    database radius/.store in=\db@r,
+    database aspect ratio/.store in=\db@ar,
+    database segment height=0.1cm,
+    database radius=0.25cm,
+    database aspect ratio=0.35,
+    database top segment/.style={
+        database top segment style/.append style={#1}},
+    database middle segment/.style={
+        database middle segment style/.append style={#1}},
+    database bottom segment/.style={
+        database bottom segment style/.append style={#1}}
+}
+\makeatother
