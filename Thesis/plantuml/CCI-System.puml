@@ -1,4 +1,4 @@
-@startuml C4_Elements
+@startuml CCI-System
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
   !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
@@ -59,7 +59,7 @@ Lay_R(db_log, terminals_company)
 Rel_L(user, web_app, "Interact with")
 Rel(web_app, terminals_company, "Validates Authentification")
 
-Rel_R(web_app, company_api , "Gets DeviceDetails via")
+Rel(web_app, company_api , "Gets DeviceDetails via")
 BiRel(mqtt_broker, device , "Publish & Subbscribe Massages", "MQTT")
 Rel_R(mqtt_con,mqtt_broker , "Push messages to", "MQTT")
 Rel(company_api,db_device , "Looks up")

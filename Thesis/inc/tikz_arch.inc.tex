@@ -7,27 +7,27 @@
 
     \begin{tikzpicture}[
         align=center,
-        scale=2,
-        node distance=4cm,
+        scale=0.2,
+        node distance=3.5cm,
         auto]
 
         % Frontend
         \node [] (user) {\includegraphics[width=.08\textwidth]{fig/user.png}\\User};
-        \node [block, left of=user] (webapp) {\includegraphics[width=.55\textwidth]{fig/vue.png}\\WebApp};
+        \node [block, left of=user, xshift=-15mm] (webapp) {\includegraphics[width=.5\textwidth]{fig/vue.png}\\WebApp};
 
         % Microservice Cluster
-        \node [block, below of=webapp, xshift=-22mm] (authbackend) {\includegraphics[width=.4\textwidth]{fig/php.png}\\Auth-Backend};
-        \node [block, below of=webapp, xshift=22mm] (deviceapi) {\includegraphics[width=.7\textwidth]{fig/node1.png}\\Device-API};
-        \node[draw,dashed,fit=(authbackend) (deviceapi), label={[above]Microservice\\Cluster}] {};
+        \node [block, below of=webapp, xshift=-22mm, yshift=-5mm] (authbackend) {\includegraphics[width=.4\textwidth]{fig/php.png}\\Auth-Backend};
+        \node [block, below of=webapp, xshift=22mm, yshift=-5mm] (deviceapi) {\includegraphics[width=.7\textwidth]{fig/node1.png}\\Device-API};
+        \node[draw,dashed,fit=(authbackend) (deviceapi), label={[above]Microservice\\Cluster}] (microcluster) {};
 
         % MQTT Service
-        \node [block, right of=deviceapi] (mqttcon) {\includegraphics[width=.7\textwidth]{fig/node1.png}\\MQTT Connector};
+        \node [block, right of=deviceapi, xshift=3mm] (mqttcon) {\includegraphics[width=.7\textwidth]{fig/node1.png}\\MQTT Connector};
         \node [block, right of=mqttcon] (mqttbroker) {\includegraphics[width=.3\textwidth]{fig/mqtt-logo-small.png}\\MQTT Broker};
         \node[draw,dashed,fit=(mqttbroker) (mqttcon), label={[above]MQTT\\Service}] {};
 
         % DB Stuff
         \node[database,label=below:User DB,database radius=.8cm,database segment height=0.42cm, below of=authbackend] (userdb) {};
-        \node[database,label=below:Log DB,database radius=.8cm,database segment height=0.42cm, below of=webapp, yshift=-25mm] (logdb) {};
+        \node[database,label=below:Log DB,database radius=.8cm,database segment height=0.42cm, below of=webapp, yshift=-38mm] (logdb) {};
         \node[database,label=below:Device DB,database radius=.8cm,database segment height=0.42cm, below of=deviceapi] (devicedb) {};
 
         % Device
@@ -40,13 +40,14 @@
         \path [line] (webapp) -- node [text width=4cm, align=center, right]{Provides Device Data \& Functionality } (deviceapi);
         % To DB
         \path [line] (authbackend) -- node [text width=2.5cm, align=center, left]{Connection to } (userdb);
-        \path [line] (authbackend) -- node [text width=4cm, align=center, below]{Logs to} (logdb);
-        \path [line] (deviceapi) -- node [text width=4cm, align=center, below]{Logs to } (logdb);
+        \path [line] (authbackend) -- node [text width=1cm, right, xshift=-2mm]{Logs to} (logdb);
+        \path [line] (deviceapi) -- node [text width=1cm, left, xshift=2mm]{Logs to} (logdb);
         \path [line] (deviceapi) -- node [text width=2.5cm, align=center, right]{Connection to} (devicedb);
-
         % MQTT Device
+        \path [line ] (microcluster) -- node [align=center, above] {Uses} (mqttcon);
+        \path [line ] (mqttcon) -- node [text width=2.5cm, align=center, above] {ToDo} (mqttbroker);
         \path [line,transform canvas={xshift=2mm}] (device) -- node [text width=2.5cm, align=center, right]{} (mqttbroker);
-        \path [line, transform canvas={xshift=-2mm}] (mqttbroker) -- node [text width=2.5cm, align=center, left]{ToDo} (device);
+        \path [line, transform canvas={xshift=-2mm}] (mqttbroker) -- node [text width=3cm, align=center, left, yshift=-3mm]{Subscribe\\\& Publish\\Messanges} (device);
 
     \end{tikzpicture}
     \caption{IoT Web Service Architecture}\label{fig::arch}
