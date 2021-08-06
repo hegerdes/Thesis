@@ -22,7 +22,7 @@
 !include DEVICONS2/mongodb.puml
 
 title IoT Web Service Architecture
-LAYOUT_WITH_LEGEND()
+' LAYOUT_WITH_LEGEND()
 
 
 ' External

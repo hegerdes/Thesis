@@ -14,7 +14,9 @@
 *.gz
 *.bbl
 *.suo
+*.lol
 *.lot
+*.eps
 
 # Out
 */exposee_main.pdf
@@ -27,10 +29,4 @@ ltex.*.txt
 docs/*
 Outline/outline_main.pdf
 Thesis/plantuml/CCI-System-all.puml
-Thesis/fig/C4_Elements.pdf
-Thesis/fig/C4_Elements.tex
-Thesis/fig/C4_Elements_ps.tex
-Thesis/fig/C4-Elements.tex
-Thesis/fig/C4-Elements.ps
 Thesis/thesis_main.docx
-Thesis/fig/CCI-System.eps
