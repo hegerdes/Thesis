@@ -159,19 +159,20 @@ The following Section will display the current status of a typical \ac{DevEnv}, 
     Despite the increasing use of web-based \ac{IDE} such as \wordhighlight{CodeSandbox}, \wordhighlight{StackBlitz} \wordhighlight{Codespaces} and \wordhighlight{Gitpod}, native development environments are still primarily used. This is also shown by the StackOverflow Survay, according to which Windows is also the operating system primarily used by professional developers, followed by MacOS and Linux~\cite{stackoverflow2021}. Accordingly, developers need a modern computer on which all the required applications must be installed and set up locally. Depending on the application area, this may include some applications for which license costs may have to be paid and which must also be kept up to date after the initial installation. These are necessary processes in software development, but they can cost a lot of time and effort and therefore money, especially if there are many or frequently changing developers. Such a working environment gives developers a lot of control over their development environments, in contrast to the functionally restricted web-based environments, but brings effort and also many error-pronenesses as the next section shows.
 
     \subsection{Common Issues in Modern Development Setups}
-    \textit{Notes for me:}
-    \begin{itemize}
-        \setlength\itemsep{0em}
-        \item Lokale Entwicklung
-        \item API Poking
-        \item Unit tests
-        \item CI Tests
-        \item End to end tests
-        \item Zeit/Kosten
-        \item Config aufwand. Fokus auf code nicht auf config.
-        \item Reproduzierbakeit
-        \item Umgebung ist managbar
-    \end{itemize}
+    % \textit{Notes for me:}
+    % \begin{itemize}
+    %     \setlength\itemsep{0em}
+    %     \item Lokale Entwicklung
+    %     \item API Poking
+    %     \item AWS vs local
+    %     \item Unit tests
+    %     \item CI Tests
+    %     \item End to end tests
+    %     \item Zeit/Kosten
+    %     \item Config aufwand. Fokus auf code nicht auf config.
+    %     \item Reproduzierbakeit
+    %     \item Umgebung ist managbar
+    % \end{itemize}
         \subsubsection{Missing End-to-End Test Possibilities}
         \subsubsection{Configuration Shift}
         \subsubsection{Dependency Management}
@@ -186,16 +187,22 @@ The following Section will display the current status of a typical \ac{DevEnv}, 
     The following Section provides a deeper dive technologies that implement the above concepts and why they are chosen. These inner workings are relevant for later chapters as they have a direct influence on the development of the solution concept.
         \subsubsection{Docker}
         Docker is the currently most popular containerization platform that is supported on Linux, Windows and MacOs~\cite{docker_share}. It utilizes the hosts Linux kernel and its cgroups functionality for resource isolation. On none Linux host systems Docker virtualizes the kernel via a hypervisor. Docker was chosen for its wide usage, extensive documentation and its platform independency, which enables it usage in local and productive operation.\newline
-        The initial state of a container is defined in an image that bundle all the software, libraries and configuration files needed. Images are build based on a Dockerfile that contains sequential imperative instructions on how the container \ac{OS} should be configured. An exemplary Dockerfile can be found in Appendix at Listing \ref{code::docker}. Each instruction that changes files adds another layer containing these changes to the overlay-filesystem that is used by Docker. At runtime a file-lookup is performed at in the top layer, if it is not found lookups in the layers below follow. This allows to reuse layers, because changed versions of a file are simply pushed into a new layer and it overshadows the original file. Docker Images are distributed via a Registry to other systems. The company that develops Docker also provides a public official Docker Image Registry called DockerHub that provides official Images of common software such as databases and webservers as well as base Images for own projects \cite{docker2020}, \cite{dockerdocs}.\newline
-        When a container is started, the program specified in the image is executed, and the container runs until it is stopped. Each container is treated as an independent full-fledged computer with its ow \ac{OS}. For this reason, each container also has its own \acs{IP} address and is by default not reachable from the host computer. The user has explicitly expose a container port to the host system in order to access the application inside the container. Each container not only has its own \acs{IP}, but is also on its own software defined network, which is managed by Docker and even provides an internal \ac{DNS} server. Containers within a defined network can communicate with each other by their names and provide their functionality outside the network by exposing their published ports to the host \ac{OS} \cite{docker2020}.\newline
+        Docker allows the isolated execution of applications within a container in a well-defined state without affecting the host. The initial state of a container is defined in a disk image that bundles all the software, libraries and configuration files needed. Images are build based on a \wordhighlight{Dockerfile} that contains sequential, imperative instructions on how the container \ac{OS} should be configured. An exemplary Dockerfile can be found in appendix in Listing \ref{code::docker}. Common steps are the \code{COPY} command to add filres form the host to the container and the \code{RUN} command to execute shell commands within the container. Each instruction that changes files adds another layer to the overlay-filesystem that is used by Docker. Effectefly makling each layer a read only filesystem once it is written. At runtime a file-lookup is performed in the top filesystem layer, if the file is not found lookups in the layers below follow. This allows the reuse of layers, because changed versions of a file are simply pushed into a new layer and overshadow the original files. Docker images are distributed via a Registry to other systems. The company that develops Docker also provides a public official Docker Image Registry called DockerHub that provides official images of common software such as databases and webservers as well as base images for own projects \cite{docker2020}, \cite{dockerdocs}.\newline
+        When a container is started, the program specified in the image is executed, and the container runs until it is stopped. Each container is treated as an independent full-fledged computer with its own \ac{OS}. For this reason, each container also has its own \acs{IP} address and is by default not reachable from the host computer. The user has explicitly expose a container port to the host system in order to access the application inside the container. Each container not only has its own \acs{IP}, but is also on its own software defined network, which is managed by Docker and even provides an internal \ac{DNS} server. Containers within a defined network can communicate with each other by their names and provide their functionality outside the network by exposing their published ports to the host \ac{OS} \cite{docker2020}.\newline
         Unlike \ac{VM}s, the containers guest \ac{OS} is not maintained, as containers are considered disposable. Instead of updating the software within the container, it is simply replaced by a newer one from an updated image. All changes and new files within the container will be lost. To avoid losing user data, private keys and the like, these can be stored on the host system for persistence and made available in the container via mounts. A mounted directory behaves like new top layer in the overlay file system. Docker distinguishes between volume mounts and bind mounts. Volumes are managed by Docker, have a unique name, can easily be shared between containers and are transferable between hosts. With bind mounts a specified directory from the host is mounted to the container. All file system attributes and file properties are passed to the container, the management is done by the user \cite{docker2020}, \cite{dockerdocs}.
         \subsubsection{\ac{VCS}, \acl{CI} and \acl{CD}}
-        A \acl{VCS} (\ac{VCS}) is an essential tool in the software development industry to kepp track of which change was made when and by whom. Git became the defacto standard over the last 10 years and is used in this project just like by over 93\% of all developers according to the StackOverflow Developer Survay 2021~\cite{stackoverflow2018}. A selfhosted instance of GitLab is used for collaborative teamwork and serves as a central code repository and task management. Its adaptability, extensive integration options and built-in \ac{CI} tools provide all the necessary software lifecycle programs from a single service. Its \ac{CI}/\ac{CD} functionality is used to automatically test, build and deploy the code to a testing environment.
+        A \acl{VCS} (\ac{VCS}) is an essential tool in the software development industry to keep track of which change was made when and by whom. Git became the defacto standard over the last 10 years and is used in this project just like by over 93\% of all developers according to the StackOverflow Developer Survay 2021~\cite{stackoverflow2018}. Git allows collaborative, distributed work in own branches without affecting others. Changes can be merged back into the main branch after an optional review and made available fall all developers. A selfhosted instance of GitLab is used to coordinate teamwork, serves as a central code repository and for task management. Its adaptability, extensive integration options and built-in \ac{CI} tools provide all the necessary software lifecycle programs from a single service. Its \ac{CI}/\ac{CD} functionality is used to automatically test, build and deploy the code to a testing environment. The built-in private container registry allows the creation of always up-to-date Docker images and make them accessible to the developers, so that this task does not burden the local computers. Alternatives are \wordhighlight{GitHub} and \wordhighlight{Bitbucket}, both of which offer code hosting, issue managment, \ac{CI} and \ac{CD}. Standalone solution for \ac{CI}/\ac{CD} are \wordhighlight{Travis}, \wordhighlight{CircleCI} or \wordhighlight{Jenikns}.
         \subsubsection{Editors}
-        Editors are the primary working tool of developers when writing code. There is usually a distinction between simple text editors and \acl{IDE}. While text editors are quite simple and only provide basic functionalities like syntax highlighting, \ac{IDE}s are much more comprehensive with powerful Intellisense suggestions, built-in project management, \ac{VCS}, debugger, graphical representations and buildtools. The choice of the editor is a personal decision for most developers and they are customized according to their preferences. For this reason, this work does not require a specific editor for DevContainers, but gives a recommendation that will be used for the rest of the work.\newline
-        \ac{VSCode} is a free platform independet editor from Microsoft with extensive extendabiliy wich is used by over 70\% of all developers on StackOverflow~\cite{stackoverflow2021}.
+        Editors are the primary working tool of developers when writing code. The variability and the number of different editors is great. Well known examples are Visual Studio, XCode, Atom, Sublime, Eclipse, Emacs and VIM to just name a few. There is usually a distinction between simple text editors and \acl{IDE}. While text editors are quite simple and only provide basic functionalities like syntax highlighting, \ac{IDE}s are much more comprehensive with powerful Intellisense suggestions, built-in project management, \ac{VCS}, debugger, graphical representations and buildtools. The choice of the editor is a personal decision for most developers, and they are customized according to their preferences. For this reason, this work does not require a specific editor for DevContainers, but gives a recommendation that will be used for the rest of the work.\newline
+        \ac{VSCode} is a free platform independet editor from Microsoft with extensive extendabiliy wich is used by over 70\% of all developers on StackOverflow~\cite{stackoverflow2021}. One of its key beneficial features for virtualized work environments is its Remote Development function. This, officially provided, extention provides the comfort of a graphical \ac{UI} while running the code, the application and auxiliary processes like debugger on another machine. As Figure \ref{fig::vscoderemote} shows, \ac{VSCode} connects to the remote machine, installs a server instance of the editor that manages access to the file system and the execution of other processes, and communicates with the local \ac{VSCode} instance for comfortable access to these functions \cite{vscodedevcontainer}. The functionality to make remote processes available locally via port forwarding is useful to allow the usage of local programme with these remote services. This type of remote development works for \acs{SSH} connections, the \ac{WSL}, and on containers. \ac{WSL} is a feature to provid a Linux envorment on Windows without the need of a full \ac{VM}. The implementation of Docker for Windows is build upon this functionality. Details on the use and configuration of this function are described in detail in Section \ref{ssec::imp_process}. All these functions can be used without \ac{VSCode} by using remote filesystem mounts, portforwording or terminal editors, but it requires more configuration effort.
+        \begin{figure}[]
+            \centering
+            \includegraphics[width=.95\textwidth]{vscode-remote.png}
+            \caption{Structure of \ac{VSCode} remote Development setup \\\textit{Source:~\cite{vscodedevcontainer}}}\label{fig::vscoderemote}
+        \end{figure}
         \subsubsection{Other}
-        Compose/Scripte/Git/Logs/Moentoring
+        In addition to the tools mentioned above, other auxiliary programmes are used. The use of scripts is intended to simplify the work and make recurring tasks easier. \wordhighlight{Bash} scripts can be used natively on Linux and MacOS, the installation of Git also brings Bash support to Windows. This allows operations to be performed on multiple repositories, initial settings to be set and complicated build instructions to be simplified. \wordhighlight{Docker Compose} follows the same approach and facilitates the managment of multiple interrelated Docker projects. It is a program for orchestrating multiple Docker services. It ensures that interdependent services are started in the correct order and that all necessary persistent volumes are created \cite{docker2020}, \cite{dockerdocs}. The configuration for the orchestration with compose is typically specified in a \code{docker-compose.yml} file that follows the \ac{IaC} principle and is also tracked in \ac{VCS}. An optional feature is to further organise the logs from the docker containers. Although Docker Compose offers colour-grouped log outputs per container, these can also become overwelming if there are many containers. Since the Docker stack is used anyway, enterprise log aggregators and analysis tools like \wordhighlight{Grafana} or \wordhighlight{Elastic Search} can also be used to get a persistent and personalised log dashboard. In this concept, a Grafana container is used that gets its logs from the \wordhighlight{Loki} logshipper via a Docker plugin.
+
     \subsection{Possible Implementations}
     \subsection{Strengths, Weaknesses and Limits}\newpage
 
@@ -203,8 +210,8 @@ The following Section will display the current status of a typical \ac{DevEnv}, 
     \input{inc/tikz_arch.inc}
     \input{inc/tikz_arch_alt.inc}
     \subsection{Current State and Goal}
-    \subsection{Implementation Approach}
-    \subsection{The Implementation Process}
+    \subsection{Implementation Approach}\label{ssec::imp_approach}
+    \subsection{The Implementation Process}\label{ssec::imp_process}
     \subsection{Encountered Challenges and Limits}
     \subsection{Final State}
 %     \begin{lstlisting}[language=bash, frame=single, backgroundcolor=\color{codebg}]
@@ -221,8 +228,8 @@ The following Section will display the current status of a typical \ac{DevEnv}, 
 \section{Conclusion}\label{sec::conclusion}
 
 % STATS
-% 4500 Words
-% 25.500/30.000 Characters
+% 5000 Words
+% 28.300/33.200 Characters
 
 \newpage
 % Anhang
