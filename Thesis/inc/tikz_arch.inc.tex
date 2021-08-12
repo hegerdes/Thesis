@@ -22,13 +22,13 @@
 
         % MQTT Service
         \node [block, right of=deviceapi, xshift=3mm] (mqttcon) {\includegraphics[width=.7\textwidth]{fig/node1.png}\\MQTT Connector};
-        \node [block, right of=mqttcon] (mqttbroker) {\includegraphics[width=.3\textwidth]{fig/mqtt-logo-small.png}\\MQTT Broker};
+        \node [block, right of=mqttcon, xshift=7mm] (mqttbroker) {\includegraphics[width=.3\textwidth]{fig/mqtt-logo-small.png}\\MQTT Broker};
         \node[draw,dashed,fit=(mqttbroker) (mqttcon), label={[above]MQTT\\Service}] {};
 
         % DB Stuff
-        \node[database,label=below:User DB,database radius=.8cm,database segment height=0.42cm, below of=authbackend] (userdb) {};
-        \node[database,label=below:Log DB,database radius=.8cm,database segment height=0.42cm, below of=webapp, yshift=-38mm] (logdb) {};
-        \node[database,label=below:Device DB,database radius=.8cm,database segment height=0.42cm, below of=deviceapi] (devicedb) {};
+        \node[database,label=below:SQL\\User \acs{DB},database radius=.8cm,database segment height=0.42cm, below of=authbackend] (userdb) {};
+        \node[database,label=below:Logs\\Mongo\acs{DB} ,database radius=.8cm,database segment height=0.42cm, below of=webapp, yshift=-38mm] (logdb) {};
+        \node[database,label=below:SQL\\Device \acs{DB},database radius=.8cm,database segment height=0.42cm, below of=deviceapi] (devicedb) {};
 
         % Device
         \node [below of=mqttbroker] (device) {\includegraphics[width=.1\textwidth]{fig/device.png}\\Devices};
@@ -36,16 +36,16 @@
         % Edges & Paths
         \path [line] (user) -- node [text width=2.5cm, align=center, above]{Interacts\\with} (webapp);
         % To APIs
-        \path [line] (webapp) -- node [text width=3.5cm, align=center, left]{Validates Authentication} (authbackend);
-        \path [line] (webapp) -- node [text width=4cm, align=center, right]{Provides Device Data \& Functionality } (deviceapi);
+        \path [line] (webapp) -- node [text width=3.5cm, align=center, left, yshift=3mm]{Validates Authentication} (authbackend);
+        \path [line] (webapp) -- node [text width=4cm, align=center, right, yshift=3mm]{Provides Device Data \& Functionality } (deviceapi);
         % To DB
-        \path [line] (authbackend) -- node [text width=2.5cm, align=center, left]{Connection to } (userdb);
-        \path [line] (authbackend) -- node [text width=1cm, right, xshift=-2mm]{Logs to} (logdb);
-        \path [line] (deviceapi) -- node [text width=1cm, left, xshift=2mm]{Logs to} (logdb);
-        \path [line] (deviceapi) -- node [text width=2.5cm, align=center, right]{Connection to} (devicedb);
+        \path [line] (authbackend) -- node [text width=2cm, align=center, left, yshift=-2mm]{Connects to} (userdb);
+        \path [line] (authbackend) -- node [text width=1cm, above,xshift=3mm]{Logs} (logdb);
+        \path [line] (deviceapi) -- node [text width=1cm, above, xshift=-3mm]{Logs} (logdb);
+        \path [line] (deviceapi) -- node [text width=2cm, align=center, right, yshift=-2mm]{Connects to} (devicedb);
         % MQTT Device
-        \path [line ] (microcluster) -- node [align=center, above] {Uses} (mqttcon);
-        \path [line ] (mqttcon) -- node [text width=2.5cm, align=center, above] {ToDo} (mqttbroker);
+        \path [line ] (microcluster) -- node [align=center, above, xshift=-1mm] {Uses} (mqttcon);
+        \path [line ] (mqttcon) -- node [text width=2cm, align=center, above] {\acs{REST} API for} (mqttbroker);
         \path [line,transform canvas={xshift=2mm}] (device) -- node [text width=2.5cm, align=center, right]{} (mqttbroker);
         \path [line, transform canvas={xshift=-2mm}] (mqttbroker) -- node [text width=3cm, align=center, left, yshift=-3mm]{Subscribe\\\& Publish\\Messanges} (device);
 
