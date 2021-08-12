@@ -25,19 +25,19 @@ ENTRYPOINT [ "npm", "start" ]
 
 
 \begin{lstlisting}[language=docker-compose-2,caption={Example docker-compose.yml},breaklines=true,label={code::compose}]
-version: "2"
-  services:
-    web:
-       build: .
-       ports:
-          - "5000:5000"
-       volumes:
-          - .:/code
-          - logvolume:/var/log
+version: "3"
+services:
+  web:
+     build: .
+     ports:
+        - 5000:5000
+     volumes:
+        - .:/code
+        - logvolume:/var/log
 
-    redis:
-       image: redis
+  redis:
+     image: redis
 
-  volumes:
-    logvolume:
+volumes:
+  logvolume:
 \end{lstlisting}
