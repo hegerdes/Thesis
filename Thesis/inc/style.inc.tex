@@ -24,14 +24,10 @@
 
 %Source for picture captions
 \newcommand{\source}[1]{\caption*{Source: {#1}} }
-
 \newcommand{\code}[1]{\texttt{#1}}
 \newcommand{\wordhighlight}[1]{\textit{#1}}
-
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
-
 \newcommand{\RM}[1]{\MakeUppercase{\romannumeral{} #1{}}}
-
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for horizontal
 
 
@@ -46,13 +42,12 @@
 \newif\if@in@acrolist
 \AtBeginEnvironment{acronym}{\@in@acrolisttrue}
 \newrobustcmd{\LU}[2]{\if@in@acrolist#1\else#2\fi}
-
 \newcommand{\ACF}[1]{{\@in@acrolisttrue\acf{#1}}}
 \makeatother
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Examples
+% Comments Examples
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \pdfmarkupcomment[markup=Squiggly,color=green]{with pdfcomment}{move to the front}.
 % \pdfmarkupcomment[markup=StrikeOut,color=red]{stupid}{replace stupid with funny}
@@ -60,6 +55,7 @@
 % \pdfcomment[icon=Note,color=blue]{insert graphic!}
 
 
+% TikZ setup
 \makeatletter
 \tikzset{
     database top segment style/.style={draw},

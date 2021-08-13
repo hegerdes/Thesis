@@ -6,7 +6,7 @@
 \include{inc/style.inc}
 \include{inc/listings-style.inc}
 
-% \pagestyle{plain}
+% Page style: plain or fancy pans
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhfoffset[L]{1cm} % left extra length
@@ -14,7 +14,9 @@
 \rhead{\thepage}
 \lhead{\nouppercase\leftmark}
 \cfoot{\fancyplain{}{\thepage} }
+% \pagestyle{plain}
 
+% DOC START
 \begin{document}
 
 \pagenumbering{gobble}
@@ -47,6 +49,7 @@
 \section{Introduction}\label{sec::intro}
 Digital service solutions are becoming more and more relent and popular as a result of the ever-increasing possibilities and availability of technology. Due to the COVID-19 pandemic new remote working tools, digital education resources, a connected healthcare system and seamless (video) communication systems are needed. The ecommerce marked grew by 32\% up to sales volume of \$791.70 \cite{online_shopping_inc} and the overall revenue in the software market ist expected to grow from 532 billions (2020) to 772 Billion in 2025 \cite{software_industry_groth}. The need for digital business solution is bigger than ever before. To provide fast and suitable software solutions developers need adequate development setups, called development environments. This thesis analysis modern agile software development environments, points out potential problems and purposes a virtualized software development solution to improve development efficiency.\newline
 This Section provides an overview about this thesis. It will briefly describe the fundamental core question of this thesis, point out its relevance and presents a possible solution approach. Subsequently, a clear delineation is then given as to what is and is not covered in this thesis. The last Section of the introduction gives a structural overview of how the thesis is structured and how it will approach the given problem.
+
     \subsection{Structural Overview}
     This Section gives an initial overview and delineation to this thesis. Following this Section, there is a description of the main topic of this work and the goal that should be achieved. Section \ref{sec::backgrund} provides overall background information, which are recommended for further understanding. Common and modern development methodologies are described in Section \ref{ssec::devops}, followed by Microservice and container basics in Section \ref{ssec::microservices} and \acl{CI} tools in \ref{ssec::ci_cd}. In Section \ref{sec::problem} will be a detailed analysis of current development setups and the problems encountered in these setups. The problems are illustrated with examples and their consequences for the development process, the overall project and its quality, which is emblematic of user satisfaction, are presented. Section \ref{sec::solution_concept} proposes a conceptual solution, defines its usability and workings while also providing conditions and limitations for such a solution. This solution concept is applied in Section \ref{sec::solution_code} by implementing it in a practical reference project. The implementation process is described and additional challenges and tricks for practical use are presented. Section \ref{sec::eval} discusses the proposed solution and shows its strengths and weaknesses. At the end, an outlook on future application areas and alternative solutions is given in Section \ref{sec::outlook}, followed by the conclusion in Section \ref{sec::conclusion}.
 
@@ -65,6 +68,7 @@ This Section provides an overview about this thesis. It will briefly describe th
 \section{Background Information about Agile, Container and Microservices}\label{sec::backgrund}
 The following Section provides some basic definitions and principles that are necessary for the further understanding of this paper and ensures a common level of knowledge of these topics.\newline
 First of will be a formal definition of DevOps, a brief description of the emergence and its current state.
+
     \subsection{Modern Methodologies: Agile and DevOps}\label{ssec::devops}
     This Section provides a formal definition of agile software development Paradigms and the DevOps methodology, explains their connection and points out the fundamental principles of a DevOps enabled culture. These principles and their workflows will be revisited in Section~\ref{sec::solution_concept} as part of the proposed solution concept.
 
@@ -80,7 +84,7 @@ First of will be a formal definition of DevOps, a brief description of the emerg
             \item \textbf{Responding to change} over following a plan
         \end{itemize}
 
-        \noindent Paradigms like Waterfall describe a comprehensive model with a detailed requirements analysis and architecture design phase. This results in a fixed and detailed sequential schedule for the implementation, testing and requirements fulfillment verification phase. Errors in the requirements analysis or changes in requirements can cause difficulties later phases of the project. Agile on the other handle only provides guidelines instead of a complete model. Changes are expected and the project realization is designed to be adaptable. Project phases such as implementation and testing run together and the entire \ac{SDLC} is kept shorter and more adaptive \cite{agile_practice}.\newline
+        \noindent Paradigms like Waterfall describe a comprehensive model with a detailed requirements analysis and architecture design phase. This results in a fixed and detailed sequential schedule for the implementation, testing and requirements fulfillment verification phase. Errors in the requirements analysis or changes in requirements can cause difficulties later phases of the project. Agile on the other handle only provides guidelines instead of a complete model. Changes are expected, and the project realization is designed to be adaptable. Project phases such as implementation and testing run together and the entire \ac{SDLC} is kept shorter and more adaptive \cite{agile_practice}.\newline
         Agile provides a mindset for projects with uncertain or continuous changing requirements. Accordingly, the agile manifesto became the foundation of several software development mythologies and frameworks that extend these fundamental guidelines and provide additional workflows and tooling for the software creation process. Well known examples are methodologies such as \wordhighlight{SCRUM}, \wordhighlight{\ac*{XP}} and \wordhighlight{DevOps}.
 
         \subsubsection{DevOps Definition}
@@ -112,7 +116,7 @@ First of will be a formal definition of DevOps, a brief description of the emerg
     The following Section provides a basic understanding about the concepts of Microservices, how they are implemented and what possibilities they bring with them and what limitations they have. In this context, different strategies of visualization are explained, which are used in Section~\ref{sec::solution_concept}.
 
         \subsubsection{Fundamental Idea of Microservices}
-        The fundamental idea of \ac{MSA} is to have small self-contained, independently deployable software applications. Connections between these applications make it possible to provide a greater service with an extensive range of functions \cite{micro}. An exemplary structure of a microservice cluster is visualized in figure \ref{fig::micro}. It shows multiple Microservices that each expose one functionality to the outside world. Application end-points such as a \ac{UI} provide a broad function range by internally calling multiple Microservices. In the event of one application failure, only that specific functionality becomes unavailable, the remaining system keeps operational. Because of this architectural design feature is advised that, while working with data, each microservice has its own \ac{DB}. This prevents having a central \acl{DB} becoming a single point of failure. Another core feature of Microservices in its scalability. If the load on one part of the service increases, new instances of that application can be deployed to balance to load across all instances. This concept requires a fast and reliable process to create new application instances.\newline
+        The fundamental idea of \ac{MSA} is to have small self-contained, independently deployable software applications. Connections between these applications make it possible to provide a greater service with an extensive range of functions \cite{micro}. An exemplary structure of a microservice cluster is visualized in figure \ref{fig::micro}. It shows multiple Microservices that each expose one functionality to the outside world. Application end-points such as a \ac{UI} provide a broad function range by internally calling multiple Microservices. In the event of one application failure, only that specific functionality becomes unavailable, the remaining system keeps operational. Because of this architectural design feature is advised that, while working with data, each microservice has its own \ac{DB}. This prevents having a central \acl{DB} becoming a single point of failure. Another core feature of Microservices in its scalability. If the load on one part of the service increases, new instances of that application can be deployed to balance to load across all instances \cite{micro}. This concept requires a fast and reliable process to create new application instances.\newline
         The installation and setup process of new hardware can be a time-consuming task. To reduce the amount of time it takes to create new application instances, the software industry uses the concept of virtualization.
 
         \begin{figure}
@@ -133,7 +137,7 @@ First of will be a formal definition of DevOps, a brief description of the emerg
         \end{figure}
 
         \subsubsection{Usage of Containerization in Microservices}
-        As described above, microservices are small applications that communicate with each other. To follow the principles for loose coupling between the applications the communication should be performed over a programming language independent protocol. Typical \acs{IP} network protocols used are \ac{REST}, WebSockets or GraphQL~\cite{micro}. These loose coupled applications have the advantage that they can be development simultaneously from different teams as well as upgraded and replaced independently. As a result, applications can be developed much faster and more flexibly, following the principles of agile development~\cite{micro},~\cite{redhat_micro}.\newline
+        As described above, microservices are small, bounded applications that communicate with each other. To follow the principles for loose coupling between applications the communication should be performed over a programming language independent protocol. Typical \acs{IP} network protocols used are \ac{REST}, WebSockets or GraphQL~\cite{micro}. These loose coupled applications have the advantage that they can be development simultaneously from different teams as well as upgraded and replaced independently. As a result, applications can be developed much faster and more flexibly, following the principles of agile development~\cite{micro},~\cite{redhat_micro}.\newline
         The usage of containers brings this speed and flexibility even further. Containers provide a consistent, isolated yet flexible runtime for applications \cite{micro_container}. Applications are packaged within known good runtimes. This reduces the setup time of the deployment and eliminate host specific errors. New application instances can be started without additional configuration. As a result of the successful concepts, tools like Docker Swarm and Kubernetes have been developed that can scale distributed applications in a managed dynamic, even automatic way.\newline
         \noindent Packaging and eventually even deploy the application introduces additional work for developers that was previously the task of the operations team. As already stated above, the developer and operations team are not separated in a DevOps culture. The new focus places value on team communication, flexibility and autonomy provided by the automation and support of as many steps as possible between the development and operation workflow~\cite{effective_devops}. Eliminating manual tasks allows developers to focus on the actual application development. One of the main concepts in this process is the usage of \ac{CI} and \ac{CD} workflows.
 
@@ -149,6 +153,8 @@ First of will be a formal definition of DevOps, a brief description of the emerg
     Figure~\ref{fig::cd} visualizes a complete exemplary \ac{CI}/\ac{CD} pipeline. It is typically built from multiple stages, where each stage bundles one or more related tasks. A stage gets triggered by an event like code check-in or a previous a previously successful stage. Common tasks are code style tests along unit tests, automatic compilation or packaging and the deployment to a test system.\newline
     Both \ac{CI} and \ac{CD} are practice to automate tasks that have previously been performed manually. Integration testing and packaging have both moved to a dedicated, autonomous system, giving developers and operators more time for other activities.
     \input{inc/tikz_cd.inc}
+    \subsection{Summary of Modern Development Techniques}
+    ToDo
     \newpage
 
 \section{Analysis of the current State of Development Environments}\label{sec::problem}
@@ -168,9 +174,8 @@ The following Section will display the current status of a typical \ac{DevEnv}, 
 
         \subsubsection{Dependency Management \& Configuration Shift}
         Once the development environment is set up it is a crucial job to maintain it in such a way that developers can do their real work and contribute value to the product. Some programming languages frameworks are able to keep dependencies consistent across multiple systems without much effort thanks to their integrated toolbox helpers that come with them. NodeJS installs all the required dependencies locally in the project folder and keeps a precise record of their versions by means of a \code{package-lock} file. Other languages either come without any package manager at all or their package manager installs dependencies globally. The existence of tools like pythons \code{venv} package for creating virtual isolated environments for project dependencies proof that dependency management is in fact a problem in local development environments~\cite{pythonvenv}. Even the local package installation approach of NodeJS do not solve the problem of developing against multiple versions of the NodeJS framework. Testing a new major version of NodeJS can break existing project configurations. Additional tools like the \ac{NVM} have to be used in order to run multiple NodeJS versions. It becomes particularly problematic when developers are working on several projects at the same time and these have different dependency requirements. This issue is related to runtime dependency management. In a microservice architecture, the service dependencies are added to this.\newline
-        In a microservice architecture, there are several small services, each of which provides functionally related endpoints. Each endpoint can be considert to be a public \ac{API}, even if the service is just accessible within the of the overarching program.
-        % Service API Dependencies
-        % Überleitung zu configuration shift
+        In a microservice architecture, there are several granular services, each of which provides functionally related and bounded endpoints. Each endpoint can be considered to be a public \ac{API}, even if the service is just accessible within the of the overarching program. Communication between these endpoints is called inter-service communication. Maintaining compatibility between services becomes a challenge especially with many microservices or a service mesh \cite{micro}. If a team member changes the interface of one microservice it will affect other services and the developers responsible for these services need to be notified and respond in order to avoid unexpected errors. Tools like Swagger for applying the OpenAPI-Specification can help with these challenges. Nevertheless, the API versions used must be defined and configured. The management of inter-service communication has a direct impact on the testing possibilities, which are discussed in the next section.\newline
+        In ideal environments, the local setup would always work as long as no changes are made. But there are always changes, \ac{OS} and security updates, changes to the dependencies to test a new version or the temporary change of the application port for a side by side comparison. Even in the application, the modification of the databank schema by one developer can cause a broken environment for other developers. These slide changes over time are called configuration shift. No system is identical to another. For this reason, the popularity of tools such as \wordhighlight{Terraform}, \wordhighlight{Puppet} and \wordhighlight{Ansible} that implement the \ac{IaC} principle and rely on the automated creation and configuration of VMs instead of manual creation is increasing in the cloud sector. Each instance of a machine is configured in an exact consistent way a human being could not do. If a \ac{VM} behaves abnormally, it is tern down and recreated. However, local environments are not considered disposable, they are personalized and therefor hard to automatically create and maintain.
         \subsubsection{Missing End-to-End Test Possibilities}
         \subsubsection{Issues Caused by Heterogeneous \acs{DevEnv}'s} % OS specific errors
         \subsubsection{Additional Effort for Developers}
@@ -184,6 +189,8 @@ The following Section will display the current status of a typical \ac{DevEnv}, 
         %     \item API Poking
         %     \item AWS vs local
         %     \item Unit tests
+        %     \item terminal hell
+        %     \item log hell
         %     \item CI Tests
         %     \item End to end tests
         %     \item Zeit/Kosten
@@ -204,12 +211,12 @@ The following Section will display the current status of a typical \ac{DevEnv}, 
         When a container is started, the program specified in the image is executed, and the container runs until it is stopped. Each container is treated as an independent full-fledged computer with its own \ac{OS}. For this reason, each container has its own \acs{IP} address and is by default not reachable from the host system. The user has to explicitly expose a container port to the host system in order to access the application inside the container. Each container not only has its own \acs{IP}, but is also on its own software defined network, which is managed by Docker and even uses a Docker internal \ac{DNS} server. Containers within a defined network can communicate with each other by their (host-)names and provide their functionality outside the network by exposing their published ports to the host \ac{OS} \cite{docker2020}.\newline
         Unlike \ac{VM}s, the containers guest \ac{OS} is not maintained, as containers are considered disposable. Instead of updating the software within the container, it is simply replaced by a newer one from an updated image. All changes and new files within the container will be lost. To avoid losing user data, private keys and the like, these can be stored on the host system for persistence and made available in the container via mounts. A mounted directory behaves like new top layer in the overlay filesystem. Docker distinguishes between volume-mounts and bind-mounts. Volumes are managed by Docker, have a unique name, can easily be shared between containers and are transferable between hosts. With bind mounts a specified directory from the host is mounted to the container. All filesystem attributes and file properties are passed to the container, the management is done of that mount is up to the user \cite{docker2020}, \cite{dockerdocs}.\newline
         Alternatives to Docker are \wordhighlight{Podman}, \wordhighlight{Rkt} and \wordhighlight{LXC}, wich Docker was originally based on. The downside of these tools are their lower integrability and lack of multi-platform support.
-        \subsubsection{\ac{VCS}, \acl{CI} and \acl{CD}}
+        \subsubsection{Version Control, \acl{CI} and \acl{CD}}
         A \acl{VCS} (\ac{VCS}) is an essential tool in the software development industry to keep track of which change was made when and by whom. Git became the defacto standard over the last 10 years and is used in this project just like by over 93\% of all developers according to the StackOverflow Developer Survey 2021~\cite{stackoverflow2018}. Git allows collaborative, distributed work in own branches without affecting others. Changes can be merged back into the main branch after an optional review and made available for all developers. A self-hosted instance of GitLab is used to coordinate teamwork, serves as a central code repository and for handling task management. Its adaptability, extensive integration options and built-in \ac{CI} tools provide all the necessary software lifecycle programs from a single service bundle. Its \ac{CI}/\ac{CD} functionality is used to automatically test, build and deploy the code to a testing environment. The built-in private container registry allows the creation of always up-to-date Docker images and make them accessible to the developers, so that this task does not burden the local computers. Alternatives are \wordhighlight{GitHub} and \wordhighlight{Bitbucket}, both of which offer code hosting, issue management, \ac{CI} and \ac{CD}. Standalone solution for \ac{CI}/\ac{CD} are \wordhighlight{Travis}, \wordhighlight{CircleCI} or \wordhighlight{Jenikns}.
 
         \subsubsection{Editors}
         Editors are the primary working tool of developers when writing code. The variability and the number of different editors is great. Well known examples are Visual Studio, XCode, Atom, Sublime, Eclipse, Emacs and VIM to just name a few. There is usually a distinction between simple text editors and \acl{IDE}. While text editors are quite simple and only provide basic functionalities like syntax highlighting, \ac{IDE}s are much more comprehensive with powerful IntelliSense suggestions, built-in project management, \ac{VCS}, debugger, graphical representations and build-tools. The choice of the editor is a personal decision for most developers, and they are customized according to their preferences. For this reason, this work does not require a specific editor for DevContainers, but gives a recommendation that will be used for the rest of the work.\newline
-        \ac{VSCode} is a free platform independent editor from Microsoft with extensive extendibility wich is used by over 70\% of all developers on StackOverflow~\cite{stackoverflow2021}. One of its key beneficial features for virtualized work environments is its Remote Development function. This, officially provided, extension provides the comfort of a graphical \ac{UI} while running the code, the application and auxiliary processes like debugger on another machine. As Figure \ref{fig::vscoderemote} shows, \ac{VSCode} connects to the remote machine, installs a server instance of the editor that manages access to the file system and the execution of other processes, and communicates with the local \ac{VSCode} instance for comfortable access to these functions \cite{vscodedevcontainer}. The functionality to make remote processes available locally via port forwarding is useful to allow the usage of local programes with these remote services. This type of remote development works for \acs{SSH} connections, the \ac{WSL}, and on containers. \ac{WSL} is a feature to provide a Linux environment on Windows without the need of a full \ac{VM}. The implementation of Docker for Windows is build upon this functionality. Details on the use and configuration of this function are described in detail in Section \ref{ssec::imp_process}. All these functions can be used without \ac{VSCode} by using remote filesystem mounts, port-forwarding or terminal editors, but it requires more configuration effort.
+        \ac{VSCode} is a free platform independent editor from Microsoft with extensive extendibility wich is used by over 70\% of all developers on StackOverflow~\cite{stackoverflow2021}. One of its key beneficial features for virtualized work environments is its Remote Development function. This, officially provided, extension provides the comfort of a graphical \ac{UI} while running the code, the application and auxiliary processes like debugger on another machine. As Figure \ref{fig::vscoderemote} shows, \ac{VSCode} connects to the remote machine, installs a server instance of the editor that manages access to the file system and the execution of other processes, and communicates with the local \ac{VSCode} instance for comfortable access to these functions \cite{vscodedevcontainer}. The functionality to make remote processes available locally via port forwarding is useful to allow the usage of local programes with these remote services. This type of remote development works for \acs{SSH} connections, the \ac{WSL}, and on containers. \ac{WSL} is a built-in feature to provide a Linux environment on Windows without the need of a full \ac{VM}. The implementation of Docker for Windows is build upon this functionality. Details on the use and configuration of this function are described in detail in Section \ref{ssec::imp_process}. All these functions can be used without \ac{VSCode} by using remote filesystem mounts, port-forwarding or terminal editors, but it requires more configuration effort.
         \begin{figure}[]
             \centering
             \includegraphics[width=.95\textwidth]{vscode-remote.png}
@@ -220,16 +227,18 @@ The following Section will display the current status of a typical \ac{DevEnv}, 
         In addition to the tools mentioned above, other auxiliary programes are used. The use of scripts is intended to simplify the work and make recurring tasks easier. \wordhighlight{Bash} scripts can be used natively on Linux and macOS, the installation of Git also brings Bash support to Windows. This allows operations to be performed on multiple repositories, initial settings to be set and complicated build instructions to be simplified. \wordhighlight{Docker Compose} follows the same approach and facilitates the management of multiple interrelated Docker projects. It is a program for orchestrating multiple Docker services. It ensures that interdependent services are started in the correct order and that all necessary persistent volumes are created \cite{docker2020}, \cite{dockerdocs}. The configuration for the orchestration with compose is typically specified in a \code{docker-compose.yml} file that follows the \ac{IaC} principle and is tracked in \ac{VCS}. An optional feature is to further organize the logs from the docker containers. Although Docker Compose offers color-grouped log outputs per container, these can become overwhelming if there are many containers. Since the Docker stack is used anyway, enterprise log aggregators and analysis tools like \wordhighlight{Grafana} or \wordhighlight{Elastic Search} can be used to get a persistent and personalized log dashboard. In this concept, a Grafana container is used that gets its logs from the \wordhighlight{Loki} log-shipper via a Docker plugin.
 
     \subsection{Possible Implementations}
-    \subsection{Strengths, Weaknesses and Limits}\newpage
+    \subsection{Strengths, Weaknesses and Limits}\label{ssec::limits}\newpage
 
 \section{Exemplary Prototype Implementation}\label{sec::solution_code}
     \input{inc/tikz_arch.inc}
-    % \input{inc/tikz_arch_alt.inc}
+    % \input{inc/tikz_arch_alt.inc} % Alternative
     \subsection{Current State and Goal}
+        \subsubsection{Project Stating Point}
+        \subsubsection{Target State and Goal of it}
     \subsection{Implementation Approach}\label{ssec::imp_approach}
     \subsection{The Implementation Process}\label{ssec::imp_process}
     \subsection{Encountered Challenges and Limits}
-    \subsection{Final State}
+    \subsection{Final State} \label{sec::final}
 %     \begin{lstlisting}[language=bash, frame=single, backgroundcolor=\color{codebg}]
 % Here is the codes format i want to show in latex
 %     \end{lstlisting}
@@ -244,8 +253,8 @@ The following Section will display the current status of a typical \ac{DevEnv}, 
 \section{Conclusion}\label{sec::conclusion}
 
 % STATS
-% 5500 Words
-% 31.200/36.500 Characters
+% 6000 Words
+% 34.200/40.200 Characters
 
 \newpage
 % Anhang
@@ -256,7 +265,7 @@ The following Section will display the current status of a typical \ac{DevEnv}, 
 \section*{Appendix}
 \addcontentsline{toc}{section}{Appendix}
 
-%Abkürzungsverzeichnis
+% Abbreviations
 \input{inc/shorts.inc}
 \newpage
 
@@ -267,12 +276,14 @@ The following Section will display the current status of a typical \ac{DevEnv}, 
 \listoftables
 \lstlistoflistings{}
 
-
 %Bibliographie
 \addcontentsline{toc}{section}{References}
-\bibliographystyle{IEEEtranSA}
 % \bibliographystyle{alpha}
+\bibliographystyle{IEEEtranSA}
 \bibliography{bib/sources}
+
+% Authorship
 \include{inc/ensure.inc}
 
 \end{document}
+% END DOC/EOF
