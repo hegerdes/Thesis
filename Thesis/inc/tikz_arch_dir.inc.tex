@@ -1,0 +1,60 @@
+% !TeX root = ../thesis_main.tex
+\begin{figure}[]
+  \begin{forest}
+      for tree={
+        font=\ttfamily,
+        grow'=0,
+        child anchor=west,
+        parent anchor=south,
+        anchor=west,
+        calign=first,
+        edge path={
+          \noexpand\path [draw, \forestoption{edge}]
+          (!u.south west) + (7.5pt,0) |- node[fill, inner sep=1pt] {} (.child anchor)\forestoption{edge label};
+        },
+        before typesetting nodes={
+          if n=1
+            {insert before={[,phantom ]}}
+            {}
+        },
+        s sep=1.5pt,
+        fit=band,
+        before computing xy={l=15pt},
+      }
+    [ProjectRoot
+      [manage-reop
+        [configs]
+        [scrips]
+        [docker-compose.yml]
+      ],
+      [auth-repo
+        [src]
+        [vendor]
+        [Dockerfile]
+        [composer.json]
+      ],
+      [device-repo
+        [src]
+        [node\_modules]
+        [Dockerfile]
+        [package.json]
+      ],
+      [mqtt-con-repo
+        [src]
+        [node\_modules]
+        [Dockerfile]\
+        [package.json]
+      ],
+      [webapp-repo
+        [src]
+        [node\_modules]
+        [Dockerfile]
+        [package.json]
+      ],
+      [docker-compose.yml \textit{(symlink)}]
+    ]
+  \end{forest}
+
+  \caption{Directory Structure of the Project}
+  \label{fig::dirstructure}
+\end{figure}
