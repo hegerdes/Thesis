@@ -21,6 +21,7 @@
 # Out
 */exposee_main.pdf
 */thesis_main.pdf
+*.synctex(busy)
 
 # Dict files
 ltex.*.txt

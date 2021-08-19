@@ -17,7 +17,7 @@
 
         % Microservice Cluster
         \node [block, below of=webapp, xshift=-22mm, yshift=-5mm] (authbackend) {\includegraphics[width=.4\textwidth]{fig/php.png}\\Auth-Backend};
-        \node [block, below of=webapp, xshift=22mm, yshift=-5mm] (deviceapi) {\includegraphics[width=.7\textwidth]{fig/node1.png}\\Device-API};
+        \node [block, below of=webapp, xshift=22mm, yshift=-5mm] (deviceapi) {\includegraphics[width=.7\textwidth]{fig/node1.png}\\System-API};
         \node[draw,dashed,fit=(authbackend) (deviceapi), label={[above]Microservice\\Cluster}] (microcluster) {};
 
         % MQTT Service
