@@ -11,6 +11,22 @@ Config changes
 Build time
 Memory leak
 
+% \textit{Notes for me:}
+% \begin{itemize}
+%     \item Lokale Entwicklung
+%     \item API Poking
+%     \item AWS vs local
+%     \item Unit tests
+%     \item terminal hell
+%     \item log hell
+%     \item CI Tests
+%     \item End to end tests
+%     \item Zeit/Kosten
+%     \item Config aufwand. Fokus auf code nicht auf config.
+%     \item Reproduzierbarkeit
+%     \item Umgebung ist managebar
+% \end{itemize}
+
 ## Docs
 https://blog.stackblitz.com/posts/introducing-webcontainers/
 

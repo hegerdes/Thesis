@@ -21,7 +21,8 @@
 
 \pagenumbering{gobble}
 \include{inc/title.inc}
-% For printing add this
+
+% For printing add an empty page
 % \newpage\null\thispagestyle{empty}\newpage
 
 % Title & Abstract
@@ -115,7 +116,7 @@ First of will be a formal definition of DevOps, a brief description of the emerg
     \subsection{Container and Microservice Concept}\label{ssec::microservices}
     The following Section provides a basic understanding about the concepts of Microservices, how they are implemented and what possibilities they bring with them and what limitations they have. In this context, different strategies of visualization are explained, which are used in Section~\ref{sec::solution_concept}.
 
-        \subsubsection{Fundamental Idea of Microservices}
+        \subsubsection{Fundamental Idea of Microservices}\label{sssec::micro}
         The fundamental idea of \ac{MSA} is to have small self-contained, independently deployable software applications. Connections between these applications make it possible to provide a greater service with an extensive range of functions \cite{micro}. An exemplary structure of a microservice cluster is visualized in figure \ref{fig::micro}. It shows multiple Microservices that each expose one functionality to the outside world. Application end-points such as a \ac{UI} provide a broad function range by internally calling multiple Microservices. In the event of one application failure, only that specific functionality becomes unavailable, the remaining system keeps operational. Because of this architectural design feature is advised that, while working with data, each microservice has its own \ac{DB}. This prevents having a central \acl{DB} becoming a single point of failure. Another core feature of Microservices in its scalability. If the load on one part of the service increases, new instances of that application can be deployed to balance to load across all instances \cite{micro}. This concept requires a fast and reliable process to create new application instances.\newline
         The installation and setup process of new hardware can be a time-consuming task. To reduce the amount of time it takes to create new application instances, the software industry uses the concept of virtualization.
 
@@ -125,7 +126,7 @@ First of will be a formal definition of DevOps, a brief description of the emerg
             \caption{Structure of Microservices - [Altered], \\\textit{Source:~\cite{redhat_micro}}}\label{fig::micro}
         \end{figure}
 
-        \subsubsection{Virtualization and Containerization}
+        \subsubsection{Virtualization and Containerization}\label{sssec::virtual}
         Virtualization is an abstraction layer. The physical hardware (called host) runs a hypervisor that allows the execution of (multiple) virtual machines (called guests) which act like a regular computer~\cite{vmbasics}. This approach allows the usage of heterogeneous hardware without an impact on the guest operating systems thanks to the abstraction provided by the hypervisor. Without the need for specialized hardware and the dynamic allocation of resources, efficiency is also increased~\cite{redhat_venv}. Additionally, virtual systems can be managed more easily because fundamentally they are just one big file on the host's storage device. They can be created on command, cloned and deleted without the configuration steps of a physical system. In the enterprise industry it is common to use this flexibility to start additional \ac{VM}s on high load. According to a study by the \ac{IDC} more than 80\% of data center workloads are virtualized~\cite{virtualaddoption}. Virtualization comes with the benefit of security. The majority of hypervisors strictly separate the host and the guest system. The guest system is not allowed to use the hosts resources and access its files unless it is explicitly configured to do so. Compromising a \ac{VM} does not affect the host or any other \ac{VM}s~\cite{vmbasics},~\cite{redhat_venv}.\newline
         Full guest virtualization emulates a complete \ac{OS}, including the kernel, system libraries and even the majority of hardware devices. This abstraction comes with a performance penalty called overhead~\cite{vmbasics}. A supposedly more lightweight approach of virtualization is called containerization. Studies by Ericsson Research, Nomadic Lab~\cite{ieee_perfomance} and the Zhengzhou University~\cite{zhengzhou_university} conclude in fact that container based virtualization solutions provide better performance, especially in disk \acs{I/O} and network \acs{I/O} bound scenarios. Containerization focuses on the isolation of one application process in a virtual runtime using control groups and namespace technologies~\cite{cgroups}. Unlike \ac{VM}s, system and kernel functions are not virtualized and are passed through to the host machine. The result is a reduction of overhead and the ability to run additional application instances compared to \ac{VM}s with the same amount of compute resources. Figure~\ref{fig::vm_docker} visualizes these differences between these approaches. The left side shows a traditional \ac{VM} based approach, on top of the host \ac{OS} runs a hypervisor which provides three full guest \acl{OS}s each with one application. Each gust is fully isolated and with its own kernel, \ac{OS} and runtime libraries. The container based solution only needs the host \ac{OS} and provides multiple application instances with shared libraries and runtimes in separated, isolated namespaces.\newline
         Apart from the performance benefits, the presumably main advantage of containers is their scalability~\cite{cintainer_scale}. Which makes them an adequate fit for Microservices. The most popular container based virtualization solutions are Docker, Podman and LXC. A more detailed explanation of Docker can be found in Section \ref{sssec::docker}.
@@ -205,21 +206,22 @@ The following Section will display the current status of a typical \ac{DevEnv}, 
         These circumstances lead to developers spending more time managing, configuring and analyzing applications rather than actively developing them. Which leads to a slower pace of development. Slower development increases cost and leads to customers having to wait longer for new features and bug fixes, which diminishes the customer experience. If a company's business model is to offer software development as a service, slower and higher development costs mean that the company cannot compete with rival companies and loses contracts.
 
         \subsection{Propsed Solution}
-        The root cause of these problems is that local environments fundamentally differ from production environment. Local environments are deeply individualized and personalized. They cannot be set up automatically and thus cannot simply be torn down and replaced in the event of errors. Long troubleshooting sessions are the consequence and slow down the progress of development.\newline
-        In the server world, virtualization technology is used for uniform and well-defined environments. With tools like Terraform or Ansible, any number of server instances can be created in a short time in exactly the same configuration. The constant and isolated application runtime environments are provided by virtualization solutions such as Docker and orchestrated and scaled with Swarm or Kubernetes.\newline
-        This thesis proposes to use exactly this virtualization approach also for local development environments. Thus, the configuration effort, the lack of testing possibilities and the occurrence of local and operating system specific errors should be reduced.
+        The root cause of these problems is that local development environments fundamentally differ from production environments. Local environments are deeply individualized and personalized. They cannot be set up automatically and thus cannot simply be torn down and replaced in the event of errors. Long troubleshooting sessions are the consequence resulting in a slow-down of the development progress.\newline
+        In the server world, virtualization technology is used for uniform and well-defined environments. With tools like Terraform or Ansible, any number of server instances can be created in a short time in exactly the same configuration. A constant and isolated application runtime environment is provided by a virtualization solution such as Docker and services are orchestrated and scaled with a Swarm or Kubernetes cluster.\newline
+        This thesis proposes to use exactly this virtualization approach for local development environments. Thus, the configuration effort, the lack of testing possibilities and the occurrence of local and operating system specific errors should be reduced.
 
 \section{Solution Concept of DevContainers}\label{sec::solution_concept}
-This section proposes the usage of Development Containers (DevContainers) as a solution to the problems of local development environments described in Section \ref{sec::problem}. DevContainers bundle the application runtime and its configuration into an isolated environment by using the lightweight virtualization approach of containers. These are explained in detail in the following section. Conditions to be fulfilled beforehand are discussed, a conceptual description is given and the available programes are explained. Finally, the advantages and limitations of this solution are outlined.
+This section proposes the usage of Development Containers (DevContainers) as a solution to the problems of local development environments described in Section \ref{sec::problem}. DevContainers combine the application runtime and its configuration into an isolated environment by using the lightweight virtualization approach of containers. These are explained in detail in the following section. Conditions to be fulfilled beforehand are discussed, a conceptual description is given and the available programes are explained. Finally, the advantages and limitations of this solution are outlined.
 
     \subsection{Description of a Conceptual Environment}
-    The idea of DevContainers is to bundle combine the application code, its runtime and configuration into an isolated system. Only the functions necessary for accessing the application are made available on the host system, everything else remains isolated. As with \ac{VM}s and containers, these can be started and stopped as required without while the application within the container has no influence on the rest of the system. When the container is started, all port, path and secret configurations are already set so that no further changes need to be made. Different branches and versions of the applications all have their own container that is completely independent of local settings. Auxiliary applications and interdependent services can all be started simultaneously and in the correct order. The DevContainer environment is independent of the host \ac{OS} and thus much closer to the production environment, potentially decreasing system specific errors. Even if something goes wrong and the environment ends up in an undefined state, the principles from the server world can be applied. The DevContainer can simply be discarded and recreated from a well-defined template within seconds. Which even can enable environments that are 100\% reproducible.\newline
-    Such a setup allows developers to choose any host \acl{OS} because all the application code is in a virtualized environment. It increases to initial setup time and prevents configuration drift because all the configuration is following the \ac{IaC} principle and ist stored as code. This way, new runtimes or dependencies can be tested without having to risk corrupting the local environment. Integration tests become easier and can be performed earlier, shortening the time until an error is detected. DevContainers promise to solve the problems described in Section \ref{sec::problem} and allow developers to focus on programming rather than configuring and maintaining their working environment.\newline
+    The idea of DevContainers is to bundle the application code, its runtime and configuration into an isolated system. Only the minimal necessary scope for accessing the application are made available on the host system, everything else remains isolated. As with \ac{VM}s and containers, these can be started and stopped as required while the application and the runtime within the container has no influence on the rest of the system. When the container is started, all port, path and secret configurations are already set. No manual configuration and no further steps by the developer need to be made. Different branches and versions of the applications all have their own container which is completely independent of the local settings. Auxiliary applications and interdependent services can all be started simultaneously and in the correct order. The DevContainer environment is independent of the host \ac{OS} and thus much closer to the production environment, potentially decreasing system specific errors. Even if something goes wrong and the environment ends up in an undefined state, the principles from the server world can be applied. The DevContainer can simply be discarded and recreated from a well-defined template within seconds. Which even can enable environments that are 100\% reproducible.\newline
+    Such a setup allows developers to choose any host \acl{OS} because all the application code is in a virtualized environment. It increases to initial setup time and prevents configuration drift because all configuration settings are following the \ac{IaC} principle and are stored as code. This way, new runtimes or dependencies can be tested without having to risk corrupting the local environment. Integration tests become easier and can be performed earlier, shortening the time until an error is detected. DevContainers promise to solve the problems described in Section \ref{sec::problem} and allow developers to focus on programming rather than configuring and maintaining their working environment.\newline
     Despite these potential advantages, DevContainers are not the miracle solution to all problems in software development. They have their limits and their area of application wich they are suitable for.
 
-
     \subsection{Pre-requirements for DevContainers}
-    Before the use of DevContainers one has to verify hat these are the right approach for the encountered problems and that all necessary requirements are fulfilled.
+    Before the use of DevContainers one has to verify hat these are the right approach for the encountered problems and that all necessary requirements are fulfilled.\newline
+    DevContainers are based on virtualization technology, and one of their goals is to achieve the greatest possible similarity between the development and production environments. In order to take full advantage of this possibility, the production environment must already be designed for the use of virtualization with containers.  As can be seen in Section \ref{ssec::toolsused}, the majority of virtualization solutions are based on Linux, which is the most widely used system in the server domain. Applications that require Windows can also use Windows-based containers, but these may require additional licenses and configuration, accordingly they will not be discussed further in this paper. The application to be developed must be suitable for use in a container. Containers do not offer direct graphical support by default. Functions are exposed to the outside world via the use of sockets or mounted devices. Experience in the area of virtualization and a functioning \ac{CI}/\ac{CD} pipeline for the rapid delivery of new application versions are therefore recommended.\newline
+    Although DevContainers reduce the configuration effort for each developer, the architecture and settings files for the use of DevContainers must be created once and then be used again. As Section \ref{sssec::virtual} already shows, with any kind of virtualization, regardless of whether it is VMs or containers, there is a performance overhead. If, as in a typical microservice architecture, several applications are run at the same time, this overhead adds up and places an additional load on the developer's system. Modern hardware with sufficient memory and computing capacity is therefore necessary for the use of DevContainers. The amount of additional load depends on the technology stack used. A selection of possible tools for a DevContainer setup, and those used for this work, are presented below.
 
     \subsection{Available Tools and Functionality of the Technologies Used}\label{ssec::toolsused}
     The following Section provides a deeper dive into the technologies that implement the above concepts and why they are chosen. These inner workings are relevant for later chapters as they have a direct influence on the development of the solution concept and their limitations.
@@ -253,9 +255,9 @@ This section proposes the usage of Development Containers (DevContainers) as a s
         \includegraphics[width=.9\textwidth]{architecture-containers.png}
         \caption{Architecture of \ac{VSCode} container Development setup \\\textit{Source:~\cite{vscodedevcontainer}}}\label{fig::vscodecontainer}
     \end{figure}
+
     \subsection{Strengths, Weaknesses and Limits}\label{ssec::limits}
     % VPN Zugang/keys und co. Können in container gepackt werden
-
     \newpage
 
 \section{Exemplary Prototype Implementation}\label{sec::solution_code}
@@ -281,22 +283,6 @@ This section proposes the usage of Development Containers (DevContainers) as a s
 \section{Future Potential and Outlook}\label{sec::outlook}
 \section{Conclusion}\label{sec::conclusion}
 
-
-% \textit{Notes for me:}
-% \begin{itemize}
-%     \item Lokale Entwicklung
-%     \item API Poking
-%     \item AWS vs local
-%     \item Unit tests
-%     \item terminal hell
-%     \item log hell
-%     \item CI Tests
-%     \item End to end tests
-%     \item Zeit/Kosten
-%     \item Config aufwand. Fokus auf code nicht auf config.
-%     \item Reproduzierbarkeit
-%     \item Umgebung ist managebar
-% \end{itemize}
 
 % STATS
 % 8250 Words
