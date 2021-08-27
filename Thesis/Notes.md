@@ -1,5 +1,15 @@
 # Theses-Notes
 
+
+## Titles
+
+ * Practicability analysis of homogeneous development and production environment using Microservice and DevOps tools, supported by practical example project implementation
+ * Practicability analysis of homogeneous development and production environment based on a virtualized setup
+ * The Usage of Virtualization for more efficient and flexible Software Development process (of Microservices)
+ * Adopting DevOps Tools in local Development Environments for a homogeneous Development and Production setup
+ * Designing a Virtualization based Development Environment for a more efficient and resilient Software creation process.
+
+
 ## Implementing Challenges
 Port collision/Port mapping
 Socket listening permissions

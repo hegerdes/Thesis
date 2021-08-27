@@ -42,6 +42,9 @@
 	\Large{\textsc{Institute of Computer Science}}
 	\vfill
 	\textsc{\Large{\emph{\mycourse}}}\\[0.5cm]
+	\ifx\status\draft
+		\MakeUppercase{\textbf{\textit{\status}}}\\
+	\fi
 	\HRule\\[0.4cm]
 	\vspace{8mm}
 	\Large{\textbf{{\fontfamily{ppl}\selectfont\myMaintitle}}}\\
