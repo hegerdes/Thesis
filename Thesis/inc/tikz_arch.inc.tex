@@ -40,8 +40,8 @@
         \path [line] (webapp) -- node [text width=4cm, align=center, right, yshift=3mm]{Provides Device Data \& Functionality } (deviceapi);
         % To DB
         \path [line] (authbackend) -- node [text width=2cm, align=center, left, yshift=-2mm]{Connects to} (userdb);
-        \path [line] (authbackend) -- node [text width=1cm, above,xshift=3.5mm, yshift=-1mm]{Logs} (logdb);
-        \path [line] (deviceapi) -- node [text width=1cm, above, xshift=-3.5mm, yshift=-1mm]{Logs} (logdb);
+        \path [line] (authbackend) -- node [text width=1cm, above,xshift=10mm, yshift=-5.5mm]{Event Logs} (logdb);
+        \path [line] (deviceapi) -- node [text width=1cm, above, xshift=-3.5mm, yshift=-1mm]{} (logdb);
         \path [line] (deviceapi) -- node [text width=2cm, align=center, right, yshift=-2mm]{Connects to} (devicedb);
         % MQTT Device
         \path [line ] (microcluster) -- node [align=center, above] {Uses} (mqttservice);
