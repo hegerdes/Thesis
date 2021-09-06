@@ -1,5 +1,4 @@
 # VsCode
-
 .vs
 
 # LaTeX compile stuff
@@ -27,6 +26,7 @@
 
 # Dict files
 ltex.*.txt
+Thesis/ext/*
 
 # Docs
 docs/*

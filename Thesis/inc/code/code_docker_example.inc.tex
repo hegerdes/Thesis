@@ -22,22 +22,3 @@ RUN npm install
 ENTRYPOINT [ "npm", "start" ]
 
 \end{lstlisting}
-
-
-\begin{lstlisting}[language=docker-compose-2,caption={Example docker-compose.yml},breaklines=true,label={code::compose}]
-version: "3"
-services:
-  web:
-     build: .
-     ports:
-        - 5000:5000
-     volumes:
-        - .:/code
-        - logvolume:/var/log
-
-  redis:
-     image: redis
-
-volumes:
-  logvolume:
-\end{lstlisting}

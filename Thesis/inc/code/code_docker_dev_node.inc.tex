@@ -1,0 +1,13 @@
+% !TeX root = ../thesis_main.tex
+
+\begin{lstlisting}[language=docker, frame=single, caption={NodeJS DevContainer Dockerfile},label=code::docker_dev_node]
+# BUILD
+ARG NODE_VARIANT="14-buster"
+FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:
+    ${NODE_VARIANT}
+
+WORKDIR /app
+RUN apt-get update && apt-get \
+    install -y --no-install-recommends \
+    git zsh ssh python3 vim emacs
+\end{lstlisting}

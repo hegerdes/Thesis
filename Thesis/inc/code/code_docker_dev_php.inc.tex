@@ -1,0 +1,46 @@
+% !TeX root = ../thesis_main.tex
+
+\begin{lstlisting}[language=docker, frame=single, caption={PHP DevContainer Dockerfile},label=code::docker_dev_php]
+# PHP version: 8, 8.0, 7, 7.4, 7.3
+ARG VARIANT="7.3"
+FROM mcr.microsoft.com/vscode/devcontainers/php:0-${VARIANT}
+
+RUN apt-get update && apt-get install -y vim emacs nano ssh \
+    htop less curl unzip git iputils-ping unzip cron
+
+# Install dependencies and extentions
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y libmemcached-dev zip \
+    zlib1g-dev libicu-dev libxml2-dev libssl-dev \
+    zlib1g-dev libpng-dev libjpeg-dev zlib1g-dev libzip-dev \
+    && docker-php-ext-install bcmath \
+    && docker-php-ext-install sockets \
+    && docker-php-ext-install pdo pdo_mysql\
+    && docker-php-ext-install mysqli \
+    && docker-php-ext-install mbstring \
+    && docker-php-ext-install simplexml \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install zip \
+    && a2enmod rewrite
+
+WORKDIR /var/www/html
+COPY . /var/www/html
+
+RUN curl -sS https://getcomposer.org/installer | php -- \
+    --install-dir=/usr/local/bin --filename=composer &&
+RUN composer install --no-interaction --no-plugins \
+    --no-scripts --prefer-dist && a2enmod rewrite
+
+COPY contrib/docker-apache.conf /etc/apache2/sites-enabled/
+RUN ln -s /usr/local/bin/php /usr/sbin/php \
+    && chown -R www-data:www-data /var/www/html/var/log \
+    && chown -R www-data:www-data /var/www/html/var/cache \
+    && chown -R www-data:www-data /var/www/html/var/openvpn \
+    && mv docker-entryscript.sh /docker-entryscript.sh \
+    && chmod +x /docker-entryscript.sh \
+    && mv application/configs/application.docker.php \
+    application/configs/application.php
+\end{lstlisting}
+
+
+
