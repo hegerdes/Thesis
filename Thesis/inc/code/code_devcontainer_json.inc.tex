@@ -1,0 +1,31 @@
+% !TeX root = ../thesis_main.tex
+
+\begin{lstlisting}[language=json,caption={\ac{VSCode}s Remote Container \code{devcontainer.json} Configuration File},breaklines=true,label={code::devcontainer_json}]
+{
+  "name": "MY-PYTHON-APP",
+
+  // Path to the docker-compose.yml file.
+  "dockerComposeFile": ["../../docker-compose.yml"],
+
+  // The service property for the container that VSCode uses.
+  "service": "app",
+
+  // The project folder to be opened by VSCode when connected.
+  "workspaceFolder": "/workspace",
+
+  // Keep your containers running after VS Code shuts down.
+  "shutdownAction": "none",
+
+  // Extensions to be installed when the container is created.
+  "extensions": [
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "eamodio.gitlens"
+  ],
+
+  // Runs this command after the container is created
+  "postCreateCommand": "/workspace/.devcontainer/kill_app.sh"
+}
+
+
+\end{lstlisting}

@@ -1,0 +1,26 @@
+% !TeX root = ../thesis_main.tex
+
+\begin{lstlisting}[language=docker-compose-2,caption={Examplary Python Project \code{docker-compose.yml}},breaklines=true,label={code::compose_example}]
+services:
+  app:
+    image: my-python-app
+    entrypoint: python3 app.py
+      - DB_HOST=db
+      - DB_PW=yes
+      - DB_USER=root
+    ports:
+      - 8080:8080
+    volumes:
+      ./app-src:/workspace
+
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=yes
+    ports:
+      - 3306:3306
+    volumes:
+      - sql_data:/var/lib/mysql
+volumes:
+  sql_data:
+\end{lstlisting}

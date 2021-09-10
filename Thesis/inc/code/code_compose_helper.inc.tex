@@ -1,7 +1,6 @@
 % !TeX root = ../thesis_main.tex
 
-\begin{lstlisting}[language=docker-compose-2,caption={Auxiliary Services docker-compose.yml},breaklines=true,label={code::compose_helper}]
-version: "3"
+\begin{lstlisting}[language=docker-compose-2,caption={Auxiliary Services \code{docker-compose.yml}},breaklines=true,label={code::compose_helper}]
 services:
   db:
     image: mysql
@@ -10,19 +9,16 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - db_sql_data:/var/lib/mysql
-
+      - sql_data:/var/lib/mysql
   mongo:
-    image: mongo:4.4-focal
+    image: mongo
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=none
-      - MONGO_INITDB_DATABASE=dm-cu-local
     ports:
       - 27017:27017
     volumes:
-      - db_mongo_data:/data/db
-
+      - mongo_data:/data/db
   mosquitto:
     image: eclipse-mosquitto
     ports:
@@ -30,4 +26,8 @@ services:
     volumes:
         - mosquitto_data:/mosquitto/data
         - ./manage-reop/config:/mosquitto/config
+volumes:
+  sql_data:
+  mongo_data:
+  mosquitto_data:
 \end{lstlisting}

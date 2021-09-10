@@ -1,0 +1,11 @@
+% !TeX root = ../thesis_main.tex
+
+\begin{lstlisting}[language=docker, frame=single, caption={Python DevContainer Dockerfile},label=code::docker_dev_example]
+FROM debian:buster
+RUN apt-get update && apt-get install -y \
+    git python3 python3-pip make vim emacs && \
+    pip3 install pandas numpy matpltlib
+
+#Optional
+Copy . /app
+\end{lstlisting}
