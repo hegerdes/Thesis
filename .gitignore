@@ -27,6 +27,7 @@
 # Dict files
 ltex.*.txt
 Thesis/ext/*
+Thesis/feedback/*
 
 # Docs
 docs/*

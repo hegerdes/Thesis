@@ -41,5 +41,7 @@
 
 \author{\myName}
 
-% Comments
-\definechangesauthor[name=\myName]{1}
+% Comments and todo author
+\ifx\status\draft{}
+    \definechangesauthor[name=\myName]{1}
+\fi

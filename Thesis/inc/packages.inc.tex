@@ -2,7 +2,7 @@
 \usepackage{a4wide}
 
 %\usepackage[ngerman]{babel}
-\usepackage[english]{babel}
+\usepackage[ngerman,english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
@@ -29,6 +29,12 @@
 \usepackage{lipsum}
 \usepackage{tikz}
 \usepackage{forest}
-\usepackage[commentmarkup=todo, \status]{changes}
+
+% Package for todo. Only load on draft status
+\ifx\status\draft{}
+    \setlength{\marginparwidth}{2cm}
+    \usepackage[commentmarkup=todo, \status]{changes}
+\fi
+
 \usetikzlibrary{shapes,arrows,calc,positioning,fit}
 % \usepackage{pstricks}

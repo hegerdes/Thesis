@@ -42,7 +42,7 @@
 	\Large{\textsc{Institute of Computer Science}}
 	\vfill
 	\textsc{\Large{\emph{\mycourse}}}\\[0.5cm]
-	\ifx\status\draft
+	\ifx\status\draft{}
 		\MakeUppercase{\textbf{\textit{\status}}}\\
 	\fi
 	\HRule\\[0.4cm]
@@ -52,25 +52,34 @@
 	\HRule\\[0.4cm]
 	\vspace{9mm}
 
-	\begin{minipage}{0.4\textwidth}
-		\begin{flushleft}
-			\large
-			\textit{Author}\\
-			\textsc{\myName}\\
-			\textsc{\myMatrikel}
-		\end{flushleft}
-	\end{minipage}
-	~
-	\begin{minipage}{0.4\textwidth}
-		\begin{flushright}
-			\large
-			\textit{Supervisor}\\
-			\textsc{\fistSupervisor}\\
-			\textsc{\secSupervisor}
-		\end{flushright}
-	\end{minipage}
+	\textsc{\myName}\\
+	\textsc{\myMatrikel}
 
-	\vspace{5cm}
+	\vspace{1.5cm}
+	\large
+	\textit{Supervisor}\\
+	\textsc{\fistSupervisor}\\
+	\textsc{\secSupervisor}
+
+	% \begin{minipage}{0.4\textwidth}
+	% 	\begin{flushleft}
+	% 		\large
+	% 		\textit{Author}\\
+	% 		\textsc{\myName}\\
+	% 		\textsc{\myMatrikel}
+	% 	\end{flushleft}
+	% \end{minipage}
+	% ~
+	% \begin{minipage}{0.4\textwidth}
+	% 	\begin{flushright}
+	% 		\large
+	% 		\textit{Supervisor}\\
+	% 		\textsc{\fistSupervisor}\\
+	% 		\textsc{\secSupervisor}
+	% 	\end{flushright}
+	% \end{minipage}
+
+	\vspace{3.2cm}
 	\large{\today}
 	\vfill
 	\end{titlepage}
