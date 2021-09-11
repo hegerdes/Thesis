@@ -43,22 +43,12 @@
 
 \lstdefinelanguage{yml}{
   keywords={true,false,null,y,n},
+  % basicstyle=\small,
   keywordstyle=\color{darkgray}\bfseries,
-  basicstyle=\YAMLkeystyle,
-  sensitive=false,
   comment=[l]{\#},
   morecomment=[s]{/*}{*/},
   commentstyle=\color{blue}\ttfamily,
   stringstyle=\YAMLvaluestyle\ttfamily,
-  moredelim=[l][\color{orange}]{\&},
-  moredelim=[l][\color{magenta}]{*},
-  moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},
-  morestring=[b]',
-  morestring=[b]",
-  literate =    {---}{{\ProcessThreeDashes}}3
-                {>}{{\textcolor{red}\textgreater}}1
-                {|}{{\textcolor{red}\textbar}}1
-                {\ -\ }{{\mdseries\ -\ }}3,
 }
 
 \lstdefinelanguage{docker}{

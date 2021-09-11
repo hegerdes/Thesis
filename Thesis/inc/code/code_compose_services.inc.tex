@@ -1,0 +1,27 @@
+% !TeX root = ../thesis_main.tex
+
+\begin{lstlisting}[language=docker-compose-2,caption={Auxiliary Services \code{docker-compose.yml}},breaklines=true,label={code::compose_service}]
+services:
+  system-api:
+    image: system-api/dev-container
+    entrypoint: "/workspace/.devcontainer/entrypoint.sh"
+    environment:
+      - PORT=8004
+      - MONGO_DB_HOST=mongo
+      - MONGO_DB_USER=root
+      - MONGO_DB_PW=none
+      - MONGO_DB_NAME=local-log-db
+      - SQL_HOST=db
+      - SQL_USER=root
+      - SQL_PASSWORD=yes
+      - SQL_DB_NAME=local-device-db
+    volumes:
+      - ./system-api:/workspace
+      - system_api_node_modules:/workspace/node_modules
+      - vscode_extentions:/root/.vscode-server/extensions
+    ports:
+      - 8004:8004
+volumes:
+  system_api_node_modules:
+  vscode_extentions:
+\end{lstlisting}

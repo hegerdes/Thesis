@@ -7,16 +7,13 @@ FROM ubuntu:18
 # Install nodeJS
 RUN apt-get update && apt-get install -y nodejs npm
 
-# Copy content of the Hosts "backend" folder
-# to the "app" folder in the container
-WORKDIR /app
+# Copy content of the Hosts "backend" folder to "app"
 COPY ./backend /app
 
 # Install all node-modules
 RUN npm install
 
-# Specifies the command that is executed
-# when the container starts
+# Specifies the command that is executed at container start
 ENTRYPOINT [ "npm", "start" ]
 
 \end{lstlisting}

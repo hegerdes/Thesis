@@ -1,0 +1,104 @@
+% !TeX root = ../thesis_main.tex
+
+\begin{lstlisting}[language=docker-compose-2,caption={Auxiliary Services \code{docker-compose.yml}},breaklines=true,label={code::compose_service_all}]
+services:
+  webapp:
+    image: webapp/dev-container
+    entrypoint: "/workspace/.devcontainer/entrypoint.sh"
+    environment:
+      - PORT=3000
+      - BASE_URL=http://localhost:3000
+      - AUTH_BACKEND_URL=http://localhost:80
+      - SYSTEM_BACKEND_URL=http://localhost:8090
+    volumes:
+      - ./portal-webapp:/workspace
+      - portal_node_modules:/workspace/node_modules
+      - vscode_extentions:/root/.vscode-server/extensions
+    ports:
+      - 3000:3000
+
+  system-api:
+    image: system-api/dev-container
+    entrypoint: "/workspace/.devcontainer/entrypoint.sh"
+    environment:
+      - PORT=8004
+      - MONGO_DB_HOST=mongo
+      - MONGO_DB_USER=root
+      - MONGO_DB_PW=none
+      - MONGO_DB_NAME=local-log-db
+      - SQL_HOST=db
+      - SQL_USER=root
+      - SQL_PASSWORD=yes
+      - SQL_DB_NAME=local-device-db
+    volumes:
+      - ./system-api:/workspace
+      - system_api_node_modules:/workspace/node_modules
+      - vscode_extentions:/root/.vscode-server/extensions
+    ports:
+      - 8090:8090
+
+  mqtt-endpoint:
+  image: mqtt-endpoint/dev-container
+  entrypoint: "/workspace/.devcontainer/entrypoint.sh"
+  environment:
+    - MQTT_CLIENT_ID=mqtt-connector
+    - MQTT_HOST=mosquitto
+    - MQTT_USERNAME=mqtt_user
+    - MQTT_PASSWORD=mqtt_pw
+    - HTTP_PORT=8080
+  volumes:
+    - ./mqtt-endpoint:/workspace
+    - mqtt_endpoint_api_node_modules:/workspace/node_modules
+    - vscode_extentions:/root/.vscode-server/extensions
+  ports:
+    - 8080:8080
+
+  auth-backend:
+    image: auth-backend/dev-container
+    volumes:
+      - ./auth-backend/src:/var/www/html/src
+    ports:
+      - 80:80
+
+####### Auxiliary services #######
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=yes
+    ports:
+      - 3306:3306
+    volumes:
+      - sql_data:/var/lib/mysql
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=none
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data:/data/db
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+    volumes:
+        - mosquitto_data:/mosquitto/data
+        - ./manage-reop/config:/mosquitto/config
+
+####### Database managment services #######
+  myadmin:
+    image: phpmyadmin
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=yes
+      ports:
+      - 8888:80
+volumes:
+  webapp_node_modules:
+  vscode_extentions:
+  sql_data:
+  mongo_data:
+  mosquitto_data:
+\end{lstlisting}

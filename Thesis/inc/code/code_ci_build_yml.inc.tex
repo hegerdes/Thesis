@@ -1,18 +1,20 @@
 % !TeX root = ../thesis_main.tex
 
 \begin{lstlisting}[language=yml,caption={GitLab \ac{CI} build file for Docker Images},breaklines=true,label={code::ci_build_yml}]
-map:
-  key1: "foo:bar"
-  key2: value2
-list:
-- element1
-- element2
-# This is a comment
-listOfMaps:
-- key1: value1a
-  key2: value1b
-- key1: value2a
-  key2: value2b
-
+build_dev_container:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+  variables:
+    DOCKERFILE: $CI_PROJECT_DIR/.devcontainer/Dockerfile.dev
+    BUILD_IMAGE_TAG: $CI_REGISTRY_IMAGE/dev-container:latest
+    NODE_VARIANT: 14-buster-slim
+  script:
+    - /kaniko/executor --context $CI_PROJECT_DIR
+    --build-arg NODE_VARIANT=$NODE_VARIANT
+    --dockerfile $DOCKERFILE
+    --destination $BUILD_IMAGE_TAG
+  rules:
+      - if: $CI_COMMIT_BRANCH == "master"
 
 \end{lstlisting}
