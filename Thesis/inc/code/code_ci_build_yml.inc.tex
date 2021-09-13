@@ -2,9 +2,7 @@
 
 \begin{lstlisting}[language=yml,caption={GitLab \ac{CI} build file for Docker Images},breaklines=true,label={code::ci_build_yml}]
 build_dev_container:
-  stage: build
-  image:
-    name: gcr.io/kaniko-project/executor:debug
+  image: gcr.io/kaniko-project/executor:debug
   variables:
     DOCKERFILE: $CI_PROJECT_DIR/.devcontainer/Dockerfile.dev
     BUILD_IMAGE_TAG: $CI_REGISTRY_IMAGE/dev-container:latest
@@ -15,6 +13,6 @@ build_dev_container:
     --dockerfile $DOCKERFILE
     --destination $BUILD_IMAGE_TAG
   rules:
-      - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "master"
 
 \end{lstlisting}

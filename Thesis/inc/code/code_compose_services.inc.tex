@@ -6,7 +6,7 @@ services:
     image: system-api/dev-container
     entrypoint: "/workspace/.devcontainer/entrypoint.sh"
     environment:
-      - PORT=8004
+      - PORT=8090
       - MONGO_DB_HOST=mongo
       - MONGO_DB_USER=root
       - MONGO_DB_PW=none
@@ -20,7 +20,7 @@ services:
       - system_api_node_modules:/workspace/node_modules
       - vscode_extentions:/root/.vscode-server/extensions
     ports:
-      - 8004:8004
+      - 8090:8090
 volumes:
   system_api_node_modules:
   vscode_extentions:
