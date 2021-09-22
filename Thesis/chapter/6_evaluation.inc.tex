@@ -1,0 +1,34 @@
+% !TeX root = ../thesis_main.tex
+
+\section{Performance Evaluation and Analysis}\label{sec::eval}
+In the following section the usability of the DevContainer concept is discussed and compared with other virtualization-based solutions. For this purpose a description of all metrics and comparison aspects is given in advance.
+
+\subsection{Metrics and how to Evaluate}
+The evaluation is divided into two sections. The Symbic project, before the usage of DevContainers, is compared to the DevContainer implementation presented in section \ref{ssec::imp_approach}. Subsequently, the solution described in this paper is compared to alternative solutions already existing on the market. For this purpose, the alternatives described in section \ref{ssec::alternatives} are taken into account.\newline
+For the evaluation of the DevContainer prototype in the Symbic project, several metrics are taken into account. One of the first things to look at is the number of steps that need to be taken to deploy all the necessary components of the system to the developer's machine. This approximates the approximate effort for new developers in the project. Platform specific steps are considered as well. The number of available programs is also compared. Subsequently, the interaction with the environment is analyzed. The choice of the editors and the presence of obstacles when interacting with the applications is taken into account. The system load is also taken into account here. This clarifies whether the properties of the DevContainers have a significant impact on the development work. Finally, the behavior in case of failure, the reproducibility and test possibilities are considered. \newline
+When comparing to the alternative development environments mentioned in section \ref{ssec::alternatives} the main comparison is made between the function range. This includes control over the environment, supported programming languages, the type of service provision and the pricing model.
+
+\subsection{Evaluation and Results}\label{sses::eval_compare}
+This section examines and evaluates the metrics and data collection points mentioned above. This takes place divided into two sections, first the evaluation of data for the prototype implementation of the DevContainer concept. The traditional/native development environment is directly contrasted with the DevContainer environment.
+In the absence of a direct comparison, the second section compares the DevContainer environment argumentatively with alternative solutions, both browser-based and container-based.
+
+\subsubsection{Evaluation for the Prototype Implementation}
+\include{inc/table_init.inc}
+\subsubsection{Comparison to Alternative Development Solutions}
+The evaluation is based on the available documentation and experiences made while testing these solutions at the time of writing this paper. The solution presented in this paper is compared with browser-based and container-based development environments of various vendors.
+\myparagraph{Comparison to browser-based Development Solutions}
+ToDo
+\myparagraph{Comparison to container-based Development Solutions}
+ToDo
+% Adding a local environment increases the overall amount of configuration effort, requiring a reliable, efficient way to manage it.
+\subsection{Discussion of Evaluation}
+
+% \begin{itemize}
+%     \item Anzahl der Schritte notwendig für das Einrichten einer neuen Entwicklungsumgebung
+%     \item Anzahl der zur Verfügung stehenden Programme (mit und ohne Docker)
+%     \item Gleichheit der Entwicklungsumgebung zur Produktivumgebung
+%     \item Verhalten im Fehlerfall
+%     \item Performance wie viele Container gehen unter Windows
+%     \item Vergleich zu Stackblitz, GitPod und co
+% \end{itemize}
+

@@ -1,6 +1,6 @@
 % !TeX root = ../thesis_main.tex
 
-\begin{lstlisting}[language=docker-compose-2,caption={Auxiliary Services \code{docker-compose.yml}},breaklines=true,label={code::compose_service_all}]
+\begin{lstlisting}[language=docker-compose-2,caption={All Symbic Services in one \code{docker-compose.yml}},breaklines=true,label={code::compose_service_all}]
 services:
   webapp:
     image: webapp/dev-container
@@ -96,8 +96,9 @@ services:
       ports:
       - 8888:80
 volumes:
-  webapp_node_modules:
   vscode_extentions:
+  webapp_node_modules:
+  system_api_node_modules:
   sql_data:
   mongo_data:
   mosquitto_data:

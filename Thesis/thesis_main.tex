@@ -77,32 +77,18 @@
 % Exemplary implementation
 \input{chapter/5_example.inc}
 
-\section{Performance Evaluation and Analysis}\label{sec::eval}
-In the following section, the usability of the DevContainer concept is discussed and compared with other virtualization-based solutions. For this purpose, a description of all metrics and comparison aspects is given in advance.\\
-Was wird verglichen?
-\begin{itemize}
-    \item Anzahl der Schritte notwendig für das Einrichten einer neuen Entwicklungsumgebung
-    \item Anzahl der zur Verfügung stehenden Programme (mit und ohne Docker)
-    \item Gleichheit der Entwicklungsumgebung zur Produktivumgebung
-    \item Verhalten im Fehlerfall
-    \item Performance wie viele Container gehen unter Windows
-    \item Vergleich zu Stackblitz, GitPod und co
-\end{itemize}
-\subsection{Metrics and how to Evaluate}
-The evaluation is divided into two sections. First, the Symbic project before the usage of DevContainers is compared to the DevContainer implementation presented in section \ref{ssec::imp_approach}. Subsequently, the solution described in this paper was compared with alternative solutions already existing on the market. For this purpose, the alternatives described in section \ref{ssec::alternatives} are taken into account.\newline
-
-\subsection{Evaluation and Results}\label{sses::eval_compare}
-% Adding a local environment increases the overall amount of configuration effort, requiring a reliable, efficient way to manage it.
-\subsection{Discussion of Evaluation}
+% Evaluation
+\input{chapter/6_evaluation.inc}
 
 \section{Future Potential and Outlook}\label{sec::outlook}
 \section{Conclusion}\label{sec::conclusion}
 
+%%%%%%%%%%%%%%%%%% END-Content %%%%%%%%%%%%%%%%%%
 
 \newpage
 % STATS
-% 11800 Words
-% 66.400/78.100 Characters
+% 16.900 Words
+% 94.400/111.100 Characters
 
 % Anhang
 \singlespacing{}
@@ -142,7 +128,7 @@ The evaluation is divided into two sections. First, the Symbic project before th
 \bibliography{bib/sources}
 
 % Authorship
-\include{inc/ensure.inc}
+\include{inc/ensure_english.inc}
 % or
 % \include{inc/ensure_german.inc}
 
