@@ -20,7 +20,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Setup Tectonic
+# BA - Paper
+      - name: Create Thesis
         uses: WtfJoke/setup-tectonic@v1.1.4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -28,8 +29,23 @@ jobs:
       - run: |
           tectonic --keep-intermediates --reruns 0 Thesis/thesis_main.tex
           tectonic Thesis/thesis_main.tex
-      - name: Upload pdf
+      - name: Upload Thesis
         uses: actions/upload-artifact@v2
         with:
           name: thesis_main.pdf
           path: Thesis/thesis_main.pdf
+
+# BA - Presentation
+      - name: Create Presentation
+        uses: WtfJoke/setup-tectonic@v1.1.4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          tectonic-version: 0.4.1
+      - run: |
+          tectonic --keep-intermediates --reruns 0 Presentation/thesis_presentation.tex
+          tectonic Presentation/thesis_presentation.tex
+      - name: Upload Presentation
+        uses: actions/upload-artifact@v2
+        with:
+          name: thesis_presentation.pdf
+          path: Presentation/thesis_presentation.tex
