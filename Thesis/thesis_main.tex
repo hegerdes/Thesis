@@ -16,8 +16,8 @@
 % Page style: plain or fancy pants
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhfoffset[L]{1cm} % left extra length
-\fancyhfoffset[R]{1cm} % right extra length
+\fancyhfoffset[L]{1cm} %left extra length
+\fancyhfoffset[R]{1cm} %right extra length
 \setlength{\headheight}{14.5pt}
 \rhead{\thepage}
 \lhead{\nouppercase\leftmark}
@@ -83,6 +83,8 @@
 \section{Future Potential and Outlook}\label{sec::outlook}
 \section{Conclusion}\label{sec::conclusion}
 
+% docker stats --all --format "{{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}" > out.txt
+
 %%%%%%%%%%%%%%%%%% END-Content %%%%%%%%%%%%%%%%%%
 
 \newpage
@@ -90,12 +92,21 @@
 % 16.900 Words
 % 94.400/111.100 Characters
 
-% Anhang
+% References
 \singlespacing{}
-\lhead{Appendix}
+\lhead{References}
 \renewcommand{\thesubsection}{\Alph{subsection}}
 \pagenumbering{Roman}
 \setcounter{page}{\value{lastroman}}
+
+% Bibliographie
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{IEEEtranSA}
+\bibliography{bib/sources}
+\newpage
+
+% Appendix
+\lhead{Appendix}
 \vspace*{\fill}
     \makebox[0.92\textwidth]{\Huge Appendix}
 \vspace*{\fill}
@@ -120,12 +131,6 @@
 \listoftables
 \lstlistoflistings{}
 \newpage
-
-%Bibliographie
-\addcontentsline{toc}{section}{References}
-% \bibliographystyle{alpha}
-\bibliographystyle{IEEEtranSA}
-\bibliography{bib/sources}
 
 % Authorship
 \include{inc/ensure_english.inc}
