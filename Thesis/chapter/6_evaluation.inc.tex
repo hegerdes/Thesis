@@ -1,6 +1,6 @@
 % !TeX root = ../thesis_main.tex
 
-\section{Performance Evaluation and Analysis}\label{sec::eval}
+\section{DevContainer Analysis and Evaluation}\label{sec::eval}
 In the following section the usability of the DevContainer concept is discussed and compared with other virtualization-based solutions. For this purpose a description of all metrics and comparison aspects is given in advance.
 
 \subsection{Metrics and how to Evaluate}
@@ -13,15 +13,30 @@ This section examines and evaluates the metrics and data collection points menti
 In the absence of a direct comparison, the second section compares the DevContainer environment argumentatively with alternative solutions, both browser-based and container-based.
 
 \subsubsection{Evaluation for the Prototype Implementation}
-\include{inc/table_init.inc}
-\subsubsection{Comparison to Alternative Development Solutions}
-The evaluation is based on the available documentation and experiences made while testing these solutions at the time of writing this paper. The solution presented in this paper is compared with browser-based and container-based development environments of various vendors.
-\myparagraph{Comparison to browser-based Development Solutions}
-ToDo
-\myparagraph{Comparison to container-based Development Solutions}
-ToDo
+\myparagraph{The Initial Setup Process}
+\myparagraph{Dependency Management}
+\myparagraph{Lack of Testing Options}
+\myparagraph{Performance Evaluation}
+\input{inc/table_init.inc}
+
 % Adding a local environment increases the overall amount of configuration effort, requiring a reliable, efficient way to manage it.
-\subsection{Discussion of Evaluation}
+
+\subsubsection{Comparison to Alternative Development Solutions}
+The evaluation is based on the available documentation and experiences made while testing these solutions at the time of writing this paper. The solution presented in this paper is compared with browser-based and container-based development environments of various vendors. The results of the following comparison is summarized at the end of this section in table \ref{tab::env_compare}.
+\myparagraph{Comparison to browser-based Development Solutions}
+The major distinction between the solutions presented in this thesis and browser-based development environments is the scope of supported programming languages. The alternatives Codesandbox.io and Stackblitz, presented above, only support NodeJS projects based on JavaScript or its superset TypeScript. The choice of programming language is accordingly limited, as is the ability to run multiple services in parallel. Both services lack the possibility of orchestration, as well as the installation of any utilities, which greatly limits the control over the environment. \newline
+Furthermore, not all functions of NodeJS are supported. External packages based on native \acl{OS} libraries or binaries, like the popular task-runner \code{grunt}, often do not work. This is especially true for packages based on encryption, like the \ac{SSH}-client \code{ssh2}. Control over created network sockets is missing or limited by the browser runtime. A command-line interface is missing (Codesandbox.io) or very limited (Stackblitz). Both solutions do not support debugging. Due to the browser window, the available space in the editor is limited by an always present preview window and common key combinations like \code{F1} collide with the browser keyboard shortcuts.\newline
+The advantage of this solution is that users have a working setup within seconds, due to the variety of templates. These can be edited from any device with a browser without the need to install additional programs. This makes this solution attractive for teaching purposes and fast testing of frontend projects. Since Codesandbox.io, unlike StackBlitz, runs the code on its servers, Codesandbox.io has access to all code and network traffic, which may violate confidentiality clauses. Their free pricing models only allow for public accessible development sessions and no support for private package repositories. Paid sessions vary from \$9 to \$39 for Stackblitz and \$30 to \$50 for Codesandbox.io per user per month \cite{stackblitz}, \cite{codesandbox}. \newline
+The solutions listed here also try to solve problems in modern development environments, but limit themselves to a specific scope. The limitations listed here show that only small NodeJS projects or pure frontend projects can be implemented with Codesandbox.io and Stackblitz. This is also supported by the fact that the majority of templates are build for frontend frameworks. The lack of function backend projects and the missing options for auxiliary services make these alternatives not suitable for professional development.
+
+\myparagraph{Comparison to container-based Development Solutions}
+The alternative container-based development environments Codespaces and Gitpod show distinct similarities to the solution presented in this thesis. Both solutions rely on the isolated provision of predefined runtime environments via container-based virtualization. These environments are likewise built upon a Linux system and can thus provide a development environment for any programming language. Projects that require Windows or macOS are not supported.\newline
+Gitpod is integrated in various \ac{VCS}-providers and offers the possibility to create a \ac{VSCode} instance within the browser. A local \ac{VSCode} instance can also connect to the running container, this bypasses the limited keyboard shortcuts available in a browser. Codespaces offers the same possibility, except that this service only works with GitHub.com. Within the containers, developers have full control over the system. Additional applications can be installed, debugging is possible and ordinary TCP/UDP ports can be exposed to the Internet or to the client device.\newline
+However, Codespaces and Gitpod differ in the way individual applications are organized. Both alternatives focus on the provision of one development environment for one application, while the DevContainer concept specializes in the simultaneous usage and interaction of multiple applications. Codespaces, Gitpod and the DevContainers all require that the container environment to be once manually defined and optimized. The time required is determined by the size and complexity of the project. While one container can contain any number of services this accordingly requires the resources necessary for this. Codespaces can enable a development environment for massive applications like the monolithic structured GitHub.com service (13 GB repository and many dependencies) when given 32 CPU cores and 64 GB RAM \cite{githubblogcodespace}, but this is not necessary if developers only work on one part of the project. GitHub struggled primarily with the deployment time of the container, through intensive optimization they were able to reduce the creation time from 45 minutes to less than a minute. The provisioning time of the DevContainer solution is about 10 seconds, provided that the images have already been downloaded once. Further, differentiating the solutions is their choosing of editors. The use of VSCode is recommended, but unlike Codespaces and Gitpod, developers can also opt for any other editor, as the code remains on the developer's computer.  With Codespaces and Gitpod, the container infrastructure is provided by the respective providers, so a permanent Internet connection is required and compliance with confidentiality agreements must be checked. Both services also offer options for self-hosting, but these are only included in the higher-priced subscriptions. The free versions used for the evaluation either offer only limited computing time, such as the 50 hours per month at Gitpod, or the computing capacity used is billed per minute. The paid offerings range per month and user from \$9 to \$39 for Gitpod and \$4 to \$21 for Codespaces. The DevContainer solution presented here is free as long as the company size does not exceed 250 employees or a turnover of \$10 million when using Docker Desktop. After that, prices are charged between \$5 and \$21 \cite{gitpod}, \cite{githubblogcodespace}.
+Structurally, all three solutions are similar in various points, the usability of CodeSpaces is superior due to its direct integration in GitHub.com and the resulting comfort. The massive hardware resources of Codespaces and Gitpod are not comparable with those of a developer workstation. The biggest disadvantage of these solutions is the dependence on an external service provider and the associated significantly higher costs. The existence of these solutions and the increasing number of providers conclude the potential of efficient and uniform development environments. Codespaces was only officially presented and made available during the preparation of this work and is still at an early stage. Which of the presented solutions is the most suitable for a project depends on the respective requirements. Since all three solutions do not rely on proprietary solutions, the same Docker files can be used for DevContainer, Codespaces and Gitpod. This enables easy migration between these solutions.
+
+
+\subsection{Summarized Evaluation}
 
 % \begin{itemize}
 %     \item Anzahl der Schritte notwendig für das Einrichten einer neuen Entwicklungsumgebung

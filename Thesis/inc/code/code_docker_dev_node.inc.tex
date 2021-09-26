@@ -6,5 +6,5 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:
     ${NODE_VARIANT}
 
 RUN apt-get update && apt-get install -y \
-    git zsh ssh python3 make vim emacs
+    zsh git htop ssh vim emacs python3 make
 \end{lstlisting}
