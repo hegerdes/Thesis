@@ -1,9 +1,10 @@
-% !TeX root = ../thesis_main.tex
+% !TeX root = ../..thesis_main.tex
+
 
 \begin{figure}
     \centering
-    \definecolor{mydblue}{RGB}{34, 157, 165}
-    \definecolor{host}{RGB}{4, 109, 119}
+    \definecolor{host}{RGB}{4, 108, 118}
+    \definecolor{docker}{RGB}{6, 150, 162}
     \definecolor{container}{RGB}{8, 199, 217}
     \tikzstyle{block} = [draw, rectangle, text centered]
     \tikzstyle{sum} = [draw, fill=white, circle, node distance=1cm]
@@ -16,13 +17,21 @@
     \begin{tikzpicture}[auto, align=center]
 
 
+
         % HOST, Docker, Tools
-        \node [block, fill=host, minimum height=2cm, minimum width=\textwidth] (host) {Host\\\\};
-        \node [block, fill=mydblue, minimum height=1.5cm, minimum width=0.5\textwidth -0.5cm, above of=host, xshift=0.25\textwidth, yshift=1cm] (docker) {Docker};
-        \node [draw, rectangle, dashed, minimum height=3.5cm, minimum width=0.5\textwidth -0.5cm, above of=host, xshift=-0.25\textwidth, yshift=2.5cm] (tools) {Host Tools};
+        \node [block, fill=host, minimum height=2cm, minimum width=\textwidth] (host) {\\\\Host};
+        \node [block, fill=docker, minimum height=1.5cm, minimum width=0.5\textwidth -0.5cm, above of=host, xshift=0.25\textwidth, yshift=1.4cm, align=right] (docker) {};
+        \node [draw, rectangle, dashed, minimum height=5.1cm, minimum width=0.5\textwidth -0.5cm, above of=host, xshift=-0.25\textwidth, yshift=3.2cm, label={[above]Host Tools}] (tools) {};
+        \node [above right of=host, xshift=1.8cm, yshift=1.8cm] (docker_t1) {Docker};
+        \node [right of=docker_t1, xshift=1.5cm] (docker_t2) {Engine};
+
+        % Tools
+        \node[draw,dashed,minimum height=4cm,minimum width=1.8cm,rectangle, above of=host, xshift=-6.3cm, yshift=3.2cm] (tool1){Local\\Editor};
+        \node[draw,dashed,minimum height=4cm,minimum width=1.8cm,rectangle, right of=tool1, xshift=1.3cm] (tool2){Testing\\Tools};
+        \node[draw,dashed,minimum height=4cm,minimum width=1.8cm,rectangle, right of=tool2, xshift=1.3cm] (tool3){Terminal\\Session};
 
         % APP1
-        \node [above of=docker, xshift=-2.5cm, yshift=0.5cm] (drive1) {\includegraphics[width=.05\textwidth]{fig/drive2.png}};
+        \node [above of=docker, xshift=-2.5cm, yshift=0.8cm] (drive1) {\includegraphics[width=.05\textwidth]{fig/drive2.png}};
         \node [above of=drive1] (port1) {\includegraphics[width=.04\textwidth]{fig/port.png}};
         \node [above of=port1] (title1) {APP 1};
         \begin{pgfonlayer}{background}
@@ -49,17 +58,20 @@
         \node[draw,dashed,fit=(app1) (app2) (app3), label={[above]Docker\\Network}] (network){};
 
         % Icons in host
-        \node [below of=drive1, yshift=-2.8cm] (hdirve1) {\includegraphics[width=.08\textwidth]{fig/drive1.png}};
-        \node [below of=drive2, yshift=-2.8cm] (hdirve2) {\includegraphics[width=.08\textwidth]{fig/drive1.png}};
-        \node [below of=drive3, yshift=-2.8cm] (hdirve3) {\includegraphics[width=.08\textwidth]{fig/drive1.png}};
-        \node [left of=hdirve1, xshift=-3.2cm] (hport1) {\includegraphics[width=.04\textwidth]{fig/port.png}};
-        \node [left of=hport1, xshift=-1cm] (hport2) {\includegraphics[width=.04\textwidth]{fig/port.png}};
-        \node [left of=hport2, xshift=-1cm] (hport3) {\includegraphics[width=.04\textwidth]{fig/port.png}};
+        \node [below of=drive1, yshift=-3.5cm] (hdirve1) {\includegraphics[width=.08\textwidth]{fig/drive1.png}};
+        \node [below of=drive2, yshift=-3.5cm] (hdirve2) {\includegraphics[width=.08\textwidth]{fig/drive1.png}};
+        \node [below of=drive3, yshift=-3.5cm] (hdirve3) {\includegraphics[width=.08\textwidth]{fig/drive1.png}};
+        \node [left of=hdirve1, xshift=-2.2cm] (hport1) {\includegraphics[width=.04\textwidth]{fig/port.png}};
+        \node [left of=hport1, xshift=-1.4cm] (hport2) {\includegraphics[width=.04\textwidth]{fig/port.png}};
+        \node [left of=hport2, xshift=-1.4cm] (hport3) {\includegraphics[width=.04\textwidth]{fig/port.png}};
+
+        % Ports Text
+        \node[above of=host, xshift=-3.8cm, yshift=-0.3cm] (port_text){\scriptsize{Exposed Container Ports}};
 
         % Ports arrows
-        \draw [draw,<->] (hport1) |- (1,0.8) |- (port1.west);
-        \draw [draw,<->] (hport2) |- (3.5,0.8) |- (port2.west);
-        \draw [draw,<->] (hport3) |- (6,0.8) |- (port3.west);
+        \draw [draw,<->] (hport1) |- (1,0.5) |- (port1.west);
+        \draw [draw,<->] (hport2) |- (3.5,0.5) |- (port2.west);
+        \draw [draw,<->] (hport3) |- (6,0.5) |- (port3.west);
 
         % Drive arrows
         \draw [draw,<->] (hdirve1) -- node {} (drive1);
@@ -74,6 +86,20 @@
 
         \draw [draw, double, ->] ([xshift=-4.2cm]host.north) -- ([xshift=-.15cm]tools.south);
         \draw [draw, double, <-] ([xshift=-3.8cm]host.north) -- ([xshift=0.25cm]tools.south);
+
+        % Pipes
+        \draw[black, line width=20pt] (1.275,1.9) -- ++(0,-1.12) coordinate (L1);
+        \draw[black!50,opacity=0.95, line width=19pt] (1.275,1.9) -- ++(0,-1.1) coordinate (L1);
+        \draw[fill=black!60] (1.275,1.9) ellipse (0.34 and 0.13);
+
+        \draw[black, line width=20pt] (3.77,1.9) -- ++(0,-1.12) coordinate (L1);
+        \draw[black!50,opacity=0.95, line width=19pt] (3.77,1.9) -- ++(0,-1.1) coordinate (L1);
+        \draw[fill=black!60] (3.77,1.9) ellipse (0.34 and 0.13);
+
+        \draw[black, line width=20pt] (6.275,1.9) -- ++(0,-1.12) coordinate (L1);
+        \draw[black!50,opacity=0.95, line width=19pt] (6.275,1.9) -- ++(0,-1.1) coordinate (L1);
+        \draw[fill=black!60] (6.275,1.9) ellipse (0.34 and 0.13);
+
     \end{tikzpicture}
-    \caption{Development Architecture with DevContainers}\label{fig::arch}
+    \caption{Development Architecture with DevContainers}\label{fig::devarch}
 \end{figure}
