@@ -1,0 +1,13 @@
+% !TeX root = ../thesis_main.tex
+
+\begin{lstlisting}[language=docker, frame=single, caption={NodeJS DevContainer Dockerfile},label=code::docker_dev_node]
+# Node.js version: 16-bullseye, 14-bullseye, 12-bullseye
+ARG VARIANT=16-bullseye
+FROM node:${VARIANT}
+
+# Install needed packages, yarn, nvm and other tools
+COPY install-scripts/*.sh /tmp/install-scripts/
+RUN apt-get update && bash /tmp/install-scripts/install.sh \
+    && npm install -g eslint \
+    && apt-get -y install python3 make vim emacs git ssh
+\end{lstlisting}

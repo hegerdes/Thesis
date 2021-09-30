@@ -18,7 +18,7 @@
         % Microservice Cluster
         \node [block, below of=webapp, xshift=-20mm, yshift=-5mm] (authbackend) {\includegraphics[width=.4\textwidth]{fig/php.png}\\Auth-Backend};
         \node [block, below of=webapp, xshift=20mm, yshift=-5mm] (deviceapi) {\includegraphics[width=.7\textwidth]{fig/node1.png}\\System-API};
-        \node[draw,dashed,fit=(authbackend) (deviceapi) , label={[above]MS\\Cluster}] (microcluster) {};
+        \node[draw,dashed,fit=(authbackend) (deviceapi) , label={[above]\ac{MSA}\\Cluster}] (microcluster) {};
 
         % MQTT Service
         \node [block, right of=deviceapi, xshift=2mm] (mqttcon) {\includegraphics[width=.7\textwidth]{fig/node1.png}\\MQTT Connector};
@@ -45,7 +45,7 @@
         \path [line] (deviceapi) -- node [text width=2cm, align=center, right, yshift=-2mm]{Connects to} (devicedb);
         % MQTT Device
         \path [line ] (microcluster) -- node [align=center, above] {Uses} (mqttservice);
-        \path [line ] (mqttcon) -- node [text width=2cm, align=center, above] {\acs{REST} API for} (mqttbroker);
+        \path [line ] (mqttcon) -- node [text width=2cm, align=center, above] {\acs{REST} \acs{API} for} (mqttbroker);
         \path [line,transform canvas={xshift=2mm}] (device) -- node [text width=2.5cm, align=center, right]{} (mqttbroker);
         \path [line, transform canvas={xshift=-2mm}] (mqttbroker) -- node [text width=3cm, align=center, left, yshift=-3mm]{Subscribe\\\& Publish\\Messages} (device);
 
