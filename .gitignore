@@ -35,6 +35,7 @@
 ltex.*.txt
 Thesis/ext/*
 Thesis/feedback/*
+Oberseminar/*
 
 # Docs
 docs/*
