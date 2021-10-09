@@ -13,6 +13,18 @@
 \include{inc/style.inc}
 \include{inc/listings-style.inc}
 
+% DOC START
+\begin{document}
+\pagenumbering{gobble}
+\include{inc/title.inc}
+
+% For printing add an empty page
+% \newpage\null\thispagestyle{empty}\newpage
+
+% Title & Abstract
+% \maketitle
+\input{chapter/0_abstract.inc}
+
 % Page style: plain or fancy pants
 \pagestyle{fancy}
 \fancyhf{}
@@ -23,28 +35,6 @@
 \lhead{\nouppercase\leftmark}
 \cfoot{\fancyplain{}{\thepage} }
 % \pagestyle{plain}
-
-% DOC START
-\begin{document}
-\pagenumbering{gobble}
-\include{inc/title.inc}
-
-% For printing add an empty page
-% \newpage\null\thispagestyle{empty}\newpage
-
-% Title & Abstract
-\maketitle
-\begin{otherlanguage}{english}
-    \begin{abstract}
-        \textbf{English:} \lipsum[20]
-    \end{abstract}
-\end{otherlanguage}
-\begin{otherlanguage}{ngerman}
-    \begin{abstract}
-        \textbf{German:} \lipsum[20]
-    \end{abstract}
-\end{otherlanguage}
-\newpage
 
 % Table of Contents
 \tableofcontents
