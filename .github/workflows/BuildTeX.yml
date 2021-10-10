@@ -22,7 +22,7 @@ jobs:
 
 # BA - Paper
       - name: Create Thesis
-        uses: WtfJoke/setup-tectonic@v1.1.4
+        uses: WtfJoke/setup-tectonic@v1.1.7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           tectonic-version: 0.4.1
@@ -37,7 +37,7 @@ jobs:
 
 # BA - Presentation
       - name: Create Presentation
-        uses: WtfJoke/setup-tectonic@v1.1.4
+        uses: WtfJoke/setup-tectonic@v1.1.7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           tectonic-version: 0.4.1
