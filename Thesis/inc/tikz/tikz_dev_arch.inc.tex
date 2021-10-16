@@ -3,9 +3,9 @@
 
 \begin{figure}
     \centering
-    \definecolor{host}{RGB}{4, 108, 118}
-    \definecolor{docker}{RGB}{6, 150, 162}
-    \definecolor{container}{RGB}{8, 199, 217}
+    \definecolor{host}{RGB}{6, 145, 157}
+    \definecolor{docker}{RGB}{8, 199, 217}
+    \definecolor{container}{RGB}{38, 230, 247}
     \tikzstyle{block} = [draw, rectangle, text centered]
     \tikzstyle{sum} = [draw, fill=white, circle, node distance=1cm]
     \tikzstyle{input} = [coordinate]
@@ -19,7 +19,7 @@
 
 
         % HOST, Docker, Tools
-        \node [block, fill=host, minimum height=2cm, minimum width=\textwidth] (host) {\\\\Host};
+        \node [block, fill=host, minimum height=2cm, minimum width=\textwidth] (host) {\\\\\color{black}Host};
         \node [block, fill=docker, minimum height=1.5cm, minimum width=0.5\textwidth -0.5cm, above of=host, xshift=0.25\textwidth, yshift=1.4cm, align=right] (docker) {};
         \node [draw, rectangle, dashed, minimum height=5.1cm, minimum width=0.5\textwidth -0.5cm, above of=host, xshift=-0.25\textwidth, yshift=3.2cm, label={[above]Host Tools}] (tools) {};
         \node [above right of=host, xshift=1.8cm, yshift=1.8cm] (docker_t1) {Docker};
@@ -58,20 +58,20 @@
         \node[draw,dashed,fit=(app1) (app2) (app3), label={[above]Docker\\Network}] (network){};
 
         % Icons in host
-        \node [below of=drive1, yshift=-3.5cm] (hdirve1) {\includegraphics[width=.08\textwidth]{fig/drive1.png}};
-        \node [below of=drive2, yshift=-3.5cm] (hdirve2) {\includegraphics[width=.08\textwidth]{fig/drive1.png}};
-        \node [below of=drive3, yshift=-3.5cm] (hdirve3) {\includegraphics[width=.08\textwidth]{fig/drive1.png}};
+        \node [below of=drive1, yshift=-3.6cm] (hdirve1) {\includegraphics[width=.08\textwidth]{fig/drive1.png}};
+        \node [below of=drive2, yshift=-3.6cm] (hdirve2) {\includegraphics[width=.08\textwidth]{fig/drive1.png}};
+        \node [below of=drive3, yshift=-3.6cm] (hdirve3) {\includegraphics[width=.08\textwidth]{fig/drive1.png}};
         \node [left of=hdirve1, xshift=-2.2cm] (hport1) {\includegraphics[width=.04\textwidth]{fig/port.png}};
         \node [left of=hport1, xshift=-1.4cm] (hport2) {\includegraphics[width=.04\textwidth]{fig/port.png}};
         \node [left of=hport2, xshift=-1.4cm] (hport3) {\includegraphics[width=.04\textwidth]{fig/port.png}};
 
         % Ports Text
-        \node[above of=host, xshift=-3.8cm, yshift=-0.3cm] (port_text){\scriptsize{Exposed Container Ports}};
+        \node[above of=host, xshift=-4cm, yshift=-0.36cm] (port_text){\color{black}\footnotesize{Exposed Container Ports}};
 
         % Ports arrows
-        \draw [draw,<->] (hport1) |- (1,0.5) |- (port1.west);
-        \draw [draw,<->] (hport2) |- (3.5,0.5) |- (port2.west);
-        \draw [draw,<->] (hport3) |- (6,0.5) |- (port3.west);
+        \draw [draw,<->] (hport1) |- (1,0.4) |- (port1.west);
+        \draw [draw,<->] (hport2) |- (3.5,0.4) |- (port2.west);
+        \draw [draw,<->] (hport3) |- (6,0.4) |- (port3.west);
 
         % Drive arrows
         \draw [draw,<->] (hdirve1) -- node {} (drive1);
