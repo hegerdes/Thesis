@@ -1,5 +1,8 @@
 \documentclass{beamer}
 
+\def\draft{draft}
+\def\final{final}
+\def\status{draft}
 \include{include/pres_settings.inc}
 
 %======================================================================
@@ -17,96 +20,260 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% Starten mit was aktuellem: MPTCP is here
-% Korea ISPs nutzen es. Erfolgreich
-% Croatian Hrvatski Telekom Hybrid access
-% OVH bietet eigene Services mit MPTCP an
-% Linux und SOCKS wachsen und ist einfach zu benutzen
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{MPTCP introduction}
-\subsection{State of MPTCP}
-\begin{frame}{MPTCP IS HERE!}
-  \vspace{-0.3cm}
-  \begin{block}{\normalsize Korean \& Hrvatski Telecom enabled MPTCP}
-    \begin{itemize}
-      \small
-      \setlength\itemsep{0em}
-      \item Android smartphones can bond WiFi and LTE
-      \item Allows download speeds of 800 Mbps
-      \end{itemize}
-  \end{block}
-
-  %\pause
-
-  \begin{block}{\normalsize French ISP OVH 2015}
-    \begin{itemize}
-      \small
-      \setlength\itemsep{0em}
-      \item OverTheBox service is MPTCP capable
-      \item Bond several DSL cable links
-    \end{itemize}
-  \end{block}
-
-  %\pause
-
-  \begin{block}{\normalsize Other}
-    \begin{itemize}
-      \small
-      \setlength\itemsep{0em}
-      \item Apples SIRI
-      \item Several MPTCP Linux implementations
-      \item Deployable for everyone with SOCKS
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% NOTES:
-% Geschichte über einen größeren überwachten MPTCP Datensatz
-% Rahmenbedingungen Katholische UNI Louvain Belgien
-% Dutzend 12 Clients im täglichen gebrauch
-% MPTCP 0.89 und Android 4.4, SOCKS und Traffic gecaptured
-% 6 Wochen
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{A First Analysis of Multipath TCP on Smartphones}
-  \begin{columns}
-
-    \begin{column}{0.48\textwidth}
-      \begin{itemize}
-        \setlength\itemsep{0.8em}
-        \item Catholic University of Louvain
-        \item Real word usage with a dozen of users
-        \item Linux MPTCP v0.89.5 and Android 4.4
-        \item Android with ShadowSocks
-      \end{itemize}
-    \end{column}
-
-    %\pause
-
-    \begin{column}{0.48\textwidth}
-      \begin{itemize}
-        \setlength\itemsep{0.8em}
-        \item SOCKS proxy with tcpdump
-        \item Belgium from March 8th to April 28th 2015
-        \item Total traffic of 25.4 GB in test period
-        \item Over 390,782 MPTCP connections
-      \end{itemize}
-    \end{column}
-  \end{columns}
+\section{Goal of the Thesis}
+\begin{frame}{Goal of the Thesis}
+  \begin{itemize}
+    \large
+    \setlength\itemsep{1em}
+    \setlength{\parskip}{12pt}
+    \item Possibilities to increase efficiency in programming
+          \begin{itemize}
+            \large
+            \setlength\itemsep{1em}
+            \item Investigate possible points of improvement
+            \item Developing an abstract solution concept
+            \item Applying the concept to a prototype
+            \item Evaluate and compare the concept to alternative solution
+          \end{itemize}
+  \end{itemize}
   \vfill
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% Ergebnisse: Über 50% der fälle konnte nur ein Interface genutzt werden
-% LANGE VERBINDUNG
-% PORTS: DNS;WEB;SSL;SOPTYFY;GOOGLESERVICES;CHROMECAST;
-% 65% of the observed connections last less than 10 s.
-% 86.9% carry less than 10 KBytes
-% 450 MBytes and was spread over
-% A connection establishing 42 different subflows was observed.
+% Studie von 2019 by ActiveState (Firma die sich auf coaching und Optimierung von Softwareprozessen spezialisiert)
+% Habe mir dabei angesehen wie viele Stunden Entwickler nicht aktive coden
+% Abseits von Software design und meeting Zeit sind dies die Tätigkeiten die am
+% meisten Zeit in Anspruch nehmen.
+% Neben Software Design und Meetings gehört auch Bug fixing dazu, dies hat aber
+% Überschneidungen mit coding als auch mit Problemen in Konfigurationen und Dependencies
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem Analyse}
+\begin{frame}{}
+  \begin{center}
+    Potential Bottlenecks in the development workflow
+    \vspace{0.5cm}
+    \begin{columns}[totalwidth=\textwidth]
+      \begin{column}{0.4\textwidth}
+        \begin{itemize}
+          \item Setup Configuration
+          \item Testing
+        \end{itemize}
+      \end{column}
+      \begin{column}{0.4\textwidth}
+        \begin{itemize}
+          \item Configuration
+          \item Dependencies
+        \end{itemize}
+      \end{column}
+    \end{columns}
+  \end{center}
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{coding_timepng.png}
+    \caption{\footnotesize Hours spent programming \\\textcolor{uos-grey-full}{Source: {\cite{setuppain}}}}
+  \end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTES:
+% Die Studie zeigt das die meisten Entwickler 1-4 mal im Jahr ihr System
+% wechseln oder erneuern. Einige sogar deutlich öfter
+
+% Dazu kommen neue Entwickler.
+% Dies dauert bei den meisten 2-4 Stunden und bei 1/5 sogar zwischen 4 und 18 Stunden
+% Für den GitHub.com Dienst haben die Entwickler ein scripts-to-rule-them-all geschrieben
+% Dies dauerte allein 45 min für DB updates, oder dem installieren neuer dependencies beim wechseln von branches.
+% Initiale Aufgaben wie E-Mail, VPN, Login für Git Lab/Hub, Jira etc. werden dabei nicht berücksichtigt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \Large Initial Setup
+  \end{center}
+
+  \begin{block}{}
+    \begin{itemize}
+      \small
+      \setlength\itemsep{0em}
+      \item 69\% of Developers renew their setup between 1-4 times a year
+      \item 18\% even 5-8 times a year
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{}
+    \begin{itemize}
+      \small
+      \setlength\itemsep{0em}
+      \item 44\% of Developers need 2-4 hours to setup their Environment
+      \item 14\% 4-8 hours and 6\% even over 18 hours
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{}
+    \begin{itemize}
+      \small
+      \setlength\itemsep{0em}
+      \item Installing development tools, language frameworks and IDEs
+      \item Logging into E-Mail, VPN, messenger and network-shares
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTES:
+% Und am Ende hat man das:
+% Es fehlt immer noch ein Programm, eine Bibliothek oder es wurde eine falsche
+% Version installiert. Die bringt uns zum Configurations und Dependency management
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \vspace{-1cm}
+  \begin{center}
+    \Large Intensive Setup
+  \end{center}
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{img/terminal.png}
+  \end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTES:
+% Das herstellen einer konsistenten und funktionierenden Entwicklungsumgebung
+% über mehrere Entwickler (eventuell sogar verschiedene Betriebssysteme) ist eine
+% enorme Herausforderung insbesondere in einer Microservice Architektur
+% Man muss:
+% Über Umgebungsvariablen werden in der regel Einstellungen wie HOST, PORT, USER und PW
+% für Datenbanken und andere Einstellungen übergeben. Weiteres sind z.B. API Keys
+% Die Komplexität nimmt exponential zu wenn man viele Anwendungen hat die auch noch untereinander Kommunizieren APP B -> zu APP A ...
+
+% Oftmals gibt es dann auch noch unterschiede bei den Dependencies.
+% Entwickler die an mehreren Projekten Arbeiten (häufig) müssen eventuelle
+% NodJS 12 für ein Projekt und NodeJS 14 für ein anderes benutzen.
+% Dazu kommen die zwischen Development und Production Umgebung.
+% Production läuft oft Linux 75.3% aller Webserver (w3techs) & Development oft Windows 40% Linux 25% MacOs 25% StackOverflow 2021
+
+% Einiges wird unter Windows auch nicht mehr unterstützt. Keine Entwicklung von Lagacy PHP unter Windows
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \Large Configuration \& Dependencies
+  \end{center}
+
+  \begin{block}{}
+    \begin{itemize}
+      \small
+      \setlength\itemsep{0em}
+      \item APP A needs a DB connection string with: host, user, password
+      \item APP B listens on port 8080 and requests APP A on port 3000
+    \end{itemize}
+  \end{block}
+  \begin{block}{}
+    \begin{itemize}
+      \small
+      \setlength\itemsep{0em}
+      \item Project A requires NodeJS V12 \text{\marvosymLightning} Project B requires NodeJS V14
+      \item Development uses Python 3.9 \text{\marvosymLightning} Production uses Python 3.7
+      \item Development uses PHP 7.3 \text{\marvosymLightning} Production uses legacy PHP \(\leq 7.0\)
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTES:
+% Das sind nur die Runtime Dependencies - Dependencies zwischen Anwendungen können zur
+% enormen Herausforderung werden. Alle einzelnen Anwendung müssen gestartet und dessen output überwacht werden
+
+% Das sind alle Services die XXX bei Netflix liefen. Die wird NICHT alle lokal laufen lassen
+% Aber allein ein Bruchteil davon auf dem lokalen auf dem PC zu installieren und zu starten kann schnell unübersichtlich und Fehleranfällig werden
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \Large Configuration \& Dependencies
+  \end{center}
+  \begin{figure}
+    %  \includegraphics[width=0.8\textwidth]{img/netflix.jpg}
+    % \caption{Netflix Microservice Graph}
+    \includegraphics[width=0.6\textwidth]{img/netfix.png}
+    \caption{\footnotesize Netflix's Microservice Death-Star \\\textcolor{uos-grey-full}{Source: {\cite{deathstar}}}}
+  \end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTES:
+% Wenn man ein Service Mesh hat dann ist Testing eine große Herausforderung, auch bei kleineren Diensten
+% Wenn man sich die Testing Pyramide wieder in Erinnerung ruft dann kann man quasi nur noch die Unit tests ausführen bevor man seine Änderungen in VCS pusht
+% Alles andere wird zu aufwendig auf dem lokalen PC zu installieren.
+% Zwar gibt es Mock Server, und API validations zum testen, diese garantieren jedoch nicht dass zwei Services wirklich erfolgreich kommunizieren können.
+% Deswegen können in einer MSA viele tests nur in der CI ausgeführt werden. Dort dauert es viel länger bis ein Fehler gefunden wird und das verlangsamt und verteuert den Entwicklungsprozess
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \vspace{-0.5cm}
+  \begin{center}
+    \Large Testing
+  \end{center}
+
+  \vspace{-0.5cm}
+  \begin{figure}
+    \includegraphics[width=0.58\textwidth]{img/tests-pyramid.png}
+    \caption{\footnotesize The Test-Pyramid - \textcolor{uos-grey-full}{Source: {\cite{microtest}}}}
+  \end{figure}
+  \vspace{-0.2cm}
+  \begin{block}{}
+    \begin{itemize}
+      \small
+      \setlength\itemsep{0em}
+      \item Increased testing effort in a Microservice architecture
+      \item Late error detection \(\Rightarrow \) higher repair time and costs
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\section{Concept \& Prototype}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTES:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \Large Apply solutions from the server world
+  \end{center}
+  \vspace{.8cm}
+  \begin{itemize}
+    \setlength\itemsep{1.2em}
+    \large
+    \item Abstracting the underlying hardware and system
+    \item Define and standardize the working environments
+    \item Reduce manual effort and automate processes
+    \item Allow integration on the developer system
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+  \begin{columns}[totalwidth=\textwidth]
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \includegraphics[width=1.1\textwidth]{img/docker-vm-redhat.png}
+        \caption{\footnotesize Container based virtualization - \textcolor{uos-grey-full}{Source: {\cite{redhat_pic}}}}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{itemize}
+    \setlength\itemsep{0.6em}
+        \item Container based virtualization
+        \item Lightweight as only processes are isolated
+        \item The app runtime is in a self-contained bundle
+        \item Implemented with Docker
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+
+\section{Evaluation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTES:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Data analysis}
   \vspace{-0.2cm}
@@ -114,67 +281,48 @@
     \begin{column}{\textwidth}
       \begin{table}
         \scalebox{0.7}{
-        \begin{tabular}{@{}l|l|l|l|l|l|l@{}}
-          \toprule
-          Number of subflows        & 1       & 2       & 3      & 4      & 5      & \textgreater{}5 \\ \midrule\midrule
-          Percentage of connections & 67.75\% & 29.96\% & 1.07\% & 0.48\% & 0.26\% & 0.48\%          \\ \bottomrule
-        \end{tabular}
+          \begin{tabular}{@{}l|l|l|l|l|l|l@{}}
+            \toprule
+            Number of subflows        & 1       & 2       & 3      & 4      & 5      & \textgreater{}5 \\ \midrule\midrule
+            Percentage of connections & 67.75\% & 29.96\% & 1.07\% & 0.48\% & 0.26\% & 0.48\%          \\ \bottomrule
+          \end{tabular}
         }
         \caption{\footnotesize Number of subflows per MPTCP connection, \textcolor{uos-grey-full}{Source:\cite{realMPTCP}}}
       \end{table}
     \end{column}
   \end{columns}
 
-  %\pause
+  \ifx\status\final{}
+    \pause{}
+  \fi
 
   \vspace{-0.5cm}
   \begin{table}[]
     \scalebox{0.7}{
       \begin{tabular}{@{}l|l|l|l|l@{}}
-      \toprule
-      \textbf{Port}   & \textbf{\# connections} & \textbf{\% connections} & \textbf{Bytes}     & \textbf{\% bytes}       \\ \midrule\midrule
-      53     & 107,012        & 27.4           & 17.4 MB   & \textless{}0.1  \\ \midrule
-      80     & 103,597        & 26.5           & 14,943 MB & 58.8           \\ \midrule
-      443    & 104,223        & 26.7           & 9,253 MB  & 36.4           \\ \midrule
-      4070   & 571            & 0.1            & 91.7 MB   & 0.4            \\ \midrule
-      5228   & 10,602         & 2.7            & 27.3      & 0.1            \\ \midrule
-      8009   & 10,765         & 2.8            & 0.97      & \textless{}0.1 \\ \midrule
-      Others & 54,012         & 13.8           & 1.090 MB  & 4.4            \\ \bottomrule
+        \toprule
+        \textbf{Port} & \textbf{\# connections} & \textbf{\% connections} & \textbf{Bytes} & \textbf{\% bytes} \\ \midrule\midrule
+        53            & 107,012                 & 27.4                    & 17.4 MB        & \textless{}0.1    \\ \midrule
+        80            & 103,597                 & 26.5                    & 14,943 MB      & 58.8              \\ \midrule
+        443           & 104,223                 & 26.7                    & 9,253 MB       & 36.4              \\ \midrule
+        4070          & 571                     & 0.1                     & 91.7 MB        & 0.4               \\ \midrule
+        5228          & 10,602                  & 2.7                     & 27.3           & 0.1               \\ \midrule
+        8009          & 10,765                  & 2.8                     & 0.97           & \textless{}0.1    \\ \midrule
+        Others        & 54,012                  & 13.8                    & 1.090 MB       & 4.4               \\ \bottomrule
       \end{tabular}\label{tab:traffic}
-      }
-      \caption{\footnotesize Statistics about destination port, \textcolor{uos-grey-full}{Source:~\cite{realMPTCP}}}
-    \end{table}
+    }
+    \caption{\footnotesize Statistics about destination port, \textcolor{uos-grey-full}{Source:~\cite{realMPTCP}}}
+  \end{table}
 
   %\textcolor{uos-red-full}{\Large{\(\bm{\Rightarrow}\)}} Won't result in ONE good application
 \end{frame}
 
-
-\begin{frame}{MPTCP promises to: }
-  \begin{columns}
-    \begin{column}{\textwidth}
-        \begin{center}
-          Offer resilience \\
-          \vspace{0.7cm}
-          Increases bandwidth\\
-          \vspace{0.7cm}
-          Provide seamless handovers\\
-          \vspace{0.7cm}
-          Backwards compatible and deployable\\
-          \vspace{0.6cm}
-          \ldots \\
-          \vspace{0.6cm}
-        \end{center}
-      \end{column}
-    \end{columns}
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Netzwerke sind unterschiedlich
 % RTT, Bandbreite, Zuverlässigkeit
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{MPTCP challenges}
-\subsection{Asymmetric paths}
 \begin{frame}{Asymmetric paths}
 
   \begin{center}
@@ -187,56 +335,21 @@
   \begin{table}
     \centering
     \begin{tabular}{@{}l@{}}
-      \large\tabitem{} Round Trip Time (Latency)\\[10pt]
-      \large\tabitem{} Bandwidth (Throughput)\\[10pt]
+      \large\tabitem{} Round Trip Time (Latency) \\[10pt]
+      \large\tabitem{} Bandwidth (Throughput)    \\[10pt]
       \large\tabitem{} Error rate (Reliability)
     \end{tabular}
   \end{table}
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Zwei Pfade mit RTT1 = 10x RTT2
-% Angenommen CWND 2
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Blocking}
-\begin{frame}{Blocking}
-  \begin{figure}
-    \centering
-    % \includegraphics[width=0.85\textwidth]{blocking.png}\label{fig::block}
-    \caption{\footnotesize Head-of-line blocking and receive buffer blocking, \textcolor{uos-grey-full}{Source: {\cite{blocking}}}}
-  \end{figure}
-\end{frame}
-
-
-\section{MPTCP scheduler}
-\begin{frame}{MPTCP scheduler}
-
-  \begin{enumerate}
-    \setlength\itemsep{1.6em}
-    \item Lowest-RTT-First (LRF)
-    \item BLock ESTimation (BLEST)
-    \item Shortest Transfer Time First (STTF)
-    \item Earliest Completion First (ECF)
-    \item Additional schedulers
-  \end{enumerate}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Standard
-% Füllt CWND und dann nächster. Gut für symmetrische pfade
-% Berechnung RTT
-% RTO Retransmission time out
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{LRF}
 \begin{frame}{Lowest-RTT-First}
   \begin{columns}
     \begin{column}{0.48\textwidth}
       \begin{enumerate}
         \setlength\itemsep{1.2em}
         \item Uses the subflow with the lowest RTT
-        \setcounter{enumi}{2}
+              \setcounter{enumi}{2}
         \item Use next lowest RTT
       \end{enumerate}
     \end{column}
@@ -246,7 +359,7 @@
         \setlength\itemsep{1.2em}
         \setcounter{enumi}{1}
         \item Until congestion window is filled
-        \setcounter{enumi}{3}
+              \setcounter{enumi}{3}
         \item Standard Linux scheduler
       \end{enumerate}
     \end{column}
@@ -258,200 +371,30 @@
 
   \begin{table}[]
     \begin{tabular}{@{}lll@{}}
-      \(err\)             & \(=\)& \(measured_{RTT} - predic\)                                \\
-      \(predic_{new}\)    & \(=\)& \(predic_{old} + \frac{1}{8} * err\)                       \\
-      \(variation_{new}\) & \(=\)& \(\frac{3}{4} * variation_{old} + \frac{1}{4} * \|err\|\)  \\
-      \(RTO\)             & \(=\)& \(predic + 4 * variation\)
+      \(err\)             & \(=\) & \(measured_{RTT} - predic\)                               \\
+      \(predic_{new}\)    & \(=\) & \(predic_{old} + \frac{1}{8} * err\)                      \\
+      \(variation_{new}\) & \(=\) & \(\frac{3}{4} * variation_{old} + \frac{1}{4} * \|err\|\) \\
+      \(RTO\)             & \(=\) & \(predic + 4 * variation\)
     \end{tabular}
     \caption{\small Jacobson’s Algorithm}
   \end{table}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Anwendungen die geringe Latenz brauchen VoIP, Google Maps, Gaming
-% MSS Max Segment Size
-% Skips subflows
-% Mehr Metriken
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{BLEST}
-\begin{frame}{BLock ESTimation scheduler}
-  \begin{columns}
-    \begin{column}{0.48\textwidth}
-      \begin{itemize}
-        \setlength\itemsep{1.2em}
-        \item Specifically designed for asymmetric paths
-        \item Estimate the amount of blocking
-      \end{itemize}
-    \end{column}
 
-    \begin{column}{0.48\textwidth}
-      \begin{itemize}
-        \setlength\itemsep{1.2em}
-        \item Additional send window on the connection level
-        \item Added to Linux MPTCP in June 2019
-      \end{itemize}
-    \end{column}
-  \end{columns}
-
-  %\pause
-
-  \vspace{0.6cm}
-  \begin{center}
-    Skips subflow if:
-    \begin{equation}
-      X \times \lambda > |MPTCP_{SW}| - MSS_S * (\text{\textit{inflight}}_S + 1)
-    \end{equation}\small
-    \begin{equation}
-      X=MSS_F * \left(CWND + \left(\frac{RTT_S}{RTT_F} -1 \right)/ 2 \right) \times \frac{RTT_S}{RTT_F}
-    \end{equation}
-  \end{center}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Kümmert sich nur um RTT (Smoothed RTTT)
-% Schnelles Rescheduling von ALLEN Paketen
-% Aufwendig
-% Zeit Berechnung im Anhang wenn später noch Zeit ist
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{STTF}
-\begin{frame}{Shortest Transfer Time First}
-  \begin{columns}
-    \begin{column}{0.48\textwidth}
-      \begin{itemize}
-        \setlength\itemsep{1.2em}
-        \item Similar approach as LRF
-        \item Considers enqueued packets
-        \item Quick response to network changes
-      \end{itemize}
-    \end{column}
-
-    %\pause
-
-    \begin{column}{0.48\textwidth}
-      \begin{itemize}
-        \setlength\itemsep{1.2em}
-        \item Fast rescheduling
-        \item Latency orientated scheduler
-        \item Resource heavy and complex implementation
-      \end{itemize}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Nicht Latenz orientiert
-% Berechnet auf welchem flow der Paket am ehesten ankommen würde
-% Wenn RTT_S kleiner ist wird S und F genutzt
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{ECF}
-\begin{frame}{Earliest Completion First}
-  \begin{columns}
-    \begin{column}{0.48\textwidth}
-      \begin{itemize}
-        \setlength\itemsep{1.2em}
-        \item Similar approach as LRF and STTF
-        \item Is able to skip subflows for small amounts of data transmissions
-      \end{itemize}
-    \end{column}
-
-    \begin{column}{0.48\textwidth}
-      \begin{itemize}
-        \setlength\itemsep{1.2em}
-        \item Prioritizes throughput over latency
-        \item Can also combine subflows for big transmissions
-      \end{itemize}
-    \end{column}
-  \end{columns}
-
-  %\pause
-
-  \vspace{0.6cm}
-  \begin{center}
-    Skips subflow if:
-    \begin{equation}
-      RTT_F + \frac{k}{CWND_F}\times RTT_F\ \leq RTT_S
-    \end{equation}
-\end{center}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Veranschaulichen wie sie funktionieren
-% LRF, BLEST1, BLEST2, STTF
-% 15 Pakete CWD 10 und RTT_2 = 10x RTT_1
-% RLF switched schnell die anderen nicht
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Inner workings}
-  \begin{figure}
-    \centering
-    % \includegraphics[width=0.9\textwidth]{eval_func.png}\label{fig::workings}
-    \caption{\small Scheduling decisions for a burst of 15 segments, using the LRF, BLEST, and STTF schedulers, \textcolor{uos-grey-full}{Source: {\cite{blocking}}}}
-  \end{figure}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% OTIAS Shortest Transfer time. Assumes that 1 way delay is RTT/2 Allows ensuing data. TransferTime = Transfertime + Inflight * RTT. Unable to adopt to changes
-% DAPS Delay-Aware Packet Scheduler min  receive-buffer blocking by max probability of in-order reception. Just sorts the subflows not the packages
-% RR wie CPU scheduler immer 10 auf Flow 1 und dann 10 auf Flow 2 ....
-% Redundant flute auf allen
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Additional schedulers}
-  \begin{itemize}
-    \large
-    \setlength\itemsep{1.2em}
-    \item Out-of-Order Transmission for In-Order Arrival Scheduler (OTIAS)
-    \item Delay-Aware Packet Scheduler (DAPS)
-    \item RoundRobin (RR)
-    \item Redundant Scheduler
-  \end{itemize}
-\end{frame}
-
-\section{MPTCP evaluation}
-\subsection{Functional}
-\begin{frame}{Schedulers in short}
-  \begin{center}
-    \begin{enumerate}
-      \setlength\itemsep{1.2em}
-      \item LRF und RR are not suitable for asymmetric paths\\
-      \item LRF does not consider the relative subflows RTT difference\\
-      \item BLEST and STTF both prioritize latency. Both are able to skip subflows\\
-      \item STTF is complex and heavy\\
-      \item ECF improves utilization of the fastest subflow. Prioritizes throughput\\
-    \end{enumerate}
-  \end{center}
-\end{frame}
-
-\subsection{Benchmarks}
-\begin{frame}{}
-  \begin{enumerate}
-    \setlength\itemsep{2.5em}
-    \Large
-    \item \textcolor{uos-red-full}{\textbf{Controlled latency analysis}}
-    \item \textcolor{uos-red-full}{\textbf{Controlled bandwidth analysis}}
-    \item \textcolor{uos-red-full}{\textbf{Real-World analysis}}
-  \end{enumerate}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Vergleich der suboptimalen Scheduler: Als Basisline
-% Symmetrie is LRF gut
-% Asymmetrie ist ECF meist etwas schneller
-% Ansonsten sehr ähnliche Ergebnisse
-% Soll nur zum vergleich für die nächsten Folie dienen
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Performance baseline}
   \begin{columns}
     \vspace{-2cm}
     \begin{column}{0.38\textwidth}
       \small
-        \bull{} Results for LRF, DAPS, OTIAS, ECF\\
-        \vspace{0.3cm}
-        \bull{} Figure a): WLAN/3G setup \\
-        \vspace{0.3cm}
-        \bull{} Figure b): WLAN/WLAN setup\\
-        \vspace{0.3cm}
-        \bull{} All schedulers perform similarly with marginal differences in a)\\
-        \vspace{0.3cm}
-        \bull{} Increased page load times for DAPS and OTIAS in b)\\
+      \bull{} Results for LRF, DAPS, OTIAS, ECF\\
+      \vspace{0.3cm}
+      \bull{} Figure a): WLAN/3G setup \\
+      \vspace{0.3cm}
+      \bull{} Figure b): WLAN/WLAN setup\\
+      \vspace{0.3cm}
+      \bull{} All schedulers perform similarly with marginal differences in a)\\
+      \vspace{0.3cm}
+      \bull{} Increased page load times for DAPS and OTIAS in b)\\
     \end{column}
     \begin{column}{0.58\textwidth}
       \vspace{-0.8cm}
@@ -466,124 +409,7 @@
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Künstliches Testsetup für Latenz
-% Jetzt schneidet LRF schlechter ab. Bei steigender Load und wachsender Asymmetrie
-% Schlechter als TCP
-% BLEST und STTF sehr ähnlich, wobei STTF etwas schneller meist
-% Denke an letzte Folie zum vergleich
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Latency}
-  \begin{figure}
-    \centering
-    % \includegraphics[width=1.05\textwidth]{eval_sync_async.png}\label{fig::latency}
-    \caption{\small Average transmission time for schedulers, \textcolor{uos-grey-full}{Source: {\cite{lowlatschedulers}}}}
-  \end{figure}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Künstliches Testsetup für Durchsatz
-% Steigende Asynchronität bei Bandbreite und unterschiedliche Übertragungen
-% DAPS nicht so dolle. Keine Dateien haben kaum Einfluss
-% ECF und BLEST erzielen im Vergleich gute Ergebnisse
-
-% Zweite Folie hat auch STTF mit drin. Da sieht man das ab einer gewissen Asynchronität fast kein Scheduler mehr die Vorteile von zwei  Subflows mehr nutzen kann. Wenn die Differenz > 4 ist. Auffällig ist, das STTF die große Asynchronität besser handelt
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[allowframebreaks]{Throughput}
-  \vspace{-1.5cm}
-  \begin{center}
-
-    \begin{figure}
-      % \includegraphics[width=1.06\textwidth]{ecf_dl.png}\label{fig::bandwith}
-      \caption{\small Average Download Completion Time, \textcolor{uos-grey-full}{Source: {\cite{ECF}}}}
-    \end{figure}
-
-  \end{center}
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-\begin{itemize}
-  \item Increasing asynchrony
-  \item WLAN 1 MBps and LTE 1 to 10 MBps
-\end{itemize}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-      \begin{itemize}
-        \item DAPS is always worse
-        \item ECF fastest with BLEST second
-      \end{itemize}
-    \end{column}
-  \end{columns}
-
-  \begin{columns}
-    \begin{column}{0.6\textwidth}
-      \begin{figure}
-        % \includegraphics[width=0.85\textwidth]{low_bulk.png}\label{fig::bulk}
-        \caption{\small Average goodput for TCP and MPTCP (LRF, BLEST, and STTF), \textcolor{uos-grey-full}{Source: {\cite{lowlatschedulers}}}}
-      \end{figure}
-    \end{column}
-    \begin{column}{0.4\textwidth}
-      \vspace{-0.8cm}
-      \begin{itemize}
-        \item Shows intact of growing RTT asynchrony
-        \item Throughput degrades drastically if \(\frac{\text{RTT}_2}{\text{RTT}_1} \leq4\)
-        \item A single TCP connection can deliver higher throughput (on highly asymmetric paths)
-      \end{itemize}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Real-World
-% Page load time und Object load time
-% Setting 25ms und 75ms
-% Im Vergleich zu RRF kann BLEST Objekte 26% und STTF 32% schneller laden
-% Page load time oft von der jeweiligen Internetseite abhängig und deren Aufbau
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Real-World}
-  \begin{columns}
-    \begin{column}{0.3\textwidth}
-      \small
-        \bull{} \(RTT_{WLAN} \approx 25ms\) \& \(RTT_{3G} \approx 75ms\)\\
-        \vspace{0.2cm}
-        \bull{} Object load times improved by up to 26\% (BLEST) and 32\% (STTF)\\
-        \vspace{0.2cm}
-        \bull{} Practical ECF test showed 26\% faster load of CNN-page\\
-        \vspace{0.2cm}
-        \bull{} ECF improved video streaming throughput by 16\% (WLAN-Spot \& LTE)
-    \end{column}
-    \begin{column}{0.7\textwidth}
-      \vspace{-0.8cm}
-      \begin{figure}
-        \centering
-        % \includegraphics[width=\textwidth]{low_lat_real_web.png}\label{fig::base}
-        \caption{\small Page load and object times for HTTP2, \textcolor{uos-grey-full}{Source: {\cite{lowlatschedulers}}}}
-      \end{figure}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-
-\begin{frame}{Conclusion time}
-  %\pause
-  \begin{center}
-    \begin{itemize}
-      \setlength\itemsep{1.2em}
-      \item \textcolor{uos-red-full}{\Large Best scheduler is \dots{} it depends}\\%\pause
-      \item Know your use cases\\%\pause
-      \item Default scheduler are not optimized for asymmetric paths\\%\pause
-      \item BLEST is a promising scheduler for asymmetric paths\\%\pause
-      \item Linux-MPTCP is flexible and easy adoptable\\%\pause
-      \item Development is active and MPTCP evolves fast new MPTCP RFC 6884 revision (March 2020)
-    \end{itemize}
-  \end{center}
-\end{frame}
-
 \appendix
-
-
 \begin{frame}[allowframebreaks]{References}
   \small
   \setbeamertemplate{bibliography item}[book]
