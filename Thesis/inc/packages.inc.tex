@@ -36,5 +36,8 @@
     \usepackage{lipsum}
 \fi
 
-\usetikzlibrary{shapes,arrows,calc,positioning,fit}
+\usetikzlibrary{shapes,arrows,calc,positioning,fit,external}
+% \tikzexternalize
+\tikzexternalize[prefix=generated/]
+% \tikzset{external/force remake}
 % \usepackage{pstricks}

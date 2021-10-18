@@ -3,6 +3,8 @@
 
 # LaTeX compile stuff
 *.fdb_latexmk
+*.auxlock
+*.dpth
 *.blg
 *.log
 *.out
@@ -34,6 +36,8 @@
 # Dict files
 ltex.*.txt
 Thesis/ext/*
+Evaluation/old/*
+Thesis/generated/*
 Thesis/feedback/*
 Oberseminar/*
 

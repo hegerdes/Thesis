@@ -18,7 +18,7 @@
         % Microservice Cluster
         \node [block, below of=webapp, xshift=-20mm, yshift=-5mm] (authbackend) {\includegraphics[width=.4\textwidth]{fig/php.png}\\Auth-Backend};
         \node [block, below of=webapp, xshift=20mm, yshift=-5mm] (deviceapi) {\includegraphics[width=.7\textwidth]{fig/node1.png}\\System-API};
-        \node[draw,dashed,fit=(authbackend) (deviceapi) , label={[above]\ac{MSA}\\Cluster}] (microcluster) {};
+        \node[draw,dashed,fit=(authbackend) (deviceapi) , label={[above]MSA\\Cluster}] (microcluster) {};
 
         % MQTT Service
         \node [block, right of=deviceapi, xshift=2mm] (mqttcon) {\includegraphics[width=.7\textwidth]{fig/node1.png}\\MQTT Connector};
@@ -26,9 +26,9 @@
         \node[draw,dashed,fit=(mqttbroker) (mqttcon), label={[above]Auxiliary\\Service}] (mqttservice){};
 
         % DB Stuff
-        \node[database,label=below:SQL\\User \acs{DB},database radius=.8cm,database segment height=0.42cm, below of=authbackend] (userdb) {};
-        \node[database,label=below:Logs\\Mongo\acs{DB} ,database radius=.8cm,database segment height=0.42cm, below of=webapp, yshift=-38mm] (logdb) {};
-        \node[database,label=below:SQL\\Device \acs{DB},database radius=.8cm,database segment height=0.42cm, below of=deviceapi] (devicedb) {};
+        \node[database,label=below:SQL\\User DB,database radius=.8cm,database segment height=0.42cm, below of=authbackend] (userdb) {};
+        \node[database,label=below:Logs\\MongoDB ,database radius=.8cm,database segment height=0.42cm, below of=webapp, yshift=-38mm] (logdb) {};
+        \node[database,label=below:SQL\\Device DB,database radius=.8cm,database segment height=0.42cm, below of=deviceapi] (devicedb) {};
 
         % Device
         \node [below of=mqttbroker] (device) {\includegraphics[width=.1\textwidth]{fig/device.png}\\Devices};
@@ -45,7 +45,7 @@
         \path [line] (deviceapi) -- node [text width=2cm, align=center, right, yshift=-2mm]{Connects to} (devicedb);
         % MQTT Device
         \path [line ] (microcluster) -- node [align=center, above] {Uses} (mqttservice);
-        \path [line ] (mqttcon) -- node [text width=2cm, align=center, above] {\acs{REST} \acs{API} for} (mqttbroker);
+        \path [line ] (mqttcon) -- node [text width=2cm, align=center, above] {REST API for} (mqttbroker);
         \path [line,transform canvas={xshift=2mm}] (device) -- node [text width=2.5cm, align=center, right]{} (mqttbroker);
         \path [line, transform canvas={xshift=-2mm}] (mqttbroker) -- node [text width=3cm, align=center, left, yshift=-3mm]{Subscribe\\\& Publish\\Messages} (device);
 
