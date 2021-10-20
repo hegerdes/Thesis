@@ -22,7 +22,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Goal of the Thesis}
+\section{Motivation \& Goal}
 \begin{frame}{Goal of the Thesis}
   \begin{itemize}
     \large
@@ -51,7 +51,7 @@
 % Neben Software Design und Meetings gehört auch Bug fixing dazu, dies hat aber
 % Überschneidungen mit coding als auch mit Problemen in Konfigurationen und Dependencies
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Problem Analyzes}
+\section{Restriction in Development Environments}
 \begin{frame}{}
   \begin{center}
     \large{\color{uos-red-full} Potential Bottlenecks in the development workflow}
@@ -210,53 +210,21 @@
 
 % Das sind alle Services die XXX bei Netflix liefen. Die wird NICHT alle lokal laufen lassen
 % Aber allein ein Bruchteil davon auf dem lokalen auf dem PC zu installieren und zu starten kann schnell unübersichtlich und Fehleranfällig werden
+% Wenn man ein Service Mesh hat dann ist Testing eine große Herausforderung, auch bei kleineren Diensten
+% Alles andere wird zu aufwendig auf dem lokalen PC zu installieren.
+% Zwar gibt es Mock Server, und API validations zum testen, diese garantieren jedoch nicht dass zwei Services wirklich erfolgreich kommunizieren können.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Deswegen können in einer MSA viele tests nur in der CI ausgeführt werden. Dort dauert es viel länger bis ein Fehler gefunden wird und das verlangsamt und verteuert den Entwicklungsprozess
 \begin{frame}{}
   \begin{center}
     \Large Configuration \& Dependencies
   \end{center}
   \begin{figure}
-    %  \includegraphics[width=0.8\textwidth]{img/netflix.jpg}
+    % \includegraphics[width=0.8\textwidth]{img/netflix.jpg}
     % \caption{Netflix Microservice Graph}
     \includegraphics[width=0.6\textwidth]{img/netfix.png}
     \caption{\footnotesize Netflix's Microservice Death-Star \\\textcolor{uos-grey-full}{Source: {\cite{deathstar}}}}
   \end{figure}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% NOTES:
-% Wenn man ein Service Mesh hat dann ist Testing eine große Herausforderung, auch bei kleineren Diensten
-% Wenn man sich die Testing Pyramide wieder in Erinnerung ruft dann kann man quasi nur noch die Unit tests ausführen bevor man seine Änderungen in VCS pusht
-% Alles andere wird zu aufwendig auf dem lokalen PC zu installieren.
-% Zwar gibt es Mock Server, und API validations zum testen, diese garantieren jedoch nicht dass zwei Services wirklich erfolgreich kommunizieren können.
-% Deswegen können in einer MSA viele tests nur in der CI ausgeführt werden. Dort dauert es viel länger bis ein Fehler gefunden wird und das verlangsamt und verteuert den Entwicklungsprozess
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-  \vspace{-0.5cm}
-  \begin{center}
-    \Large Testing
-  \end{center}
-
-  \vspace{-0.5cm}
-  \begin{figure}
-    \includegraphics[width=0.58\textwidth]{img/tests-pyramid.png}
-    \caption{\footnotesize The Test-Pyramid - \textcolor{uos-grey-full}{Source: {\cite{microtest}}}}
-  \end{figure}
-  \vspace{-0.2cm}
-
-  \ifx\status\final{}
-    \pause{}
-  \fi
-
-
-  \begin{block}{}
-    \begin{itemize}
-      \small
-      \setlength\itemsep{0em}
-      \item Increased testing effort in a microservice architecture
-      \item Late error detection \(\Rightarrow \) higher repair costs and time
-    \end{itemize}
-  \end{block}
 \end{frame}
 
 
@@ -369,6 +337,17 @@
   \end{figure}
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTES:
+% PaaS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \Huge \color{uos-red-full} DEMO
+  \end{center}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
 % PaaS
@@ -383,20 +362,6 @@
   \begin{figure}
     \includegraphics[width=\textwidth]{img/project.pdf}
   \end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{Dockerfile}
-  \begin{lstlisting}[language=docker, frame=single, basicstyle=\footnotesize, caption={NodeJS DevContainer Dockerfile},label=code::docker_dev_node]
-# Node.js version: 16-bullseye, 14-bullseye, 12-bullseye
-ARG VARIANT=16-bullseye
-FROM node:${VARIANT}
-
-# Install needed packages, yarn, nvm and other tools
-COPY install-scripts/*.sh /tmp/install-scripts/
-RUN apt update && bash /tmp/install-scripts/install.sh \
-  && apt-get -y install python3 make vim emacs git ssh \
-  && npm install -g eslint
-      \end{lstlisting}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -426,11 +391,7 @@ services:
 \end{frame}
 
 
-\begin{frame}{}
-  \begin{center}
-    \Huge \color{uos-red-full} DEMO
-  \end{center}
-\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
@@ -486,38 +447,6 @@ services:
   \end{columns}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% NOTES:
-% PaaS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-  \vspace{-0.2cm}
-  \begin{columns}[totalwidth=\textwidth]
-    \begin{column}{\textwidth}
-      \begin{center}
-        \LARGE TODO - REPLACE
-      \end{center}
-    \end{column}
-  \end{columns}
-
-
-  \begin{table}[]
-    \scalebox{0.7}{
-      \begin{tabular}{@{}l|l|l|l|l@{}}
-        \toprule
-        \textbf{Port} & \textbf{\# connections} & \textbf{\% connections} & \textbf{Bytes} & \textbf{\% bytes} \\ \midrule\midrule
-        53            & 107,012                 & 27.4                    & 17.4 MB        & \textless{}0.1    \\ \midrule
-        80            & 103,597                 & 26.5                    & 14,943 MB      & 58.8              \\ \midrule
-        443           & 104,223                 & 26.7                    & 9,253 MB       & 36.4              \\ \midrule
-        4070          & 571                     & 0.1                     & 91.7 MB        & 0.4               \\ \midrule
-        5228          & 10,602                  & 2.7                     & 27.3           & 0.1               \\ \midrule
-        8009          & 10,765                  & 2.8                     & 0.97           & \textless{}0.1    \\ \midrule
-        Others        & 54,012                  & 13.8                    & 1.090 MB       & 4.4               \\ \bottomrule
-      \end{tabular}\label{tab:traffic}
-    }
-    \caption{\footnotesize Statistics about destination port, \textcolor{uos-grey-full}{Source:~\cite{realMPTCP}}}
-  \end{table}
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
@@ -565,23 +494,6 @@ services:
 \end{frame}
 
 
-\begin{frame}{}
-  \begin{table}[]
-    \scalebox{0.7}{
-      \begin{tabular}{@{}lp{.18\textwidth}p{.12\textwidth}p{.12\textwidth}p{.24\textwidth}p{.18\textwidth}p{.14\textwidth}@{}}
-        \toprule
-                   & Orchest-ration    & Lang-uages & Server/\newline Self Hosted & Network Support & Package\newline Support        & Pricing               \\ \toprule
-        Codesand                                                                                                                                             \\box.io & no                                      & NodeJS           & yes/no                     & HTTP - accessible from the web             & restricted for native packages & Free, 30\$, 56\$      \\
-        Stackblitz & no                & NodeJS     & no/yes                      & Only WebSockets & no support for native packages & Free, 9\$, 39\$       \\
-        Gitpod     & within containers & any        & yes/yes                     & Full TCP/UDP    & any                            & Free, 9\$, 25\$, 39\$ \\
-        Code                                                                                                                                                 \\Spaces     & within containers                     & any              & yes/yes                    & Full TCP/UDP                               & any                            & Free, 4\$, 21\$       \\
-        Dev                                                                                                                                                  \\Container   & within containers*   & any              & yes/yes                    & Full TCP/UDP                               & any                            & Free, 5*\$, 7*\$, 21*\$               \\
-      \end{tabular}
-    }
-    \caption{Comparison of Different Development Solutions}\label{tab::env_compare}
-  \end{table}
-\end{frame}
-
 \subsection{Outlook}
 \begin{frame}{Outlook}
   \begin{itemize}
@@ -610,5 +522,67 @@ services:
     Any questions?
   \end{center}
 \end{frame}
+
+\begin{frame}{}
+  \begin{table}[]
+    \scalebox{0.7}{
+      \begin{tabular}{@{}lp{.18\textwidth}p{.12\textwidth}p{.12\textwidth}p{.24\textwidth}p{.18\textwidth}p{.14\textwidth}@{}}
+        \toprule
+                   & Orchest-ration    & Lang-uages & Server/\newline Self Hosted & Network Support & Package\newline Support        & Pricing               \\ \toprule
+        Codesand                                                                                                                                             \\box.io & -                                      & NodeJS           & \checkmark/-                     & HTTP - accessible from the web             & restricted for native packages & Free, 30\$, 56\$      \\
+        Stackblitz & -                & NodeJS     & -/\checkmark                      & Only WebSockets & no support for native packages & Free, 9\$, 39\$       \\
+        Gitpod     & within containers & any        & \checkmark/\checkmark                     & Full TCP/UDP    & any                            & Free, 9\$, 25\$, 39\$ \\
+        Code                                                                                                                                                 \\Spaces     & within containers                     & any              & \checkmark/\checkmark                    & Full TCP/UDP                               & any                            & Free, 4\$, 21\$       \\
+        Dev                                                                                                                                                  \\Container   & within containers*   & any              & \checkmark/\checkmark                    & Full TCP/UDP                               & any                            & Free, 5*\$, 7*\$, 21*\$               \\
+      \end{tabular}
+    }
+    \caption{Comparison of Different Development Solutions}\label{tab::env_compare}
+  \end{table}
+\end{frame}
+
+
+\begin{frame}[fragile]{Dockerfile}
+  \begin{lstlisting}[language=docker, frame=single, basicstyle=\footnotesize, caption={NodeJS DevContainer Dockerfile},label=code::docker_dev_node]
+# Node.js version: 16-bullseye, 14-bullseye, 12-bullseye
+ARG VARIANT=16-bullseye
+FROM node:${VARIANT}
+
+# Install needed packages, yarn, nvm and other tools
+COPY install-scripts/*.sh /tmp/install-scripts/
+RUN apt update && bash /tmp/install-scripts/install.sh \
+  && apt-get -y install python3 make vim emacs git ssh \
+  && npm install -g eslint
+      \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}{}
+  \vspace{-0.5cm}
+  \begin{center}
+    \Large Testing
+  \end{center}
+
+  \vspace{-0.5cm}
+  \begin{figure}
+    \includegraphics[width=0.58\textwidth]{img/tests-pyramid.png}
+    \caption{\footnotesize The Test-Pyramid - \textcolor{uos-grey-full}{Source: {\cite{microtest}}}}
+  \end{figure}
+  \vspace{-0.2cm}
+
+  \ifx\status\final{}
+    \pause{}
+  \fi
+
+
+  \begin{block}{}
+    \begin{itemize}
+      \small
+      \setlength\itemsep{0em}
+      \item Increased testing effort in a microservice architecture
+      \item Late error detection \(\Rightarrow \) higher repair costs and time
+    \end{itemize}
+  \end{block}
+\end{frame}
+
 
 \end{document}

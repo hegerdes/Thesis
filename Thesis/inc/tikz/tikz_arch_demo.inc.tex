@@ -1,0 +1,34 @@
+% !TeX root = ../thesis_main.tex
+\begin{figure}[!h]
+    \centering
+    \tikzstyle{block} = [rectangle, draw, fill=green!80!blue!70,
+    text width=5em, text centered, rounded corners, minimum height=4em]
+    \tikzstyle{line} = [draw, very thick, color=black!50, -latex']
+
+    \begin{tikzpicture}[
+        align=center,
+        scale=0.2,
+        node distance=3.5cm,
+        auto]
+
+        % Frontend
+        \node [] (user) {\includegraphics[width=.08\textwidth]{fig/user.png}\\User};
+        \node [block, above of=user] (webapp) {\includegraphics[width=.65\textwidth]{fig/vue.png}\\WebApp};
+
+        % % Microservice Cluster
+        \node [block, right of=webapp, xshift=15mm] (authbackend) {\includegraphics[width=.65\textwidth]{fig/python-logo.png}\\Backend};
+
+        % % DB Stuff
+        \node[database,label=below:SQL DB,database radius=.8cm,database segment height=0.46cm, right of=authbackend, xshift=15mm] (userdb) {};
+
+        % % Edges & Paths
+        \path [line] (user) -- node [text width=2.5cm, align=center, right]{Interacts\\with} (webapp);
+        % % To APIs
+        \path [line] (webapp) -- node [text width=3.5cm, align=center, above]{Request to} (authbackend);
+        % % To DB
+        \path [line] (authbackend) -- node [text width=2.4cm, align=center, above]{Connects to} (userdb);
+
+    \end{tikzpicture}
+    \caption{DemoService Architecture}\label{fig::arch_demo}
+\end{figure}
+

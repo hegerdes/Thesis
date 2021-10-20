@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+
+  latex:
+    build:
+      context: .
+      args:
+        VARIANT: latest
+        USER_UID: 1000
+        USER_GID: 1000
+    environment:
+      TEST_ENV: test
+    volumes:
+      - ..:/workspace:cached
+      - latex_extentions:/root/.vscode-server/extensions
+      - latex_extentions:/vscode/.vscode-server/extensions
+      - bash_hist:/commandhistory
+    command: sleep infinity
+    network_mode: service:uml_renderer
+
+  uml_renderer:
+    image: plantuml/plantuml-server:jetty
+    restart: unless-stopped
+    ports:
+      - 8888:8080
+
+volumes:
+  bash_hist:
+  latex_extentions:
