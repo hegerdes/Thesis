@@ -120,9 +120,13 @@
 \newpage
 
 \subsection{Additional Figures \& Tables}
+% Demo figure for presentation
+\ifx\status\draft{}
+    \input{inc/tikz/tikz_arch_demo.inc}
+\fi
+\newpage
 \input{inc/tikz/tikz_arch_dir.inc}
 \input{inc/table_compare.inc}
-\newpage
 
 % List of XXX
 \listoffigures
