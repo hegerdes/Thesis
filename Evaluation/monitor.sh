@@ -1,0 +1,46 @@
+#!/bin/bash
+sleeptime=10
+breakAfter=180
+
+# Windows RAW
+counter=0
+while true; do
+    if [ $counter -eq $breakAfter ]; then break; fi
+    echo "At run ${counter}"
+    pwsh -Command Get-Process | sed -e '1,3d' | sed -e '$ d' >> stats_win_raw.csv
+    counter=$((counter+1))
+    sleep $sleeptime
+done
+
+# Windows Docker
+counter=0
+while true; do
+    if [ $counter -eq $breakAfter ]; then break; fi
+    echo "At run ${counter}"
+    docker stats --no-stream --all --format "{{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}" cci-portal-webapp-1 cci-dm-cu-company-api-1 cci-dm-terminals-company-api-1 cci-db-1 >> stats_win_docker.txt
+
+    pwsh -Command Get-Process | sed -e '1,3d' | sed -e '$ d' >> stats_win_docker.csv
+    sleep $sleeptime
+done
+
+# Linux RAW
+counter=0
+while true; do
+    if [ $counter -eq $breakAfter ]; then break; fi
+    echo "At run ${counter}"
+    top -b -n1 | sed 1,7d >> stats_linux_raw.csv
+    counter=$((counter+1))
+    sleep $sleeptime
+done
+
+# Linux Docker
+counter=0
+while true; do
+    if [ $counter -eq $breakAfter ]; then break; fi
+    echo "At run ${counter}"
+    docker stats --no-stream --all --format "{{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}" cci_new_portal-webapp_1 cci_new_dm-cu-company-api_1 cci_new_dm-terminals-company-api_1 cci_new_db_1 >> stats_linux_docker.txt
+    top -b -n1 | sed 1,7d >> stats_linux_docker.csv
+
+    counter=$((counter+1))
+    sleep $sleeptime
+done
