@@ -3,7 +3,7 @@
 
 \def\draft{draft}
 \def\final{final}
-\def\status{draft}
+\def\status{final}
 \include{include/pres_settings.inc}
 \include{include/listings-style.inc}
 
@@ -30,6 +30,23 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
+% Motivation: Automatisierung und Steigerung von Effizienz sind Aspekte die ich
+% sehr interessant finde. Grade wenn sich damit repetitive, langwierige
+% (fehleranfällige) Aufgaben vermeiden lassen können.
+% Motto: Never spend 6 minutes doing something by hand when you can spend 6
+% hours (failing) to automate it
+
+% Im März Angefangen bei Symbic als Werksstudent zu Arbeiten und empfand die
+% Einführung und Einrichtung in Projekt mit dem ich da gearbeitet habe als
+% Zeitintensive und aufgrund des Umfangs etwas herausfordernd
+% Nicht das erste mal bei einem Projekt - Habe mich dann mehr damit beschäftigt
+% wie man das verbessern kann
+
+% 1. Kernpunkte für Verbesserung identifizieren
+% 2. Konzept für die Lösung der gefundenen Punkte entwickeln
+% 3. Konzept auf Anwendbarkeit überprüfen - Prototype
+% 4. Evaluation de Prototypen und vergleichbarer Lösungen
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation \& Goal}
 \begin{frame}{Goal of the Thesis}
@@ -54,8 +71,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
 % Studie von 2019 by ActiveState (Firma die sich auf coaching und Optimierung von Softwareprozessen spezialisiert)
-% Habe mir dabei angesehen wie viele Stunden Entwickler nicht aktive coden
-% Abseits von Software design und meeting Zeit sind dies die Tätigkeiten die am
+% Wie viele Stunden Entwickler nicht aktive coden - 62% coden 4 zwischen weniger als 1-4h
+% Abseits von Software design und meeting Zeit sind die zuvor genannten Tätigkeiten die die am
 % meisten Zeit in Anspruch nehmen.
 % Neben Software Design und Meetings gehört auch Bug fixing dazu, dies hat aber
 % Überschneidungen mit coding als auch mit Problemen in Konfigurationen und Dependencies
@@ -69,14 +86,14 @@
     \begin{columns}[totalwidth=\textwidth]
       \begin{column}{0.4\textwidth}
         \begin{itemize}
-          \item Setup Configuration
+          \item Initial Setup
           \item Testing
         \end{itemize}
       \end{column}
       \begin{column}{0.4\textwidth}
         \begin{itemize}
-          \item Configuration
           \item Dependencies
+          \item Configuration
         \end{itemize}
       \end{column}
     \end{columns}
@@ -94,14 +111,14 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% Die Studie zeigt das die meisten Entwickler 1-4 mal im Jahr ihr System
-% wechseln oder erneuern. Einige sogar deutlich öfter
-
-% Dazu kommen neue Entwickler.
-% Dies dauert bei den meisten 2-4 Stunden und bei 1/5 sogar zwischen 4 und 18 Stunden
+% Neues Setup => Initiale Aufgaben wie IDE, E-Mail, VPN, Login für Git Lab/Hub, Jira etc.
 % Für den GitHub.com Dienst haben die Entwickler ein scripts-to-rule-them-all geschrieben
 % Dies dauerte allein 45 min für DB updates, oder dem installieren neuer dependencies beim wechseln von branches.
-% Initiale Aufgaben wie E-Mail, VPN, Login für Git Lab/Hub, Jira etc. werden dabei nicht berücksichtigt
+
+% Die zuvor erwähnte Studie zeigt auch das die meisten Entwickler 1-4 mal im Jahr ihr System
+% wechseln oder erneuern. Einige sogar deutlich öfter. Dazu kommen neue Entwickler.
+
+% Dies dauert bei den meisten 2-4 Stunden und bei 1/5 sogar zwischen 4 und 18 Stunden
 % Und am Ende hat man das:
 % Es fehlt immer noch ein Programm, eine Bibliothek oder es wurde eine falsche
 % Version installiert
@@ -116,8 +133,8 @@
   \begin{block}{}
     \begin{itemize}
       \small
-      \setlength\itemsep{0em}
-      \item Installing development tools, language frameworks, IDEs, E-Mail, VPN, messenger and network-shares
+      \setlength\itemsep{.6em}
+      \item Installing development tools, language frameworks, IDEs, E-Mail, VPN and team-chats
       \item 69\% of developers renew their setup between 1-4 times a year mostly taking about 2-4 hours
       \item 18\% even 5-8 times a year taking up to 18 hours
     \end{itemize}
@@ -127,7 +144,7 @@
     \pause{}
   \fi
 
-  \vspace{0.5cm}
+  \vspace{0.4cm}
   \begin{figure}
     \includegraphics[width=0.8\textwidth]{img/terminal_small.png}
     \caption{Failed bootstrap script}
@@ -137,22 +154,24 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
+% Dazu gehört auch:
 % Das herstellen einer konsistenten und funktionierenden Entwicklungsumgebung
-% über mehrere Entwickler (eventuell sogar verschiedene Betriebssysteme) ist eine
-% enorme Herausforderung insbesondere in einer Microservice Architektur
-% Man muss:
-% Über Umgebungsvariablen werden in der regel Einstellungen wie HOST, PORT, USER und PW
-% für Datenbanken und andere Einstellungen übergeben. Weiteres sind z.B. API Keys
-% Die Komplexität nimmt exponential zu wenn man viele Anwendungen hat die auch noch untereinander Kommunizieren APP B -> zu APP A ...
+% über mehrere Entwickler (eventuell sogar verschiedene Betriebssysteme)
+% Dies ist eine enorme Herausforderung insbesondere in einer Microservice Architektur
 
 % Oftmals gibt es dann auch noch unterschiede bei den Dependencies.
 % Entwickler die an mehreren Projekten Arbeiten (häufig) müssen eventuelle
 % NodJS 12 für ein Projekt und NodeJS 14 für ein anderes benutzen.
 % Dazu kommen die zwischen Development und Production Umgebung.
 % Production läuft oft Linux 75.3% aller Webserver (w3techs) & Development oft Windows 40% Linux 25% MacOs 25% StackOverflow 2021
-
 % Einiges wird unter Windows auch nicht mehr unterstützt. Keine Entwicklung von Lagacy PHP unter Windows
 
+% Man muss:
+% Über Umgebungsvariablen werden in der regel Einstellungen wie HOST, PORT, USER und PW
+% für Datenbanken und andere Einstellungen übergeben. Weiteres sind z.B. API Keys
+% Die Komplexität nimmt exponential zu wenn man viele Anwendungen hat die auch noch untereinander Kommunizieren APP B -> zu APP A ...
+
+% Am ende dann: But it works on my machine
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \vspace{-.6cm}
@@ -164,8 +183,9 @@
     \begin{itemize}
       \small
       \setlength\itemsep{0em}
-      \item APP A needs a DB connection string with: host, user, password
-      \item APP B listens on port 8080 and requests APP A on port 3000
+      \item Project A requires NodeJS V12 {\color{uos-red-full}\text{\marvosymLightning}} Project B requires NodeJS V14
+      \item Development uses Python 3.9 {\color{uos-red-full}\text{\marvosymLightning}} Production uses Python 3.7
+      \item Development uses PHP 7.3 {\color{uos-red-full}\text{\marvosymLightning}} Production uses legacy PHP \(\leq 7.0\)
     \end{itemize}
   \end{block}
 
@@ -177,9 +197,8 @@
     \begin{itemize}
       \small
       \setlength\itemsep{0em}
-      \item Project A requires NodeJS V12 {\color{uos-red-full}\text{\marvosymLightning}} Project B requires NodeJS V14
-      \item Development uses Python 3.9 {\color{uos-red-full}\text{\marvosymLightning}} Production uses Python 3.7
-      \item Development uses PHP 7.3 {\color{uos-red-full}\text{\marvosymLightning}} Production uses legacy PHP \(\leq 7.0\)
+      \item APP A needs a DB connection string with: host, user, password
+      \item APP B listens on port 8080 and requests APP A on port 3000
     \end{itemize}
   \end{block}
 \end{frame}
@@ -189,13 +208,13 @@
 % Das sind nur die Runtime Dependencies - Dependencies zwischen Anwendungen können zur
 % enormen Herausforderung werden. Alle einzelnen Anwendung müssen gestartet und dessen output überwacht werden
 
-% Das sind alle Services die XXX bei Netflix liefen. Die wird NICHT alle lokal laufen lassen
+% Das sind alle Services die 2019 bei Netflix liefen. Die wird NICHT alle lokal laufen lassen
 % Aber allein ein Bruchteil davon auf dem lokalen auf dem PC zu installieren und zu starten kann schnell unübersichtlich und Fehleranfällig werden
 % Wenn man ein Service Mesh hat dann ist Testing eine große Herausforderung, auch bei kleineren Diensten
 % Alles andere wird zu aufwendig auf dem lokalen PC zu installieren.
 % Zwar gibt es Mock Server, und API validations zum testen, diese garantieren jedoch nicht dass zwei Services wirklich erfolgreich kommunizieren können.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Deswegen können in einer MSA viele tests nur in der CI ausgeführt werden. Dort dauert es viel länger bis ein Fehler gefunden wird und das verlangsamt und verteuert den Entwicklungsprozess
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
     \Large Configuration \& Dependencies
@@ -208,11 +227,24 @@
   \end{figure}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTES:
+% Wie wird man dieser heterogenen, nicht standardisierten und zeitaufwendigen Aufgaben Herr?
+
+% => Homogenisierung mit Hilfe von Tools aus der Production Umgebung und DevOps Welt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \section{Homogenization of Development Setups}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% PaaS
+% Vereinheitlichung und Abstrahierung der zugrundeliegenden Hard und Software - OS egal
+% Configuration standardisieren und wie code behandeln (IaC)
+% Aufwendige Prozesse automatisieren (Dependency install)
+% Schnellere, Realitätsnäheres testen zwischen services erlauben (Nicht erst in CI)
+
+
+% Die Entwicklungsumgebung wie PaaS (bekannt aus der Cloud) behandeln
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{General Concept}
 \begin{frame}{}
@@ -237,7 +269,12 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% PaaS
+% Umsetzung der Abstrahierung => Container
+% Form der Virtualisierung aber leichtgewichtiger al VM. Nur Prozess wird Isoliert
+% Kein extra OS Kernel
+% Alle Dependencies sind bereits enthalten
+
+% Bekannteste und meist verwendete Lösung ist Docker (Alternative Podman & LXC)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{columns}[totalwidth=\textwidth]
@@ -267,13 +304,23 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% PaaS
+% Docker sorgt für die Homogenisierung und unabhängigkeit vom eingesetzten OS
+% Da Container und vorallem Linux auptsächlich in der Produktion eingesetzt werden:
+% Unix-based systems market share of 75.3
+% ist man so viel näher an der Produltiopnsumgebung und vermeidet unnötige Fehler
+
+% Zusammenhängende Dienste werden mit Compose verwaltet und können miteinadner kommunizieren
+% Die Configuration von einzelnen Diensten (Version, Dependencies, DB Connection info)
+% wird wie code behandelt also in VCS eingecheckt - Dazu gehört auch die Einstellungen für Docker
+
+% Projekte sind unabhängiger, isoliert schneller aufzusetzen und weniger Fehleranfällig
+% Man hat dank Docker mehr (und schneller) Software zur Verfügung die vorher Linux only war
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{block}{}
     \begin{itemize}
-      \item Applying the IaC principle
       \item Docker provides a unified, independent platform
+      \item Closer to the production environment
     \end{itemize}
   \end{block}
 
@@ -285,7 +332,7 @@
   \begin{block}{}
     \begin{itemize}
       \item Orchestrate and test multiple services
-      \item Closer to the production environment
+      \item Applying the IaC principle
     \end{itemize}
   \end{block}
 
@@ -304,7 +351,16 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% PaaS
+% Design Konzept sieht dann so aus:
+
+% Unten der Host PC auf dem der Soucecode ist
+% Auf dem läuft die Docker engine welche die Container bereitstellt
+% Diese können im Docker verwalteten Netzwerk kommunizieren.
+% Die Funktionen (durch Docker) werden per Port Mapping auf dem Host verfügbar gemacht
+% Der Nutzer kann ganz normal alle anderen Tools auf dem Host (Editor, Testingtools, Terminal) verwenden
+% Zusätzlich aber die Docker tools
+
+% Zur veranschaulichung eine Demo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \vspace{-0.2cm}
@@ -321,7 +377,13 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% PaaS
+% Einfacher Service. Ein Webfrontend - per GrapthQL Daten aus Backend abfragt die in DB sind
+
+% Ist in JS VueJs, Python, ProsgresSQL gebaut - Dies kann aber nach belieben austetrauscht werden
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Diese minimal Demo gezeigt weil ich das Symbic Projekt nicht öffentlich vorführen konnte
+% Ist aber auch bei deutlich größeren Projekten möglich
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \vspace{-.5cm}
@@ -334,7 +396,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% PaaS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Prototype}
 \begin{frame}{}
@@ -350,14 +411,13 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% PaaS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Docker-Compose}
   \begin{lstlisting}[language=docker-compose-2,basicstyle=\scriptsize,caption={Exemplary docker-compose.yml file},breaklines=true,label={code::compose_example}]
 services:
   app:
-    image: my-dev-image
-    entrypoint: start.sh
+    image: my-backend-app
+    environment:
       - DB_HOST=db
       - DB_PW=yes
       - DB_USER=root
@@ -375,11 +435,8 @@ services:
 \end{frame}
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% PaaS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Applicability \& Evaluation}
 \begin{frame}{}
@@ -441,26 +498,9 @@ services:
   \begin{center}
     \Large Comparison to Alternatives
   \end{center}
-  \vspace{-0.2cm}
+
+
   \begin{columns}[totalwidth=\textwidth]
-    \begin{column}{0.45\textwidth}
-      \begin{center}
-        {\large\color{uos-red-full}Codesandbox.io }
-      \end{center}
-      \begin{itemize}
-        \setlength\itemsep{0.6em}
-        \item Development in a Browser with a PWA
-        \item Limited programming language support
-        \item Device independent with zero configuration
-        \item Limited network capabilities
-      \end{itemize}
-    \end{column}
-
-    \ifx\status\final{}
-      \pause{}
-    \fi
-    \hspace{1cm}
-
     \begin{column}{0.45\textwidth}
       \begin{center}
         {\large\color{uos-red-full}Codespaces \& Gitpod}
@@ -468,14 +508,32 @@ services:
       \begin{itemize}
         \setlength\itemsep{0.6em}
         \item Development in a Browser or VSCode
-        \item Supports any programming language
-        \item Depends on external servers
-        \item Full TCP/UDP network support
+        \item Depends on external servers and providers
+        \item Computing capacity on demand
+        \item Focuses on one Container
       \end{itemize}
     \end{column}
+
+    \ifx\status\final{}
+      \pause{}
+    \fi
+    \hspace{1cm}
+    \begin{column}{0.45\textwidth}
+      \begin{center}
+        {\large\color{uos-red-full}DevContainer}
+      \end{center}
+      \begin{itemize}
+        \setlength\itemsep{0.6em}
+        \item Development in any editor
+        \item Full control over the code and hosting
+        \item Can be adopted step-by-step
+        \item Hybrid approach allows usage of local tools
+      \end{itemize}
+    \end{column}
+
+
   \end{columns}
 \end{frame}
-
 
 
 \subsection{Outlook}
@@ -492,13 +550,6 @@ services:
 
 
 \appendix
-\begin{frame}[allowframebreaks]{References}
-  \small
-  \setbeamertemplate{bibliography item}[book]
-  \bibliography{bib/mybib}{}
-  \bibliographystyle{IEEEtranSA}
-\end{frame}
-
 \begin{frame}{Questions?}
   \begin{center}
     Thank you for your attention!
@@ -508,18 +559,27 @@ services:
 \end{frame}
 
 
+\begin{frame}[allowframebreaks]{References}
+  \small
+  \setbeamertemplate{bibliography item}[book]
+  \bibliography{bib/mybib}{}
+  \bibliographystyle{IEEEtranSA}
+\end{frame}
+
+
+
 \begin{frame}{}
   \centering
   \begin{table}[]
     \scalebox{0.7}{
       \begin{tabular}{@{}p{.18\textwidth}p{.18\textwidth}p{.12\textwidth}p{.12\textwidth}p{.24\textwidth}p{.18\textwidth}p{.18\textwidth}@{}}
         \toprule
-        & Orchest-ration    & Lang-uages & Server/\newline Self Hosted & Network Support & Package\newline Support & Pricing \\
-        \toprule\rowcolor[HTML]{9B9B9B} Codesand-box.io & \multicolumn{1}{c}{\texttimes} & NodeJS & \checkmark/- & HTTP - accessible from the web & restricted for native packages & Free, 30\$, 56\$ \\
-        Stackblitz & \multicolumn{1}{c}{\texttimes} & NodeJS & -/\checkmark & Only WebSockets & no support for native packages & Free, 9\$, 39\$ \\
-        \rowcolor[HTML]{9B9B9B} Gitpod & within containers & any & \checkmark/\checkmark & Full TCP/UDP & any & Free, 9\$, 25\$, 39\$ \\
-        Code-Spaces & within containers & any & \checkmark/\checkmark & Full TCP/UDP & any & Free, 4\$, 21\$ \\
-        \rowcolor[HTML]{9B9B9B} Dev-Container & within containers* & any & \checkmark/\checkmark & Full TCP/UDP & any & Free, 5*\$, 7*\$, 21*\$ \\
+                                                        & Orchest-ration                 & Lang-uages & Server/\newline Self Hosted & Network Support                & Package\newline Support        & Pricing                 \\
+        \toprule\rowcolor[HTML]{9B9B9B} Codesand-box.io & \multicolumn{1}{c}{\texttimes} & NodeJS     & \checkmark/-                & HTTP - accessible from the web & restricted for native packages & Free, 30\$, 56\$        \\
+        Stackblitz                                      & \multicolumn{1}{c}{\texttimes} & NodeJS     & -/\checkmark                & Only WebSockets                & no support for native packages & Free, 9\$, 39\$         \\
+        \rowcolor[HTML]{9B9B9B} Gitpod                  & within containers              & any        & \checkmark/\checkmark       & Full TCP/UDP                   & any                            & Free, 9\$, 25\$, 39\$   \\
+        Code-Spaces                                     & within containers              & any        & \checkmark/\checkmark       & Full TCP/UDP                   & any                            & Free, 4\$, 21\$         \\
+        \rowcolor[HTML]{9B9B9B} Dev-Container           & within containers*             & any        & \checkmark/\checkmark       & Full TCP/UDP                   & any                            & Free, 5*\$, 7*\$, 21*\$ \\
       \end{tabular}
     }
     \captionsetup{justification=centering}
