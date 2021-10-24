@@ -5,7 +5,8 @@
 % Set status of the doc
 \def\draft{draft}
 \def\final{final}
-\def\status{draft}
+% Current status
+\def\status{final}
 
 % Include setup stuff
 \include{inc/packages.inc}
@@ -76,10 +77,6 @@
 % Conclusion
 \input{chapter/8_conclusion.inc}
 
-\section{Conclusion}\label{sec::conclusion}
-
-% docker stats --all --format "{{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}" > out.txt
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%% END-Content %%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -117,14 +114,15 @@
 \subsection{Code Listings}
 \input{inc/code/code_docker_dev_php.inc}
 \input{inc/code/code_compose_services_all.inc}
+% \input{inc/code/code_eval_script.inc}
 \newpage
 
 \subsection{Additional Figures \& Tables}
 % Demo figure for presentation
 \ifx\status\draft{}
     \input{inc/tikz/tikz_arch_demo.inc}
+    \newpage
 \fi
-\newpage
 \input{inc/tikz/tikz_arch_dir.inc}
 \input{inc/table_compare.inc}
 
@@ -135,8 +133,10 @@
 \myparagraph{Links to Extensive Code Snippets}
 \vspace{-0.5cm}
 \begin{itemize}
+    \setlength\itemsep{0em}
     \item DevContainer Nodejs Image \code{install.sh} \\ \href{https://gist.github.com/hegerdes/f2aa27f5f7bf07d725a3b0fa6c87d8a7}{https://gist.github.com/hegerdes/f2aa27f5f7bf07d725a3b0fa6c87d8a7}.
     \item DevContainer PHP Image \code{install.sh} \\ \href{https://gist.github.com/hegerdes/05de47f669552d17354e0e6782da27cd}{https://gist.github.com/hegerdes/05de47f669552d17354e0e6782da27cd}.
+    \item Performance Evaluation Script \code{run-eval.sh} \\ \href{https://gist.github.com/hegerdes/cfbf2b2065eccad725bcb4af6cb0491d}{https://gist.github.com/hegerdes/cfbf2b2065eccad725bcb4af6cb0491d}.
 \end{itemize}
 
 \newpage

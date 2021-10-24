@@ -1,0 +1,66 @@
+% !TeX root = ../thesis_main.tex
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+% \begin{table}[]
+%     \begin{tabular}{@{}l
+%     >{\columncolor[HTML]{9B9B9B}}r
+%     >{\columncolor[HTML]{C0C0C0}}r
+%     >{\columncolor[HTML]{9B9B9B}}r
+%     >{\columncolor[HTML]{C0C0C0}}r
+%     >{\columncolor[HTML]{9B9B9B}}r
+%     >{\columncolor[HTML]{C0C0C0}}r
+%     >{\columncolor[HTML]{9B9B9B}}r
+%     >{\columncolor[HTML]{C0C0C0}}r @{}}
+%     \toprule
+%             & Win\_RAM & Win\_CPU       & Win\_Docker\_RAM                              & Win\_Docker\_CPU                              & Linux\_RAM & Linux\_CPU     & Linux\_Docker\_RAM                            & Linux\_Docker\_CPU                            \\ \midrule
+%     nodeJS  & 108.5 MB & 16\%           & 92.2 MB                                       & 11\%                                          & 65.2 MB    & 1\%            & 65.0 MB                                       & 1\%                                           \\
+%     MariaDB & 29.8 MB  & \textless{}1\% & 111.9 MB                                      & \textless{}1\%                                & 100.2 MB   & \textless{}1\% & 106.0 MB                                      & \textless{}1\%                                \\
+%     Apache  & 19.9 MB  & 8\%            & 27.2 MB                                       & \textless{}1\%                                & 15.7 MB    & \textless{}1\% & 10.6 MB                                       & \textless{}1\%                                \\
+%     Docker  & 4078 MB  & 15\%           & \multicolumn{1}{c}{\cellcolor[HTML]{9B9B9B}-} & \multicolumn{1}{c}{\cellcolor[HTML]{C0C0C0}-} & 185.6 MB   & 1\%            & \multicolumn{1}{c}{\cellcolor[HTML]{9B9B9B}-} & \multicolumn{1}{c}{\cellcolor[HTML]{C0C0C0}-} \\ \bottomrule
+%     \end{tabular}
+%     \caption{CPU and RAM usage of Processes with and without using Docker}
+%     \label{tab::my-table}
+%     \end{table}
+
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{@{}l
+    >{\columncolor[HTML]{9B9B9B}}r
+    >{\columncolor[HTML]{C0C0C0}}r
+    >{\columncolor[HTML]{9B9B9B}}r
+    >{\columncolor[HTML]{C0C0C0}}r
+    >{\columncolor[HTML]{9B9B9B}}r @{}}
+    \toprule
+            & \cellcolor[HTML]{ffffff}Win\_RAM & \cellcolor[HTML]{ffffff}Win\_CPU       & \cellcolor[HTML]{ffffff}Win\_Docker\_RAM                              & \cellcolor[HTML]{ffffff}Win\_Docker\_CPU                              \\ \midrule
+    nodeJS  & 108.5 MB & 16\%           & 92.2 MB                                       & 11\%                                          \\
+    MariaDB & 29.8 MB  & \textless{}1\% & 111.9 MB                                      & \textless{}1\%                                \\
+    Apache  & 19.9 MB  & 8\%            & 27.2 MB                                       & \textless{}1\%                                \\
+    Docker  & 4078 MB  & 15\%           & -                                             & -                                             \\ \bottomrule
+    \end{tabular}
+    \caption{CPU and RAM usage of Processes on Windows with and without using Docker}
+    \label{tab::eval_win}
+    \end{table}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{@{}l
+    >{\columncolor[HTML]{9B9B9B}}r
+    >{\columncolor[HTML]{C0C0C0}}r
+    >{\columncolor[HTML]{9B9B9B}}r
+    >{\columncolor[HTML]{C0C0C0}}r
+    >{\columncolor[HTML]{9B9B9B}}r @{}}
+    \toprule
+            & \cellcolor[HTML]{ffffff}Linux\_RAM & \cellcolor[HTML]{ffffff}Linux\_CPU     & \cellcolor[HTML]{ffffff}Linux\_Docker\_RAM                            & \cellcolor[HTML]{ffffff}Linux\_Docker\_CPU                            \\ \midrule
+    nodeJS  & 65.2 MB    & 1\%            & 65.0 MB                                       & 1\%                                           \\
+    MariaDB & 100.2 MB   & \textless{}1\% & 106.0 MB                                      & \textless{}1\%                                \\
+    Apache  & 15.7 MB    & \textless{}1\% & 10.6 MB                                       & \textless{}1\%                                \\
+    Docker  & 185.6 MB   & 1\%            & -                                             & -                                             \\ \bottomrule
+    \end{tabular}
+    \caption{CPU and RAM usage of Processes on Linux with and without using Docker}
+    \label{tab::eval_linux}
+    \end{table}
+

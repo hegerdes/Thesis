@@ -8,7 +8,7 @@
     \begin{tikzpicture}[scale=2, node distance = 5cm, auto]
         % Place nodes
         \node [block] (init) {Code Check-in};
-        \node [block, right of=init] (test) {\ac{CI} Pipeline \& Code-Test};
+        \node [block, right of=init] (test) {CI Pipeline \& Code-Test};
         \node [block, right of=test] (build) {Build \& Package Code};
         \node [block, below of=build, node distance=3.5cm] (d_test) {Deploy to Testing};
         \node [block, left of=d_test] (d_staging) {Deploy to Staging};
