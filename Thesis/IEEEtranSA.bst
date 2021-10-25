@@ -1429,7 +1429,8 @@ FUNCTION {format.article.title.electronic}
   "title" bibinfo.check
   duplicate$ empty$
     { skip$ }
-    { select.language }
+    { select.language
+    emphasize }
   if$
 }
 
@@ -1924,7 +1925,7 @@ FUNCTION {format.url}
 % for articles, so the display of the number is controlled here by the
 % switch "is.use.number.for.article"
 FUNCTION {article}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors "author" output.warn
@@ -1942,7 +1943,7 @@ FUNCTION {article}
 }
 
 FUNCTION {book}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   author empty$
@@ -1966,7 +1967,7 @@ FUNCTION {book}
 }
 
 FUNCTION {booklet}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors output
@@ -2001,7 +2002,7 @@ FUNCTION {electronic}
 }
 
 FUNCTION {inbook}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   author empty$
@@ -2023,7 +2024,7 @@ FUNCTION {inbook}
 }
 
 FUNCTION {incollection}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors "author" output.warn
@@ -2044,7 +2045,7 @@ FUNCTION {incollection}
 }
 
 FUNCTION {inproceedings}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors "author" output.warn
@@ -2070,7 +2071,7 @@ FUNCTION {inproceedings}
 }
 
 FUNCTION {manual}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors output
@@ -2087,7 +2088,7 @@ FUNCTION {manual}
 }
 
 FUNCTION {mastersthesis}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors "author" output.warn
@@ -2104,7 +2105,7 @@ FUNCTION {mastersthesis}
 }
 
 FUNCTION {misc}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors output
@@ -2123,7 +2124,7 @@ FUNCTION {misc}
 }
 
 FUNCTION {patent}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors output
@@ -2139,7 +2140,7 @@ FUNCTION {patent}
 }
 
 FUNCTION {periodical}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.editors output
@@ -2157,7 +2158,7 @@ FUNCTION {periodical}
 }
 
 FUNCTION {phdthesis}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors "author" output.warn
@@ -2174,7 +2175,7 @@ FUNCTION {phdthesis}
 }
 
 FUNCTION {proceedings}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.editors output
@@ -2196,7 +2197,7 @@ FUNCTION {proceedings}
 }
 
 FUNCTION {standard}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors output
@@ -2213,7 +2214,7 @@ FUNCTION {standard}
 }
 
 FUNCTION {techreport}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors "author" output.warn
@@ -2231,7 +2232,7 @@ FUNCTION {techreport}
 }
 
 FUNCTION {unpublished}
-{ std.status.using.comma
+{ std.status.using.period
   start.entry
   if.url.alt.interword.spacing
   format.authors "author" output.warn
