@@ -3,7 +3,7 @@
 
 \def\draft{draft}
 \def\final{final}
-\def\status{final}
+\def\status{draft}
 \include{include/pres_settings.inc}
 \include{include/listings-style.inc}
 
@@ -30,23 +30,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% Motivation: Automatisierung und Steigerung von Effizienz sind Aspekte die ich
-% sehr interessant finde. Grade wenn sich damit repetitive, langwierige
-% (fehleranfällige) Aufgaben vermeiden lassen können.
-% Motto: Never spend 6 minutes doing something by hand when you can spend 6
-% hours (failing) to automate it
-
-% Im März Angefangen bei Symbic als Werksstudent zu Arbeiten und empfand die
-% Einführung und Einrichtung in Projekt mit dem ich da gearbeitet habe als
-% Zeitintensive und aufgrund des Umfangs etwas herausfordernd
-% Nicht das erste mal bei einem Projekt - Habe mich dann mehr damit beschäftigt
-% wie man das verbessern kann
-
-% 1. Kernpunkte für Verbesserung identifizieren
-% 2. Konzept für die Lösung der gefundenen Punkte entwickeln
-% 3. Konzept auf Anwendbarkeit überprüfen - Prototype
-% 4. Evaluation de Prototypen und vergleichbarer Lösungen
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation \& Goal}
 \begin{frame}{Goal of the Thesis}
@@ -70,12 +53,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% Studie von 2019 by ActiveState (Firma die sich auf coaching und Optimierung von Softwareprozessen spezialisiert)
-% Wie viele Stunden Entwickler nicht aktive coden - 62% coden 4 zwischen weniger als 1-4h
-% Abseits von Software design und meeting Zeit sind die zuvor genannten Tätigkeiten die die am
-% meisten Zeit in Anspruch nehmen.
-% Neben Software Design und Meetings gehört auch Bug fixing dazu, dies hat aber
-% Überschneidungen mit coding als auch mit Problemen in Konfigurationen und Dependencies
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Restriction in Development Environments}
 \begin{frame}{}
@@ -111,17 +88,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% Neues Setup => Initiale Aufgaben wie IDE, E-Mail, VPN, Login für Git Lab/Hub, Jira etc.
-% Für den GitHub.com Dienst haben die Entwickler ein scripts-to-rule-them-all geschrieben
-% Dies dauerte allein 45 min für DB updates, oder dem installieren neuer dependencies beim wechseln von branches.
-
-% Die zuvor erwähnte Studie zeigt auch das die meisten Entwickler 1-4 mal im Jahr ihr System
-% wechseln oder erneuern. Einige sogar deutlich öfter. Dazu kommen neue Entwickler.
-
-% Dies dauert bei den meisten 2-4 Stunden und bei 1/5 sogar zwischen 4 und 18 Stunden
-% Und am Ende hat man das:
-% Es fehlt immer noch ein Programm, eine Bibliothek oder es wurde eine falsche
-% Version installiert
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \vspace{-0.2cm}
@@ -154,24 +120,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% Dazu gehört auch:
-% Das herstellen einer konsistenten und funktionierenden Entwicklungsumgebung
-% über mehrere Entwickler (eventuell sogar verschiedene Betriebssysteme)
-% Dies ist eine enorme Herausforderung insbesondere in einer Microservice Architektur
-
-% Oftmals gibt es dann auch noch unterschiede bei den Dependencies.
-% Entwickler die an mehreren Projekten Arbeiten (häufig) müssen eventuelle
-% NodJS 12 für ein Projekt und NodeJS 14 für ein anderes benutzen.
-% Dazu kommen die zwischen Development und Production Umgebung.
-% Production läuft oft Linux 75.3% aller Webserver (w3techs) & Development oft Windows 40% Linux 25% MacOs 25% StackOverflow 2021
-% Einiges wird unter Windows auch nicht mehr unterstützt. Keine Entwicklung von Lagacy PHP unter Windows
-
-% Man muss:
-% Über Umgebungsvariablen werden in der regel Einstellungen wie HOST, PORT, USER und PW
-% für Datenbanken und andere Einstellungen übergeben. Weiteres sind z.B. API Keys
-% Die Komplexität nimmt exponential zu wenn man viele Anwendungen hat die auch noch untereinander Kommunizieren APP B -> zu APP A ...
-
-% Am ende dann: But it works on my machine
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \vspace{-.6cm}
@@ -205,15 +153,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% Das sind nur die Runtime Dependencies - Dependencies zwischen Anwendungen können zur
-% enormen Herausforderung werden. Alle einzelnen Anwendung müssen gestartet und dessen output überwacht werden
-
-% Das sind alle Services die 2019 bei Netflix liefen. Die wird NICHT alle lokal laufen lassen
-% Aber allein ein Bruchteil davon auf dem lokalen auf dem PC zu installieren und zu starten kann schnell unübersichtlich und Fehleranfällig werden
-% Wenn man ein Service Mesh hat dann ist Testing eine große Herausforderung, auch bei kleineren Diensten
-% Alles andere wird zu aufwendig auf dem lokalen PC zu installieren.
-% Zwar gibt es Mock Server, und API validations zum testen, diese garantieren jedoch nicht dass zwei Services wirklich erfolgreich kommunizieren können.
-% Deswegen können in einer MSA viele tests nur in der CI ausgeführt werden. Dort dauert es viel länger bis ein Fehler gefunden wird und das verlangsamt und verteuert den Entwicklungsprozess
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{center}
@@ -227,24 +166,9 @@
   \end{figure}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% NOTES:
-% Wie wird man dieser heterogenen, nicht standardisierten und zeitaufwendigen Aufgaben Herr?
-
-% => Homogenisierung mit Hilfe von Tools aus der Production Umgebung und DevOps Welt
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \section{Homogenization of Development Setups}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% NOTES:
-% Vereinheitlichung und Abstrahierung der zugrundeliegenden Hard und Software - OS egal
-% Configuration standardisieren und wie code behandeln (IaC)
-% Aufwendige Prozesse automatisieren (Dependency install)
-% Schnellere, Realitätsnäheres testen zwischen services erlauben (Nicht erst in CI)
-
-
-% Die Entwicklungsumgebung wie PaaS (bekannt aus der Cloud) behandeln
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{General Concept}
 \begin{frame}{}
@@ -269,12 +193,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% Umsetzung der Abstrahierung => Container
-% Form der Virtualisierung aber leichtgewichtiger al VM. Nur Prozess wird Isoliert
-% Kein extra OS Kernel
-% Alle Dependencies sind bereits enthalten
-
-% Bekannteste und meist verwendete Lösung ist Docker (Alternative Podman & LXC)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{columns}[totalwidth=\textwidth]
@@ -304,17 +222,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% Docker sorgt für die Homogenisierung und unabhängigkeit vom eingesetzten OS
-% Da Container und vorallem Linux auptsächlich in der Produktion eingesetzt werden:
-% Unix-based systems market share of 75.3
-% ist man so viel näher an der Produltiopnsumgebung und vermeidet unnötige Fehler
-
-% Zusammenhängende Dienste werden mit Compose verwaltet und können miteinadner kommunizieren
-% Die Configuration von einzelnen Diensten (Version, Dependencies, DB Connection info)
-% wird wie code behandelt also in VCS eingecheckt - Dazu gehört auch die Einstellungen für Docker
-
-% Projekte sind unabhängiger, isoliert schneller aufzusetzen und weniger Fehleranfällig
-% Man hat dank Docker mehr (und schneller) Software zur Verfügung die vorher Linux only war
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{block}{}
@@ -331,10 +238,11 @@
 
   \begin{block}{}
     \begin{itemize}
-      \item Orchestrate and test multiple services
-      \item Applying the IaC principle
+      \item Different projects are isolated from each other
+      \item Wider choice of available software
     \end{itemize}
   \end{block}
+
 
   \ifx\status\final{}
     \pause{}
@@ -343,24 +251,15 @@
 
   \begin{block}{}
     \begin{itemize}
-      \item Different projects are isolated from each other
-      \item Wider choice of available software
+      \item Orchestrate and test multiple services
+      \item Applying the IaC principle
     \end{itemize}
   \end{block}
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% Design Konzept sieht dann so aus:
-
-% Unten der Host PC auf dem der Soucecode ist
-% Auf dem läuft die Docker engine welche die Container bereitstellt
-% Diese können im Docker verwalteten Netzwerk kommunizieren.
-% Die Funktionen (durch Docker) werden per Port Mapping auf dem Host verfügbar gemacht
-% Der Nutzer kann ganz normal alle anderen Tools auf dem Host (Editor, Testingtools, Terminal) verwenden
-% Zusätzlich aber die Docker tools
-
-% Zur veranschaulichung eine Demo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \vspace{-0.2cm}
@@ -377,13 +276,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % NOTES:
-% Einfacher Service. Ein Webfrontend - per GrapthQL Daten aus Backend abfragt die in DB sind
-
-% Ist in JS VueJs, Python, ProsgresSQL gebaut - Dies kann aber nach belieben austetrauscht werden
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Diese minimal Demo gezeigt weil ich das Symbic Projekt nicht öffentlich vorführen konnte
-% Ist aber auch bei deutlich größeren Projekten möglich
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \vspace{-.5cm}
@@ -616,28 +508,28 @@ RUN apt update && bash /tmp/install-scripts/install.sh \
 
 
 
-\begin{frame}{}
-  \vspace{-0.5cm}
-  \begin{center}
-    \Large Testing
-  \end{center}
+% \begin{frame}{}
+%   \vspace{-0.5cm}
+%   \begin{center}
+%     \Large Testing
+%   \end{center}
 
-  \vspace{-0.5cm}
-  \begin{figure}
-    \includegraphics[width=0.58\textwidth]{img/tests-pyramid.png}
-    \caption{\footnotesize The Test-Pyramid - \textcolor{uos-grey-full}{Source: {\cite{microtest}}}}
-  \end{figure}
-  \vspace{-0.2cm}
+%   \vspace{-0.5cm}
+%   \begin{figure}
+%     \includegraphics[width=0.58\textwidth]{img/tests-pyramid.png}
+%     \caption{\footnotesize The Test-Pyramid - \textcolor{uos-grey-full}{Source: {\cite{microtest}}}}
+%   \end{figure}
+%   \vspace{-0.2cm}
 
-  \begin{block}{}
-    \begin{itemize}
-      \small
-      \setlength\itemsep{0em}
-      \item Increased testing effort in a microservice architecture
-      \item Late error detection \(\Rightarrow \) higher repair costs and time
-    \end{itemize}
-  \end{block}
-\end{frame}
+%   \begin{block}{}
+%     \begin{itemize}
+%       \small
+%       \setlength\itemsep{0em}
+%       \item Increased testing effort in a microservice architecture
+%       \item Late error detection \(\Rightarrow \) higher repair costs and time
+%     \end{itemize}
+%   \end{block}
+% \end{frame}
 
 
 \end{document}
