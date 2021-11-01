@@ -3,24 +3,25 @@
 \begin{lstlisting}[language=docker-compose-2,caption={Exemplary Python Project \code{docker-compose.yml}},breaklines=true,label={code::compose_example}]
 services:
   app:
-    image: my-python-app
-    entrypoint: python3 app.py
-      - DB_HOST=db
+    image: my-python-app        #used base image
+    entrypoint: python3 app.py  #the command to start
+    environment                 #environment variables
+      - DB_HOST=db              #for db connection
       - DB_PW=yes
       - DB_USER=root
-    ports:
+    ports:                      #exposed port to host
       - 8080:8080
     volumes:
-      ./app-src:/workspace
+      ./app-src:/workspace      #bind-mounted directory
 
   db:
-    image: mysql
+    image: mysql:8.0            #used DB image
     environment:
       - MYSQL_ROOT_PASSWORD=yes
     ports:
       - 3306:3306
     volumes:
-      - sql_data:/var/lib/mysql
+      - sql_data:/var/lib/mysql #volume mount
 volumes:
   sql_data:
 \end{lstlisting}

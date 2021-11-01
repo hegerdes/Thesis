@@ -37,13 +37,12 @@ RUN yes | pecl install xdebug \
 RUN curl -sSL https://getcomposer.org/installer | php \
     && chmod +x composer.phar \
     && mv composer.phar /usr/local/bin/composer
-
 WORKDIR /var/www/html
 COPY . /var/www/html
 RUN composer install --no-interaction --no-plugins \
     --no-scripts --prefer-dist && a2enmod rewrite
 
-% Fix permission and set config files
+# Fix permission and set config files
 COPY contrib/docker-apache.conf /etc/apache2/sites-enabled/
 RUN ln -s /usr/local/bin/php /usr/sbin/php \
     && chown -R www-data:www-data /var/www/html/var/log \

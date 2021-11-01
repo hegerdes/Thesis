@@ -11,19 +11,13 @@
   "service": "app",
 
   // The project folder to be opened by VSCode when connected.
-  // Keep your containers running after VS Code shuts down.
   "workspaceFolder": "/workspace",
   "shutdownAction": "none",
 
   // Extensions to be installed when the container is created.
-  "extensions": [
-      "ms-python.python",
-      "ms-python.vscode-pylance"
-  ],
+  "extensions": [ "ms-python.python", "ms-python.vscode-pylance"],
 
   // Runs this command after the container is created
   "postCreateCommand": "/workspace/.devcontainer/kill_app.sh"
 }
-
-
 \end{lstlisting}

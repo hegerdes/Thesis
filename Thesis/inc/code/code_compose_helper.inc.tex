@@ -24,8 +24,8 @@ services:
     ports:
       - 1883:1883
     volumes:
-        - mosquitto_data:/mosquitto/data
-        - ./manage-reop/config:/mosquitto/config
+      - mosquitto_data:/mosquitto/data
+      - ./manage-reop/config:/mosquitto/config
 volumes:
   sql_data:
   mongo_data:
